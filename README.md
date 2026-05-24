@@ -1,4 +1,4 @@
-# AI Tester Blueprint 3.x
+# Learn_AITester_batch3x
 
 A practical, project-driven curriculum for QA engineers learning to use LLMs as a real testing tool — not a toy.
 Each chapter pairs concept material with a hands-on project, a prompt template, and runnable code where applicable.
