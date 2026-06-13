@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="SalesforceRestAssuredSuite" parallel="false">
+    <test name="AuthTests">
+        <classes>
+            <class name="tests.AuthTest"/>
+        </classes>
+    </test>
+    <test name="AccountTests">
+        <classes>
+            <class name="tests.AccountTest"/>
+        </classes>
+    </test>
+</suite>

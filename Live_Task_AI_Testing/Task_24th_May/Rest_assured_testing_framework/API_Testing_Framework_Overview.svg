@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 22px; font-weight: bold; fill: #1a237e; }
+      .subtitle { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; fill: #555; }
+      .box-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #fff; }
+      .box-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #333; }
+      .arrow-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; fill: #444; font-weight: 500; }
+      .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #333; }
+      .test-step { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; fill: #1a237e; font-weight: 600; }
+      .http { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #666; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555" />
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2e7d32" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="650" fill="#f8f9fa" rx="8" />
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" class="title">Salesforce REST API Testing Framework</text>
+  <text x="450" y="55" text-anchor="middle" class="subtitle">RestAssured + TestNG + Page Object Model</text>
+
+  <!-- ==================== ARCHITECTURE SECTION ==================== -->
+  <text x="30" y="90" class="label" style="font-size:14px; fill:#1a237e;">Architecture</text>
+
+  <!-- Test Layer -->
+  <rect x="30" y="105" width="200" height="110" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="6" />
+  <text x="130" y="125" text-anchor="middle" class="box-title" style="fill:#1976d2;">Test Layer (TestNG)</text>
+  <rect x="45" y="135" width="170" height="22" fill="#fff" stroke="#1976d2" stroke-width="1" rx="3" />
+  <text x="130" y="150" text-anchor="middle" class="box-text">AuthTest.java</text>
+  <rect x="45" y="162" width="170" height="22" fill="#fff" stroke="#1976d2" stroke-width="1" rx="3" />
+  <text x="130" y="177" text-anchor="middle" class="box-text">AccountTest.java</text>
+  <rect x="45" y="189" width="170" height="22" fill="#fff" stroke="#1976d2" stroke-width="1" rx="3" />
+  <text x="130" y="204" text-anchor="middle" class="box-text">testng.xml (Suite)</text>
+
+  <!-- Page Layer -->
+  <rect x="260" y="105" width="200" height="110" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="6" />
+  <text x="360" y="125" text-anchor="middle" class="box-title" style="fill:#7b1fa2;">Page Layer (RestAssured)</text>
+  <rect x="275" y="135" width="170" height="22" fill="#fff" stroke="#7b1fa2" stroke-width="1" rx="3" />
+  <text x="360" y="150" text-anchor="middle" class="box-text">AuthPage.java</text>
+  <rect x="275" y="162" width="170" height="22" fill="#fff" stroke="#7b1fa2" stroke-width="1" rx="3" />
+  <text x="360" y="177" text-anchor="middle" class="box-text">AccountPage.java</text>
+  <rect x="275" y="189" width="170" height="22" fill="#fff" stroke="#7b1fa2" stroke-width="1" rx="3" />
+  <text x="360" y="204" text-anchor="middle" class="box-text">CRUD Operations</text>
+
+  <!-- API Layer -->
+  <rect x="490" y="105" width="200" height="110" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="6" />
+  <text x="590" y="125" text-anchor="middle" class="box-title" style="fill:#388e3c;">API Layer (Salesforce)</text>
+  <rect x="505" y="135" width="170" height="22" fill="#fff" stroke="#388e3c" stroke-width="1" rx="3" />
+  <text x="590" y="150" text-anchor="middle" class="box-text">OAuth2 /token</text>
+  <rect x="505" y="162" width="170" height="22" fill="#fff" stroke="#388e3c" stroke-width="1" rx="3" />
+  <text x="590" y="177" text-anchor="middle" class="box-text">Account REST API</text>
+  <rect x="505" y="189" width="170" height="22" fill="#fff" stroke="#388e3c" stroke-width="1" rx="3" />
+  <text x="590" y="204" text-anchor="middle" class="box-text">v58.0 sobjects</text>
+
+  <!-- Arrows between layers -->
+  <line x1="230" y1="155" x2="260" y2="155" stroke="#555" stroke-width="2" marker-end="url(#arrowhead)" />
+  <line x1="460" y1="155" x2="490" y2="155" stroke="#555" stroke-width="2" marker-end="url(#arrowhead)" />
+  <line x1="230" y1="175" x2="260" y2="175" stroke="#555" stroke-width="2" marker-end="url(#arrowhead)" />
+  <line x1="460" y1="175" x2="490" y2="175" stroke="#555" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- Dependencies note -->
+  <rect x="720" y="105" width="160" height="110" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="6" />
+  <text x="800" y="125" text-anchor="middle" class="box-title" style="fill:#e65100; font-size:12px;">Tech Stack</text>
+  <text x="735" y="145" class="box-text" style="font-size:11px;">• Java 11</text>
+  <text x="735" y="162" class="box-text" style="font-size:11px;">• RestAssured 5.3.2</text>
+  <text x="735" y="179" class="box-text" style="font-size:11px;">• TestNG 7.8.1</text>
+  <text x="735" y="196" class="box-text" style="font-size:11px;">• Jackson 2.15.2</text>
+
+  <!-- ==================== TEST FLOW SECTION ==================== -->
+  <text x="30" y="250" class="label" style="font-size:14px; fill:#1a237e;">Test Flow: Account CRUD Lifecycle</text>
+
+  <!-- Flow boxes -->
+  <!-- Step 1: Auth -->
+  <rect x="30" y="270" width="140" height="65" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="6" />
+  <text x="100" y="290" text-anchor="middle" class="test-step">1. Authenticate</text>
+  <text x="100" y="308" text-anchor="middle" class="box-text">POST /services/oauth2/token</text>
+  <text x="100" y="323" text-anchor="middle" class="http">grant_type=password</text>
+
+  <!-- Step 2: Create -->
+  <rect x="200" y="270" width="140" height="65" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="6" />
+  <text x="270" y="290" text-anchor="middle" class="test-step">2. Create Account</text>
+  <text x="270" y="308" text-anchor="middle" class="box-text">POST /sobjects/Account/</text>
+  <text x="270" y="323" text-anchor="middle" class="box-text">Body: {"Name":"Test..."}</text>
+
+  <!-- Step 3: Read -->
+  <rect x="370" y="270" width="140" height="65" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="6" />
+  <text x="440" y="290" text-anchor="middle" class="test-step">3. Get Account</text>
+  <text x="440" y="308" text-anchor="middle" class="box-text">GET /sobjects/Account/{id}</text>
+  <text x="440" y="323" text-anchor="middle" class="box-text">Verify Name &amp; Id</text>
+
+  <!-- Step 4: Update -->
+  <rect x="540" y="270" width="140" height="65" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="6" />
+  <text x="610" y="290" text-anchor="middle" class="test-step">4. Update Account</text>
+  <text x="610" y="308" text-anchor="middle" class="box-text">PATCH /sobjects/Account/{id}</text>
+  <text x="610" y="323" text-anchor="middle" class="box-text">Body: {"Name":"Updated..."}</text>
+
+  <!-- Step 5: Delete -->
+  <rect x="710" y="270" width="140" height="65" fill="#ffebee" stroke="#d32f2f" stroke-width="2" rx="6" />
+  <text x="780" y="290" text-anchor="middle" class="test-step">5. Delete Account</text>
+  <text x="780" y="308" text-anchor="middle" class="box-text">DELETE /sobjects/Account/{id}</text>
+  <text x="780" y="323" text-anchor="middle" class="box-text">Verify 204 No Content</text>
+
+  <!-- Flow arrows -->
+  <line x1="170" y1="302" x2="200" y2="302" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowhead-green)" />
+  <line x1="340" y1="302" x2="370" y2="302" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowhead-green)" />
+  <line x1="510" y1="302" x2="540" y2="302" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowhead-green)" />
+  <line x1="680" y1="302" x2="710" y2="302" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowhead-green)" />
+
+  <!-- Dependency label -->
+  <text x="450" y="355" text-anchor="middle" class="arrow-text" style="font-size:12px; font-style:italic; fill:#666;">TestNG @Test(dependsOnMethods) ensures each step runs in order and passes the created accountId down the chain</text>
+
+  <!-- ==================== WHAT IT TESTS SECTION ==================== -->
+  <text x="30" y="390" class="label" style="font-size:14px; fill:#1a237e;">What the Framework Tests</text>
+
+  <!-- Auth Tests -->
+  <rect x="30" y="405" width="270" height="110" fill="#fff" stroke="#1976d2" stroke-width="2" rx="6" />
+  <text x="165" y="425" text-anchor="middle" class="label" style="fill:#1976d2;">Authentication Tests</text>
+  <text x="45" y="445" class="box-text">✅ Valid Login — returns 200 + access_token</text>
+  <text x="45" y="462" class="box-text">✅ Instance URL extracted for downstream calls</text>
+  <text x="45" y="479" class="box-text">❌ Invalid Credentials — returns 400 + error</text>
+  <text x="45" y="496" class="box-text">❌ Error description validated in response</text>
+
+  <!-- CRUD Tests -->
+  <rect x="320" y="405" width="270" height="110" fill="#fff" stroke="#388e3c" stroke-width="2" rx="6" />
+  <text x="455" y="425" text-anchor="middle" class="label" style="fill:#388e3c;">Account CRUD Tests</text>
+  <text x="335" y="445" class="box-text">✅ Create — HTTP 201, id returned</text>
+  <text x="335" y="462" class="box-text">✅ Read — HTTP 200, Name &amp; Id match</text>
+  <text x="335" y="479" class="box-text">✅ Update — HTTP 204, verify with GET</text>
+  <text x="335" y="496" class="box-text">✅ Delete — HTTP 204, GET returns 404</text>
+
+  <!-- Cleanup -->
+  <rect x="610" y="405" width="270" height="110" fill="#fff" stroke="#d32f2f" stroke-width="2" rx="6" />
+  <text x="745" y="425" text-anchor="middle" class="label" style="fill:#d32f2f;">Cleanup &amp; Lifecycle</text>
+  <text x="625" y="445" class="box-text">🧹 @AfterTest deletes created account</text>
+  <text x="625" y="462" class="box-text">🧹 Prevents test data pollution</text>
+  <text x="625" y="479" class="box-text">🔗 Auth token reused across test</text>
+  <text x="625" y="496" class="box-text">🔗 accountId shared via dependency chain</text>
+
+  <!-- ==================== FRAMEWORK BENEFITS ==================== -->
+  <text x="30" y="540" class="label" style="font-size:14px; fill:#1a237e;">Framework Benefits</text>
+  <rect x="30" y="555" width="840" height="80" fill="#fff" stroke="#ccc" stroke-width="1" rx="6" />
+  <text x="45" y="575" class="box-text">• <tspan style="font-weight:bold;">Page Object Model</tspan> — AuthPage &amp; AccountPage encapsulate API calls, so tests read like English</text>
+  <text x="45" y="592" class="box-text">• <tspan style="font-weight:bold;">TestNG Dependency Chain</tspan> — createAccountTest → getAccountTest → updateAccountTest → deleteAccountTest</text>
+  <text x="45" y="609" class="box-text">• <tspan style="font-weight:bold;">Automatic Cleanup</tspan> — @AfterTest deletes the account, leaving Salesforce org clean</text>
+  <text x="45" y="626" class="box-text">• <tspan style="font-weight:bold;">Maven + Surefire</tspan> — run with mvn test; produces standard TestNG HTML reports</text>
+
+</svg>
