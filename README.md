@@ -16,26 +16,35 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 │   ├── attention_is_all_you_need.html
 │   └── Notes.md
 │
-└── chapter_02_Prompt_Eng/         Prompt engineering for QA work
-    ├── Anti_Hallucinations_Rules.md
-    ├── Project1_TC_Gen/           Test case generation from a PRD/API doc
-    │   ├── RICE-POT-TestCase-Prompt.md
-    │   ├── RICE_POT_FRAMEWORK/
-    │   ├── Restful-booker.pdf
-    │   ├── Restful_Booker_API_Test_Cases.md
-    │   └── output/
-    ├── Project2_Selenium_Framework/   POM-based Selenium framework built from a prompt
-    │   ├── Problem.md
-    │   ├── SKILL.md                   RICE-POT prompt-builder skill
-    │   ├── blank-template-rice-pot.md
-    │   └── AdvanceSeleniumFramework/  Maven + TestNG + Selenium 4
-    └── templates/                 Reusable prompt templates (RTCFR / RICE-POT)
-        ├── 01_TestCaseGeneration_Prompt.md
-        ├── 02_TestCases_from_prd
-        ├── 03_API_Test_Generation.md
-        ├── 04_Negative_TC_Only.md
-        ├── 05_Secuirty_Test.md
-        └── 06_Regression_Suite.md
+├── chapter_02_Prompt_Eng/         Prompt engineering for QA work
+│   ├── Anti_Hallucinations_Rules.md
+│   ├── Project1_Test_Case_Generation/  Test case generation from a PRD/API doc
+│   │   ├── RICE-POT-TestCase-Prompt.md
+│   │   ├── RICE_POT_FRAMEWORK/
+│   │   ├── Restful-booker.pdf
+│   │   ├── Restful_Booker_API_Test_Cases.md
+│   │   └── output/
+│   ├── Project2_Selenium_Framework/   POM-based Selenium framework built from a prompt
+│   │   ├── pom.xml
+│   │   ├── src/test/java/pages/
+│   │   └── src/test/java/tests/
+│   └── templates/                 Reusable prompt templates (RTCFR / RICE-POT)
+│       ├── 01_TestCaseGeneration_Prompt.md
+│       ├── 02_TestCases_from_prd
+│       ├── 03_API_Test_Generation.md
+│       ├── 04_Negative_TC_Only.md
+│       ├── 05_Secuirty_Test.md
+│       └── 06_Regression_Suite.md
+│
+└── Live_Task_AI_Testing/          Live class tasks and real-time projects
+    ├── Task_23rd_May/
+    └── Task_24th_May/
+        ├── Rest_assured_testing_framework/  Maven + TestNG + REST Assured
+        │   ├── pom.xml
+        │   ├── src/test/java/pages/
+        │   ├── src/test/java/tests/
+        │   └── src/test/resources/testng.xml
+        └── Test_plan_creation_with_local_LLM/
 ```
 
 ---
@@ -92,23 +101,15 @@ Goal: turn an API PDF (`Restful-booker.pdf`) into a CSV of enterprise-grade test
 
 Goal: prove RICE-POT can build production code, not just test cases.
 
-- `Problem.md` — the brief: "generate a Selenium framework from scratch with two page objects, production ready."
-- `SKILL.md` — the RICE-POT prompt-builder skill definition. Tells the AI how to interview you, assemble the prompt, and deliver it copy-pasteable.
-- `blank-template-rice-pot.md` — fill-in template with the recommended anti-hallucination Parameters block.
-- `AdvanceSeleniumFramework/` — the actual output the framework generates:
-  - Maven project, Java 11, Selenium 4.25, TestNG 7.10.
-  - `LoginPage.java` — PageFactory POM with explicit waits, fluent API, no Thread.sleep.
-  - `BaseTest.java` — driver lifecycle.
-  - `ConfigReader.java` — `config.properties` loader.
-  - `ValidLoginTest.java` / `InvalidLoginTest.java` — positive + negative TestNG cases.
-  - `testng.xml` / `testng-smoke.xml` — full and smoke suites.
+- `pom.xml` — Maven project with Selenium 4, TestNG.
+- `src/test/java/pages/` — Page Object Model (POM) classes (`AccountPage.java`, `AuthPage.java`).
+- `src/test/java/tests/` — TestNG test classes (`AuthTest.java`).
 
 **Run it:**
 ```bash
-cd chapter_02_Prompt_Eng/Project2_Selenium_Framework/AdvanceSeleniumFramework
+cd chapter_02_Prompt_Eng/Project2_Selenium_Framework
 mvn -q clean test-compile
-mvn test                       # full suite
-mvn test -DsuiteXmlFile=testng-smoke.xml   # smoke only
+mvn test
 ```
 
 ### Templates — RTCFR + RICE-POT (`templates/`)
@@ -116,7 +117,7 @@ mvn test -DsuiteXmlFile=testng-smoke.xml   # smoke only
 Six copy-paste prompt templates for the most common QA tasks. Each follows the **RTCFR** shape — Role, Task, Constraints, Format, Requirements — which is the lightweight cousin of RICE-POT.
 
 | # | File | Purpose |
-|---|------|---------|
+|---|---|------|
 | 01 | `01_TestCaseGeneration_Prompt.md` | Basic test-case generation from free-form requirements. |
 | 02 | `02_TestCases_from_prd` | Comprehensive PRD → test cases (functional, negative, boundary, edge). |
 | 03 | `03_API_Test_Generation.md` | API endpoint test cases from API docs. |
@@ -131,24 +132,55 @@ Six copy-paste prompt templates for the most common QA tasks. Each follows the *
 
 ---
 
+## Live Tasks — AI Testing in Practice
+
+Real-time class tasks and assignments built during the live sessions.
+
+### Task 23rd May
+Introductory live task content.
+
+### Task 24th May
+
+- **REST Assured Testing Framework** (`Live_Task_AI_Testing/Task_24th_May/Rest_assured_testing_framework/`)
+  - Maven + TestNG + REST Assured setup.
+  - Page classes: `AccountPage.java`, `AuthPage.java`.
+  - Test classes: `AccountTest.java`, `AuthTest.java`.
+  - `testng.xml` for suite configuration.
+  - **Run it:**
+    ```bash
+    cd Live_Task_AI_Testing/Task_24th_May/Rest_assured_testing_framework
+    mvn -q clean test-compile
+    mvn test
+    ```
+
+- **Test Plan Creation with Local LLM** (`Live_Task_AI_Testing/Task_24th_May/Test_plan_creation_with_local_LLM/`)
+  - Generated test plans and documentation using local LLM models.
+
+---
+
 ## How to Use This Repo
 
 You can read it linearly (chapter 01 → 02) or jump straight to a project:
 
 - **"I want better test cases now."** → `chapter_02_Prompt_Eng/templates/01_TestCaseGeneration_Prompt.md` or `02_TestCases_from_prd`.
-- **"I want to write tests from a PDF/API doc."** → `chapter_02_Prompt_Eng/Project1_TC_Gen/`.
-- **"I want to scaffold a Selenium project."** → `chapter_02_Prompt_Eng/Project2_Selenium_Framework/SKILL.md`, then run the Maven project under `AdvanceSeleniumFramework/`.
+- **"I want to write tests from a PDF/API doc."** → `chapter_02_Prompt_Eng/Project1_Test_Case_Generation/`.
+- **"I want to scaffold a Selenium project."** → `chapter_02_Prompt_Eng/Project2_Selenium_Framework/`.
 - **"I want my model to stop making things up."** → `chapter_02_Prompt_Eng/Anti_Hallucinations_Rules.md`.
 
 ## Requirements
 
 - Any modern LLM (Claude / GPT / Gemini / DeepSeek). No specific provider required.
-- For Project 2 only: **JDK 11+** and **Maven 3.9+** to compile and run the Selenium framework.
+- For runnable projects (Selenium Framework, REST Assured Framework): **JDK 11+** and **Maven 3.9+**.
 
-## Previous Chapters
+## Recent Commits
 
-`a2eb280` — chapter 01 LLM basics with interactive attention visualisations.
-`dfe2653` — chapter 02 prompt engineering with RICE-POT framework + Selenium project.
+- `7335a97` — Added Task 24th May: REST Assured framework, Selenium framework, test plan creation with local LLM, and reorganized Project1 to `Project1_Test_Case_Generation`.
+- `d5821b5` — Merge branch 'main'.
+- `8fa65a0` — Added Live_Task_AI_Testing directory with Task_23rd_May.
+- `0b60433` — Renamed project to Learn_AITester_batch3x.
+- `f64e1e5` — Added README + .gitignore; reorganized chapter 02 with prompt templates.
+- `dfe2653` — Added chapter 02 prompt engineering with RICE-POT framework + Selenium project.
+- `a2eb280` — Added chapter 01 LLM basics with interactive attention visualisations.
 
 ---
 
