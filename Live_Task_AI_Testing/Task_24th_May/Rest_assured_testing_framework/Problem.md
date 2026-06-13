@@ -1,0 +1,1 @@
+We have to generate a Rest assured API testing automation framework from scratch where you need to add a two-page object model, proper production readyusing RICEPOT prompting.
