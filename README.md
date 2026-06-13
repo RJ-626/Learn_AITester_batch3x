@@ -45,6 +45,7 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
         │   ├── src/test/java/tests/
         │   └── src/test/resources/testng.xml
         └── Test_plan_creation_with_local_LLM/
+        │   └── Restful_Booker_Test_Plan.pdf
 ```
 
 ---
@@ -154,7 +155,7 @@ Introductory live task content.
     ```
 
 - **Test Plan Creation with Local LLM** (`Live_Task_AI_Testing/Task_24th_May/Test_plan_creation_with_local_LLM/`)
-  - Generated test plans and documentation using local LLM models.
+  - `Restful_Booker_Test_Plan.pdf` — generated test plan and documentation using local LLM models.
 
 ---
 
