@@ -51,7 +51,7 @@ A proxy is required because Jira Cloud REST blocks browser CORS; it also keeps y
 ## Deploy (Vercel)
 On Vercel the Express proxy becomes **serverless functions** under `api/` (`api/config.js`, `api/generate.js`, `api/save.js`); the Vite frontend is served statically. Config lives in `vercel.json`.
 
-Target: **https://testplanbuddy.vercel.app**
+**Live URL:** https://smart-pro-test-case-generator.vercel.app
 
 ```bash
 # one-time link (creates/links the project)
