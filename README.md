@@ -331,6 +331,8 @@ This chapter turns a Jira ticket into a formal QA test plan through a lightweigh
 
 **Why a QA engineer should care:** Jira tickets are often the real source of truth. This project shows how to keep credentials out of the browser, fetch ticket context safely, ask an LLM for structured JSON, and render a repeatable test plan without relying on free-form chat output.
 
+**Live URL:** [https://smart-pro-test-case-generator.vercel.app](https://smart-pro-test-case-generator.vercel.app)
+
 **Run it locally:**
 ```bash
 cd chapter_03_BLAST_FW_JIRA_AI_AGENT
