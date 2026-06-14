@@ -99,6 +99,17 @@ mindmap
 │       ├── AI_3X_03_Read_PRD_TestCases_Excel.json
 │       └── AI_3X_04_Read_PRD_TestCases_Excel_v2.json
 │
+├── Live_Task_AI_Testing/          Live class tasks and real-time projects
+│   └── Task_06th_June/
+│       └── Test_Stratgey_generation_agent_for_Jira_id/
+│           ├── README.md
+│           ├── gemini.md          Project Constitution
+│           ├── task_plan.md       Phase tracking
+│           ├── architecture/      Layer 1 SOPs
+│           ├── api/               Vercel serverless endpoints
+│           ├── src/               React UI (Dark/Light mode)
+│           └── tools/             Jira, GROQ, and Markdown engines
+│
 └── Project_Job_TRACKERAI/         Local-first job application tracker
     ├── README.md
     ├── package.json
@@ -349,6 +360,31 @@ This chapter adds importable **n8n** workflows for practical QA automation. The 
 
 ---
 
+## Live Task — Test Strategy Generator for Jira IDs
+
+`Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id/` is a lightweight **React + Express** app built with the **B.L.A.S.T.** protocol. Enter a Jira ID (e.g., `KAN-5`) and get a **comprehensive Test Strategy** in 8 sections, matching the professional PDF format.
+
+**What's here:**
+- **Objective, Scope, Focus Areas, Approach, Deliverables, Team & Schedule, Entry & Exit Criteria, Risks**
+- Dark Mode / Light Mode toggle with theme persistence
+- Jira ticket fetch (minimal data: summary, description, type)
+- GROQ LLM generation using `openai/gpt-oss-120b` (free tier)
+- Download strategy as `.md` file
+- Settings stored in browser localStorage (fallback to server `.env`)
+
+**Live URL:** https://test-strategy-generator-beta.vercel.app
+
+**Run it locally:**
+```bash
+cd Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`, add Jira + GROQ credentials in the Settings tab, then generate a strategy from a Jira ID.
+
+---
+
 ## Project - Job Tracker AI
 
 `Project_Job_TRACKERAI/` is a local-first job application tracker built as a Vite + React single-page app. It stores every job card in the browser with IndexedDB through the `idb` library, so there is no backend, authentication, or external database.
@@ -380,6 +416,7 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 - **"I want to scaffold a Selenium project."** → `chapter_02_Prompt_Eng/Project2_Selenium_Framework/`.
 - **"I want my model to stop making things up."** → `chapter_02_Prompt_Eng/Anti_Hallucinations_Rules.md`.
 - **"I want to generate a test plan from Jira."** → `chapter_03_BLAST_FW_JIRA_AI_AGENT/`.
+- **"I want to generate a test strategy from Jira."** → `Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id/`.
 - **"I want reusable QA automation agents."** → `chapter_04_AI_Agents_n8n/`.
 - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 
@@ -388,6 +425,7 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 - Any modern LLM (Claude / GPT / Gemini / DeepSeek). No specific provider required.
 - For Project 2 only: **JDK 11+** and **Maven 3.9+** to compile and run the Selenium framework.
 - For Chapter 3: **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
+- For Live Task (Test Strategy Generator): **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
 - For Chapter 4: n8n Cloud or self-hosted n8n, plus credentials for whichever workflow nodes you enable.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 
@@ -396,6 +434,7 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 `a2eb280` — chapter 01 LLM basics with interactive attention visualisations.
 `dfe2653` — chapter 02 prompt engineering with RICE-POT framework + Selenium project.
 `187a77f` — chapter 03 B.L.A.S.T. Jira to Test Plan generator.
+`f5ccf83` — Live Task: Test Strategy Generator for Jira IDs with Dark Mode + B.L.A.S.T. protocol.
 
 ---
 
