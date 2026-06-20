@@ -37,11 +37,18 @@ mindmap
       Jira REST proxy
       GROQ test-plan generator
       Vercel deployment
-    Ch 04 - n8n AI Agents
+    Ch 04 - n8n + Local AI Agents
       QA Buddy chat agent
       Jira ticket creation agent
       PRD to test cases to Google Sheets
       CSV-driven batch workflow
+      ContentForge local dashboard
+        Groq content writing
+        Gemini image generation
+        Excel content calendar
+      Skillfile content generation
+        The Testing Academy voice
+        Dated output packs
     Project - Job Tracker AI
       Local-first React Kanban board
       IndexedDB persistence
@@ -91,13 +98,18 @@ mindmap
 │   ├── server.js                  Local Express proxy
 │   └── package.json
 │
-├── chapter_04_AI_Agents_n8n/      Importable n8n QA agent workflows
+├── chapter_04_AI_Agents_n8n/      n8n workflows + local AI agent projects
 │   ├── README.md
-│   └── n8n_AIAgent/
-│       ├── AI_3X_01_QA_Buddy.json
-│       ├── AI_3X_02_JIRA_Agent.json
-│       ├── AI_3X_03_Read_PRD_TestCases_Excel.json
-│       └── AI_3X_04_Read_PRD_TestCases_Excel_v2.json
+│   ├── n8n_AIAgent/
+│   │   ├── AI_3X_01_QA_Buddy.json
+│   │   ├── AI_3X_02_JIRA_Agent.json
+│   │   ├── AI_3X_03_Read_PRD_TestCases_Excel.json
+│   │   └── AI_3X_04_Read_PRD_TestCases_Excel_v2.json
+│   ├── social_ai_agent/
+│   │   └── contentforge/          Next.js local content pipeline dashboard
+│   └── skillfile_content_generation/
+│       ├── SKILL.md               The Testing Academy content engine
+│       └── output/                Dated publish-ready content packs
 │
 ├── Live_Task_AI_Testing/          Live class tasks and real-time projects
 │   └── Task_06th_June/
@@ -344,21 +356,51 @@ Open `http://localhost:5173`, add Jira + GROQ credentials in the Settings tab, t
 
 ---
 
-## Chapter 04 — n8n AI Agents for QA
+## Chapter 04 — n8n and Local AI Agents for QA
 
-This chapter adds importable **n8n** workflows for practical QA automation. The workflows show how to connect chat triggers, LLM nodes, Jira tools, Google Sheets output, Slack/Teams triggers, and CSV-driven batch processing.
+This chapter adds importable **n8n** workflows and local AI-agent projects for practical QA and content automation. It shows how to connect chat triggers, LLM nodes, Jira tools, Google Sheets output, Slack/Teams triggers, CSV-driven batch processing, a local Next.js dashboard, local Excel persistence, and content-generation skill files.
 
 **What's here:**
 - `AI_3X_01_QA_Buddy.json` — chat-triggered QA assistant using a GROQ-backed LLM node.
 - `AI_3X_02_JIRA_Agent.json` — chat agent that can create Jira tickets.
 - `AI_3X_03_Read_PRD_TestCases_Excel.json` — fetches PRD/ticket context and writes generated test cases into Google Sheets.
 - `AI_3X_04_Read_PRD_TestCases_Excel_v2.json` — extends the PRD-to-test-cases flow with CSV upload and batch Jira processing.
+- `social_ai_agent/contentforge/` — local Next.js + TypeScript dashboard for a daily content-generation pipeline.
+- `skillfile_content_generation/SKILL.md` — content engine skill for The Testing Academy publish-ready content packs.
+- `skillfile_content_generation/output/2026-06-14/` — generated content pack for "Your AI Agent Needs a QA Contract, Not More Prompts."
 
-**How to use it:**
+**How to use the n8n workflows:**
 1. Open n8n Cloud or a self-hosted n8n instance.
 2. Import the JSON workflow from `chapter_04_AI_Agents_n8n/n8n_AIAgent/`.
 3. Reconnect credentials for the nodes you use: GROQ, DeepSeek, Jira, Google Sheets, Slack, or Microsoft Teams.
 4. Run the chat trigger, form trigger, schedule trigger, or team-channel trigger depending on the workflow.
+
+**Run ContentForge locally:**
+```bash
+cd chapter_04_AI_Agents_n8n/social_ai_agent/contentforge
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Add your local keys to `.env.local` or `.env`:
+
+```bash
+GROQ_API_KEY=...
+GEMINI_API_KEY=...
+```
+
+ContentForge keeps generated data local:
+
+- `content_calendar.xlsx` in the app root.
+- Generated runtime images under `public/images/`.
+- API keys in `.env.local` or `.env`.
+
+Those local files are ignored and should not be committed.
+
+**Use the content skill output:**
+
+Open `chapter_04_AI_Agents_n8n/skillfile_content_generation/output/2026-06-14/` for separate Markdown files covering the topic, LinkedIn post, Medium article, YouTube script, Instagram carousel copy, and image prompts.
 
 ---
 
@@ -419,7 +461,9 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 - **"I want my model to stop making things up."** → `chapter_02_Prompt_Eng/Anti_Hallucinations_Rules.md`.
 - **"I want to generate a test plan from Jira."** → `chapter_03_BLAST_FW_JIRA_AI_AGENT/`.
 - **"I want to generate a test strategy from Jira."** → `Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id/`.
-- **"I want reusable QA automation agents."** → `chapter_04_AI_Agents_n8n/`.
+- **"I want reusable QA automation agents."** → `chapter_04_AI_Agents_n8n/n8n_AIAgent/`.
+- **"I want a local AI content dashboard."** → `chapter_04_AI_Agents_n8n/social_ai_agent/contentforge/`.
+- **"I want publish-ready Testing Academy content."** → `chapter_04_AI_Agents_n8n/skillfile_content_generation/output/`.
 - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 
 ## Requirements
@@ -427,8 +471,10 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 - Any modern LLM (Claude / GPT / Gemini / DeepSeek). No specific provider required.
 - For Project 2 only: **JDK 11+** and **Maven 3.9+** to compile and run the Selenium framework.
 - For Chapter 3: **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
+- For Chapter 3: **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
 - For Live Task (Test Strategy Generator): **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
-- For Chapter 4: n8n Cloud or self-hosted n8n, plus credentials for whichever workflow nodes you enable.
+- For Chapter 4 n8n workflows: n8n Cloud or self-hosted n8n, plus credentials for whichever workflow nodes you enable.
+- For Chapter 4 ContentForge: **Node.js 20+**, npm, `GROQ_API_KEY`, and `GEMINI_API_KEY`.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 
 ## Chapter History
@@ -437,6 +483,7 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 `dfe2653` — chapter 02 prompt engineering with RICE-POT framework + Selenium project.
 `187a77f` — chapter 03 B.L.A.S.T. Jira to Test Plan generator.
 `f5ccf83` — Live Task: Test Strategy Generator for Jira IDs with Dark Mode + B.L.A.S.T. protocol.
+`f67b4f6` — chapter 04 ContentForge local content pipeline + skill output pack.
 
 ---
 
