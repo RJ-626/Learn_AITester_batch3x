@@ -13,3 +13,5 @@ tsconfig.tsbuildinfo
 .DS_Store
 public/images/*
 !public/images/.gitkeep
+.vercel
+.env*

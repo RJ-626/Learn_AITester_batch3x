@@ -56,7 +56,7 @@ export function ContentTabs({ row }: ContentTabsProps) {
           <details
             key={section.id}
             className="rounded-lg border border-stone-200 bg-white shadow-panel open:border-stone-300"
-            open={section.id === "linkedin"}
+            open={Boolean(section.content)}
           >
             <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3">
               <span className="font-extrabold text-stone-950">{section.title}</span>
@@ -99,12 +99,18 @@ export function ContentTabs({ row }: ContentTabsProps) {
 }
 
 function ImagePreview({ label, path }: { label: string; path: string }) {
+  const isGenerated = path === "[generated]";
   return (
     <figure className="overflow-hidden rounded-lg border border-stone-200 bg-stone-50">
       <div className="aspect-[16/10] bg-stone-100">
-        {path ? (
+        {path && !isGenerated ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={path} alt={label} className="h-full w-full object-cover" />
+        ) : isGenerated ? (
+          <div className="flex h-full flex-col items-center justify-center gap-2 text-sm font-semibold text-emerald-600">
+            <Check className="h-6 w-6" aria-hidden="true" />
+            Generated
+          </div>
         ) : (
           <div className="flex h-full items-center justify-center text-sm font-semibold text-stone-500">
             Pending

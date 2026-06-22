@@ -23,7 +23,9 @@ export function getApiKeyHealth(): ApiKeyHealth {
   };
 }
 
-export function requireEnv(name: "GROQ_API_KEY" | "GEMINI_API_KEY"): string {
+export function requireEnv(
+  name: "GROQ_API_KEY" | "GEMINI_API_KEY" | "UPSTASH_REDIS_REST_URL" | "UPSTASH_REDIS_REST_TOKEN"
+): string {
   loadLocalEnv();
 
   const value = process.env[name]?.trim();
@@ -45,12 +47,5 @@ export function getGeminiImageModel(): string {
 }
 
 export function getGeminiImageModelCandidates(): string[] {
-  const configuredModel = getGeminiImageModel();
-  const fallbackModels = [
-    "gemini-3.1-flash-image",
-    "gemini-3-pro-image",
-    "gemini-2.5-flash-image"
-  ];
-
-  return Array.from(new Set([configuredModel, ...fallbackModels]));
+  return ["gemini-2.5-flash-image"];
 }

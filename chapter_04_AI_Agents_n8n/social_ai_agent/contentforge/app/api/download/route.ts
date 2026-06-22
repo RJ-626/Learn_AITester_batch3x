@@ -1,6 +1,6 @@
-import { promises as fs } from "node:fs";
 import { NextResponse } from "next/server";
 import { getExcelManager } from "@/lib/excelManager";
+import { generateExcelBuffer } from "@/lib/excelExport";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,10 +8,10 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const manager = getExcelManager();
-    await manager.getWorkbookMetadata();
-    const file = await fs.readFile(manager.getWorkbookPath());
+    const [rows, logs] = await Promise.all([manager.getRows(), manager.getWriteLog()]);
+    const buffer = await generateExcelBuffer(rows, logs);
 
-    return new NextResponse(new Uint8Array(file), {
+    return new NextResponse(Buffer.from(buffer), {
       headers: {
         "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         "Content-Disposition": 'attachment; filename="content_calendar.xlsx"',
