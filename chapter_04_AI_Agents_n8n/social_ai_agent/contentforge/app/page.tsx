@@ -51,6 +51,14 @@ interface LogResponse {
   error?: string;
 }
 
+interface RunStepResponse {
+  ok: boolean;
+  step: string;
+  row: ContentRow;
+  next: string | null;
+  error?: string;
+}
+
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url, { cache: "no-store" });
   const payload = (await response.json()) as T & { error?: string };
@@ -71,6 +79,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [running, setRunning] = useState(false);
+  const [runStep, setRunStep] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -108,17 +117,41 @@ export default function Home() {
   async function runNow(): Promise<void> {
     setRunning(true);
     setError(null);
+    setRunStep("Starting...");
+
     try {
-      const response = await fetch("/api/run", { method: "POST" });
-      if (!response.ok) {
-        const payload = (await response.json()) as { error?: string };
-        throw new Error(payload.error ?? `Run request failed: ${response.status}`);
+      let nextStep: string | null = "auto";
+      let attempts = 0;
+      const maxAttempts = 12;
+
+      while (nextStep && attempts < maxAttempts) {
+        attempts += 1;
+        const url = nextStep === "auto" ? "/api/run?step=auto" : `/api/run?step=${nextStep}`;
+        setRunStep(nextStep === "auto" ? "Detecting next step..." : `Running: ${nextStep}...`);
+
+        const response = await fetch(url, { method: "POST" });
+        const payload = (await response.json()) as RunStepResponse;
+
+        if (!response.ok || !payload.ok) {
+          throw new Error(payload.error ?? `Run request failed: ${response.status}`);
+        }
+
+        nextStep = payload.next;
+        setToday(payload.row);
+
+        // Small delay to let the UI breathe and avoid rate limits
+        if (nextStep) {
+          await new Promise((resolve) => window.setTimeout(resolve, 800));
+        }
       }
+
+      setRunStep(null);
       await refresh();
     } catch (runError) {
       setError(runError instanceof Error ? runError.message : String(runError));
     } finally {
       setRunning(false);
+      setRunStep(null);
     }
   }
 
@@ -132,7 +165,7 @@ export default function Home() {
     return "Today's Content";
   }, [activeTab]);
 
-  const runDisabled = Boolean(status?.pipeline.running || running);
+  const runDisabled = Boolean(running);
 
   return (
     <main className="min-h-screen bg-stone-100 text-stone-950">
@@ -159,7 +192,7 @@ export default function Home() {
             ) : (
               <Play className="h-4 w-4" aria-hidden="true" />
             )}
-            Run Pipeline Now
+            {runDisabled ? (runStep ?? "Running...") : "Run Pipeline Now"}
           </button>
 
           <section className="mt-6 rounded-lg border border-stone-200 bg-stone-50 p-4">

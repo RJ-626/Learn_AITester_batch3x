@@ -1,8 +1,5 @@
 import { GoogleGenAI, Modality } from "@google/genai";
 import Groq from "groq-sdk";
-import { randomUUID } from "node:crypto";
-import { promises as fs } from "node:fs";
-import path from "node:path";
 import {
   getGeminiImageModelCandidates,
   getGroqModel,
@@ -103,6 +100,14 @@ function baseContentRow(date: string, topic: string, status: ContentStatus): Con
     status,
     ...EMPTY_CONTENT
   };
+}
+
+function writerSystemPrompt(): string {
+  return [
+    "You write direct, opinionated technical content for QA engineers, automation engineers, and AI agent builders.",
+    "Use short paragraphs, real examples, clear claims, and no generic hype.",
+    "Never use the phrases: game-changer, dive deep, unlock the power, in today's fast-paced world."
+  ].join(" ");
 }
 
 export class TopicGeneratorAgent {
@@ -240,52 +245,44 @@ export class ContentWriterAgent {
     }
   }
 
-  private async generateLinkedInPost(topic: string): Promise<string> {
+  async generateLinkedInPost(topic: string): Promise<string> {
     return groqText(
-      this.writerSystemPrompt(),
+      writerSystemPrompt(),
       `Write a hook-driven LinkedIn post about "${topic}" in 150-200 words. Use short paragraphs, concrete examples, and one pointed takeaway. Avoid filler phrases like "game-changer" and "dive deep".`,
       700
     );
   }
 
-  private async generateMediumArticle(topic: string): Promise<string> {
+  async generateMediumArticle(topic: string): Promise<string> {
     return groqText(
-      this.writerSystemPrompt(),
-      `Write a 3000-word Medium article in markdown about "${topic}". Use H1/H2/H3 headings, a practical example, implementation tradeoffs, failure modes, and a concise conclusion. Keep the voice direct, opinionated, and technical.`,
-      5200
+      writerSystemPrompt(),
+      `Write a 2000-word Medium article in markdown about "${topic}". Use H1/H2/H3 headings, a practical example, implementation tradeoffs, failure modes, and a concise conclusion. Keep the voice direct, opinionated, and technical.`,
+      4000
     );
   }
 
-  private async generateInstagramScript(topic: string): Promise<string> {
+  async generateInstagramScript(topic: string): Promise<string> {
     return groqText(
-      this.writerSystemPrompt(),
+      writerSystemPrompt(),
       `Create an Instagram reel/carousel script about "${topic}". Include slide or scene labels, on-screen copy, narration, and a short CTA. Keep it practical and punchy without hype.`,
       1000
     );
   }
 
-  private async generateYouTubeScript(topic: string): Promise<string> {
+  async generateYouTubeScript(topic: string): Promise<string> {
     return groqText(
-      this.writerSystemPrompt(),
+      writerSystemPrompt(),
       `Write a YouTube script about "${topic}" with timestamps. Include intro, body sections, demos or examples, and outro. Make it useful for technical learners and avoid filler.`,
       2200
     );
   }
 
-  private async generateDevToArticle(topic: string): Promise<string> {
+  async generateDevToArticle(topic: string): Promise<string> {
     return groqText(
-      this.writerSystemPrompt(),
-      `Write a 2000-word Dev.to article in markdown about "${topic}". Include code or pseudo-code where useful, testing notes, limitations, and a practical checklist.`,
-      3600
+      writerSystemPrompt(),
+      `Write a 1500-word Dev.to article in markdown about "${topic}". Include code or pseudo-code where useful, testing notes, limitations, and a practical checklist.`,
+      3000
     );
-  }
-
-  private writerSystemPrompt(): string {
-    return [
-      "You write direct, opinionated technical content for QA engineers, automation engineers, and AI agent builders.",
-      "Use short paragraphs, real examples, clear claims, and no generic hype.",
-      "Never use the phrases: game-changer, dive deep, unlock the power, in today's fast-paced world."
-    ].join(" ");
   }
 }
 
@@ -345,7 +342,7 @@ export class ImageGeneratorAgent {
     }
   }
 
-  private async generateImage(topic: string, kind: string, sizeHint: string): Promise<string> {
+  async generateImage(topic: string, kind: string, sizeHint: string): Promise<string> {
     const ai = new GoogleGenAI({ apiKey: requireEnv("GEMINI_API_KEY") });
     const prompt = this.imagePrompt(topic, kind, sizeHint);
     const triedModels: string[] = [];
@@ -373,19 +370,7 @@ export class ImageGeneratorAgent {
         }
 
         const mimeType = imagePart?.inlineData?.mimeType ?? "image/png";
-        const extension = mimeType.includes("jpeg")
-          ? "jpg"
-          : mimeType.includes("webp")
-            ? "webp"
-            : "png";
-        const fileName = `${formatLocalDate()}-${kind}-${slugify(topic)}-${randomUUID().slice(0, 8)}.${extension}`;
-        const imageDir = path.join(process.cwd(), "public", "images");
-        const outputPath = path.join(imageDir, fileName);
-
-        await fs.mkdir(imageDir, { recursive: true });
-        await fs.writeFile(outputPath, Buffer.from(imageBase64, "base64"));
-
-        return `/images/${fileName}`;
+        return `data:${mimeType};base64,${imageBase64}`;
       } catch (error) {
         lastError = `Model ${model} failed: ${errorMessage(error)}`;
         console.warn(lastError);
@@ -398,13 +383,7 @@ export class ImageGeneratorAgent {
   }
 
   private imagePrompt(topic: string, kind: string, sizeHint: string): string {
-    return [
-      `Create a polished editorial image for ${kind}.`,
-      `Topic: ${topic}.`,
-      `Target framing: ${sizeHint}.`,
-      "Visual direction: modern software engineering workspace, AI workflow diagrams, testing signals, automation nodes, and readable composition.",
-      "Avoid logos, brand names, tiny unreadable text, stock-photo smiles, and clutter."
-    ].join(" ");
+    return `Create a clean tech illustration about "${topic}" for ${kind}. ${sizeHint}. Modern, minimal, no text, no logos.`;
   }
 }
 
