@@ -54,6 +54,12 @@ mindmap
       IndexedDB persistence
       Drag-and-drop job cards
       JSON backup and restore
+    Live Task - Job Tracker (13th June)
+      Enhanced Kanban with interview rounds
+      Analytics dashboard + command palette
+      Undo/redo, archive, bulk operations
+      Smart follow-up reminders
+      Vercel deployment
 ```
 
 ---
@@ -112,15 +118,21 @@ mindmap
 │       └── output/                Dated publish-ready content packs
 │
 ├── Live_Task_AI_Testing/          Live class tasks and real-time projects
-│   └── Task_06th_June/
-│       └── Test_Stratgey_generation_agent_for_Jira_id/
+│   ├── Task_06th_June/
+│   │   └── Test_Stratgey_generation_agent_for_Jira_id/
+│   │       ├── README.md
+│   │       ├── gemini.md          Project Constitution
+│   │       ├── task_plan.md       Phase tracking
+│   │       ├── architecture/      Layer 1 SOPs
+│   │       ├── api/               Vercel serverless endpoints
+│   │       ├── src/               React UI (Dark/Light mode)
+│   │       └── tools/             Jira, GROQ, and Markdown engines
+│   └── Task_13th_June/
+│       └── job_tracker_task/      Enhanced local-first job tracker
 │           ├── README.md
-│           ├── gemini.md          Project Constitution
-│           ├── task_plan.md       Phase tracking
-│           ├── architecture/      Layer 1 SOPs
-│           ├── api/               Vercel serverless endpoints
-│           ├── src/               React UI (Dark/Light mode)
-│           └── tools/             Jira, GROQ, and Markdown engines
+│           ├── package.json
+│           ├── src/               React + Vite SPA
+│           └── dist/              Production build
 │
 └── Project_Job_TRACKERAI/         Local-first job application tracker
     ├── README.md
@@ -429,6 +441,35 @@ Open `http://localhost:5173`, add Jira + GROQ credentials in the Settings tab, t
 
 ---
 
+## Live Task — Job Tracker (13th June)
+
+`Live_Task_AI_Testing/Task_13th_June/job_tracker_task/` is an **enhanced local-first job application tracker** built as a Vite + React single-page app. It extends the original Job Tracker with interview round management, analytics, command palette, undo/redo, archive mode, and smart reminders.
+
+**What's here:**
+- **Six Kanban columns**: Wishlist, Applied, Follow-up, Interview, Offer, and Rejected.
+- **Drag-and-drop** cards between columns with `@dnd-kit/core`.
+- **Interview Round Tracker**: Manage HR Screen, Technical, System Design, Behavioral, and custom rounds with status (Scheduled / Completed / Passed / Failed), dates, and notes.
+- **Smart Follow-Up Reminders**: Auto-badges stale cards (Applied ≥7 days, scheduled interviews ≥3 days past).
+- **Command Palette (⌘+K)**: Spotlight search across jobs + quick actions.
+- **Undo / Redo (⌘+Z / ⌘+Y)**: Full history stack for drag, edit, delete, archive, and import.
+- **Archive Mode + Bulk Operations**: Soft-delete jobs, bulk archive via multi-select, restore from archive view.
+- **Pipeline Analytics Dashboard**: Funnel visualization, response rate, offer rate, resume performance, and average time to interview.
+- **Duplicate Detection**: Warns when adding a job at the same company + role.
+- **Search, sort, dark mode, JSON export/import** — all 100% local via IndexedDB.
+
+**Live URL:** https://job-tracker-olive-eta.vercel.app
+
+**Run it locally:**
+```bash
+cd Live_Task_AI_Testing/Task_13th_June/job_tracker_task
+npm install
+npm run dev
+```
+
+Open the local Vite URL and use the app directly in the browser. Data persists in the browser's IndexedDB database named `job-tracker-db`.
+
+---
+
 ## Project - Job Tracker AI
 
 `Project_Job_TRACKERAI/` is a local-first job application tracker built as a Vite + React single-page app. It stores every job card in the browser with IndexedDB through the `idb` library, so there is no backend, authentication, or external database.
@@ -464,6 +505,7 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 - **"I want reusable QA automation agents."** → `chapter_04_AI_Agents_n8n/n8n_AIAgent/`.
 - **"I want a local AI content dashboard."** → `chapter_04_AI_Agents_n8n/social_ai_agent/contentforge/`.
 - **"I want publish-ready Testing Academy content."** → `chapter_04_AI_Agents_n8n/skillfile_content_generation/output/`.
+- **"I want an advanced job tracker with interview rounds and analytics."** → `Live_Task_AI_Testing/Task_13th_June/job_tracker_task/`.
 - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 
 ## Requirements
@@ -476,6 +518,7 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 - For Chapter 4 n8n workflows: n8n Cloud or self-hosted n8n, plus credentials for whichever workflow nodes you enable.
 - For Chapter 4 ContentForge: **Node.js 20+**, npm, `GROQ_API_KEY`, and `GEMINI_API_KEY`.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
+- For Live Task (Job Tracker): **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 
 ## Chapter History
 
@@ -484,6 +527,7 @@ You can read it linearly (chapter 01 → 04) or jump straight to a project:
 `187a77f` — chapter 03 B.L.A.S.T. Jira to Test Plan generator.
 `f5ccf83` — Live Task: Test Strategy Generator for Jira IDs with Dark Mode + B.L.A.S.T. protocol.
 `f67b4f6` — chapter 04 ContentForge local content pipeline + skill output pack.
+`1f2fb9e` — Live Task: Enhanced Job Tracker with interview rounds, analytics dashboard, command palette, undo/redo, archive, and smart follow-up reminders.
 
 ---
 
