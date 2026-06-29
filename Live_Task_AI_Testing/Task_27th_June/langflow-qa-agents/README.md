@@ -258,29 +258,67 @@ If you must mount the volume to a different container path (e.g., `/data` instea
 
 ---
 
-## 🖥️ Interactive Dashboard UI
+## 🖥️ Individual Agent UIs (6 Standalone Apps)
 
-A production-ready React dashboard is included under `ui/` for live demos and easy agent interaction.
+Each agent has its own **separate, standalone React UI** for focused demos. Each runs on a different port with dedicated inputs and result display.
 
-**Features:**
-- 🏠 Dashboard with all 6 agents displayed as interactive cards
-- 🔌 Connection panel to configure LangFlow URL, API key, and Flow IDs
+| Agent | UI Folder | Port | URL |
+|---|---|---|---|
+| 🐛 Bug Triage | `ui/bug-triage/` | 5173 | http://localhost:5173 |
+| 🔄 Flaky Test Analyzer | `ui/flaky-test/` | 5174 | http://localhost:5174 |
+| 🔍 RCA Bot | `ui/rca-bot/` | 5175 | http://localhost:5175 |
+| 📝 Test Case Generator | `ui/test-case-generator/` | 5176 | http://localhost:5176 |
+| 📋 Test Plan Creator | `ui/test-plan-creator/` | 5177 | http://localhost:5177 |
+| 📁 JSON Schema Validator | `ui/json-schema-validator/` | 5178 | http://localhost:5178 |
+
+**Common Features (all 6 UIs):**
+- 🔌 Settings panel to configure LangFlow URL, API key, and Flow ID
 - 🌙 Dark / Light mode toggle with theme persistence
-- 📝 Tailored input forms for each agent (JIRA keys, file uploads, JSON payloads)
-- 📊 Markdown-rendered results with raw JSON inspector
-- 🚀 One-click agent execution with loading states and error handling
+- 📝 Tailored input forms specific to each agent
+- 📊 Markdown-rendered results with collapsible raw JSON inspector
+- 🚀 One-click execution with loading spinners and error handling
 
-**Run the UI locally:**
+**Run any UI locally:**
 
 ```bash
-cd Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/ui
+# Bug Triage Agent
+cd Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/ui/bug-triage
 npm install
 npm run dev
+# Open http://localhost:5173
+
+# Flaky Test Analyzer
+cd ../flaky-test
+npm install
+npm run dev
+# Open http://localhost:5174
+
+# RCA Bot
+cd ../rca-bot
+npm install
+npm run dev
+# Open http://localhost:5175
+
+# Test Case Generator
+cd ../test-case-generator
+npm install
+npm run dev
+# Open http://localhost:5176
+
+# Test Plan Creator
+cd ../test-plan-creator
+npm install
+npm run dev
+# Open http://localhost:5177
+
+# JSON Schema Validator
+cd ../json-schema-validator
+npm install
+npm run dev
+# Open http://localhost:5178
 ```
 
-Open `http://localhost:5173` and click **Connection** in the header to configure:
+In each UI, click **Settings** in the header to configure:
 - **LangFlow Base URL** (e.g. `http://localhost:7860`)
 - **API Key** (your `x-api-key` if authentication is enabled)
-- **Flow IDs** for each agent (copy from the LangFlow UI)
-
-Then click any agent card to launch its interactive page and run the flow.
+- **Flow ID** for that specific agent (copy from the LangFlow UI)
