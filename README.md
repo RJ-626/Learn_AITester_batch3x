@@ -18,6 +18,7 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 - [Chapter 05 — AI Agents with LangFlow](#chapter-05--ai-agents-with-langflow)
 - [Live Task — Test Strategy Generator for Jira IDs](#live-task--test-strategy-generator-for-jira-ids)
 - [Live Task — Job Tracker (13th June)](#live-task--job-tracker-13th-june)
+- [Live Task — API Contract Validator (21st June)](#live-task--api-contract-validator-21st-june)
 - [Live Task — LangFlow QA Agents (27th June)](#live-task--langflow-qa-agents-27th-june)
 - [How to Use This Repo](#how-to-use-this-repo)
 - [Requirements](#requirements)
@@ -186,6 +187,8 @@ mindmap
 │           ├── package.json
 │           ├── src/               React + Vite SPA
 │           └── dist/              Production build
+│   └── Task_21st_June/
+│       └── API_Contract_Validator.json   LangFlow API contract validation flow
 │   └── Task_27th_June/
 │       └── langflow-qa-agents/    6 production-grade Langflow agent pipelines
 │           ├── README.md
@@ -674,6 +677,32 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 
 ---
 
+## Live Task — API Contract Validator (21st June)
+
+`Live_Task_AI_Testing/Task_21st_June/API_Contract_Validator.json` is a **LangFlow API Contract Validator flow** that validates live API responses against their agreed JSON schema. Import this JSON into LangFlow to run a visual agent pipeline that checks for contract drift — missing fields, wrong types, and extra keys — without writing per-endpoint assertion code.
+
+**What's here:**
+- `API_Contract_Validator.json` — importable LangFlow flow definition (API Request → Prompt → LLM → Chat output).
+- Validates real HTTP responses against a JSON Schema using an LLM judge for human-readable PASS/FAIL + diff output.
+- Catches breaking API changes that slip past traditional tests.
+
+**Why a QA engineer should care:** APIs drift silently in production. This flow turns contract validation into a reusable, visual pipeline you can run on-demand or wire into CI via LangFlow's published API endpoint.
+
+**How to use it:**
+1. Start LangFlow locally (Docker or pip):
+   ```bash
+   docker run -d -p 7860:7860 langflowai/langflow:latest
+   ```
+2. Open `http://localhost:7860`, create a new project, and import `API_Contract_Validator.json` via **Upload**.
+3. Configure the **API Request** component with your target endpoint URL, method, and headers.
+4. Update the **Prompt** component with the JSON Schema you want to validate against.
+5. Run the flow from the playground or publish it and call `POST /api/v1/run/{flowId}`.
+
+**Read the full walkthrough, sample schema, and example output in:**
+`chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`
+
+---
+
 ## Live Task — LangFlow QA Agents (27th June)
 
 `Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/` contains **6 production-grade Langflow agent pipelines and validation tools** designed to automate critical QA and SDLC phases. These are importable JSON flow definitions that run inside a local or containerised LangFlow instance.
@@ -727,6 +756,7 @@ You can read it linearly (chapter 01 → 05) or jump straight to a project:
 - **"I want to tell flaky tests from real failures."** → `chapter_05_AI_Agents_LangFlow/flaky_test_analyzer_ai_Agent/`.
 - **"I want to validate an API response against a JSON schema."** → `chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`.
 - **"I want an advanced job tracker with interview rounds and analytics."** → `Live_Task_AI_Testing/Task_13th_June/job_tracker_task/`.
+- **"I want to validate an API response against a JSON schema (LangFlow flow)."** → `Live_Task_AI_Testing/Task_21st_June/API_Contract_Validator.json`.
 - **"I want 6 ready-to-import LangFlow QA agent pipelines."** → `Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/`.
 
 ## Requirements
@@ -753,6 +783,7 @@ You can read it linearly (chapter 01 → 05) or jump straight to a project:
 `bbc77dc` — chapter 05 LangFlow Flaky Test Analyzer agent + React UI.
 `e98d376` — chapter 05 API Contract Validator agent.
 `1f2fb9e` — Live Task: Enhanced Job Tracker with interview rounds, analytics dashboard, command palette, undo/redo, archive, and smart follow-up reminders.
+`TBD` — Live Task: API Contract Validator LangFlow flow for live endpoint schema validation.
 `TBD` — Live Task: 6 production-grade LangFlow QA agent pipelines — Bug Triage, Flaky Test Analyzer, RCA Bot, Test Case Generator, Test Plan Creator, and JSON Schema Validator.
 
 ---
