@@ -1,7 +1,7 @@
 # Anti-Hallucination Rules
 
 - **Author:** Rahul Jaiswal
-- **Role:** Principal SDET
+- **Role:** Lead Consultant
 - **Website:** [The Testing Academy](https://thetestingacademy.com/)
 - **LinkedIn:** [Rahul Jaiswal](https://www.linkedin.com/in/rahuljaiswal/)
 
