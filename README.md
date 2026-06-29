@@ -7,6 +7,23 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 
 ---
 
+## Table of Contents
+
+- [Curriculum Map](#curriculum-map)
+- [Repository Layout](#repository-layout)
+- [Chapter 01 — LLM Basics](#chapter-01--llm-basics)
+- [Chapter 02 — Prompt Engineering for QA](#chapter-02--prompt-engineering-for-qa)
+- [Chapter 03 — BLAST Jira Test Plan Generator](#chapter-03--blast-jira-test-plan-generator)
+- [Chapter 04 — n8n and Local AI Agents for QA](#chapter-04--n8n-and-local-ai-agents-for-qa)
+- [Chapter 05 — AI Agents with LangFlow](#chapter-05--ai-agents-with-langflow)
+- [Live Task — Test Strategy Generator for Jira IDs](#live-task--test-strategy-generator-for-jira-ids)
+- [Live Task — Job Tracker (13th June)](#live-task--job-tracker-13th-june)
+- [How to Use This Repo](#how-to-use-this-repo)
+- [Requirements](#requirements)
+- [Chapter History](#chapter-history)
+
+---
+
 ## Curriculum Map
 
 ```mermaid
@@ -65,11 +82,6 @@ mindmap
       API Contract Validator
       Bug Triage agent
       LangFlow vs LangGraph vs LangSmith
-    Project - Job Tracker AI
-      Local-first React Kanban board
-      IndexedDB persistence
-      Drag-and-drop job cards
-      JSON backup and restore
     Live Task - Job Tracker (13th June)
       Enhanced Kanban with interview rounds
       Analytics dashboard + command palette
@@ -166,17 +178,7 @@ mindmap
 │           ├── README.md
 │           ├── package.json
 │           ├── src/               React + Vite SPA
-│           └── dist/              Production build
-│
-└── Project_Job_TRACKERAI/         Local-first job application tracker
-    ├── README.md
-    ├── package.json
-    ├── src/
-    │   ├── App.jsx
-    │   ├── constants.js
-    │   └── db.js
-    └── public/
-        └── favicon.svg
+│   └── dist/              Production build
 ```
 
 ---
@@ -656,28 +658,6 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 
 ---
 
-## Project - Job Tracker AI
-
-`Project_Job_TRACKERAI/` is a local-first job application tracker built as a Vite + React single-page app. It stores every job card in the browser with IndexedDB through the `idb` library, so there is no backend, authentication, or external database.
-
-**What's here:**
-- Six Kanban columns: Wishlist, Applied, Follow-up, Interview, Offer, and Rejected.
-- Drag-and-drop cards between columns with `@dnd-kit/core`.
-- Add, edit, delete, search, and sort job cards.
-- Resume-name reuse, LinkedIn job links, days-since-applied labels, salary notes, and status color accents.
-- Light/dark mode plus JSON export/import for backups.
-
-**Run it locally:**
-```bash
-cd Project_Job_TRACKERAI
-npm install
-npm run dev
-```
-
-Open the local Vite URL and use the app directly in the browser. Data persists in the browser's IndexedDB database named `job-tracker-ai`.
-
----
-
 ## How to Use This Repo
 
 You can read it linearly (chapter 01 → 05) or jump straight to a project:
@@ -697,13 +677,11 @@ You can read it linearly (chapter 01 → 05) or jump straight to a project:
 - **"I want to tell flaky tests from real failures."** → `chapter_05_AI_Agents_LangFlow/flaky_test_analyzer_ai_Agent/`.
 - **"I want to validate an API response against a JSON schema."** → `chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`.
 - **"I want an advanced job tracker with interview rounds and analytics."** → `Live_Task_AI_Testing/Task_13th_June/job_tracker_task/`.
-- **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 
 ## Requirements
 
 - Any modern LLM (Claude / GPT / Gemini / DeepSeek). No specific provider required.
 - For Project 2 only: **JDK 11+** and **Maven 3.9+** to compile and run the Selenium framework.
-- For Chapter 3: **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
 - For Chapter 3: **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
 - For Live Task (Test Strategy Generator): **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
 - For Chapter 4 n8n workflows: n8n Cloud or self-hosted n8n, plus credentials for whichever workflow nodes you enable.
@@ -726,4 +704,4 @@ You can read it linearly (chapter 01 → 05) or jump straight to a project:
 
 ---
 
-Made by [Pramod Dutta](https://thetestingacademy.com/) for The Testing Academy.
+Made by [Rahul Jaiswal](https://thetestingacademy.com/) for The Testing Academy.
