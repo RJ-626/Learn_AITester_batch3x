@@ -27,3 +27,8 @@ env
 
 # Local browser verification artifacts
 .playwright-mcp/
+
+# Node.js / UI builds
+node_modules/
+dist/
+package-lock.json
