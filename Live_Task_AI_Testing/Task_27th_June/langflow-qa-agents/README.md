@@ -255,3 +255,32 @@ If you must mount the volume to a different container path (e.g., `/data` instea
      export_dir = "/data/exports"
      ```
 5. Click **Save** and test the flow.
+
+---
+
+## 🖥️ Interactive Dashboard UI
+
+A production-ready React dashboard is included under `ui/` for live demos and easy agent interaction.
+
+**Features:**
+- 🏠 Dashboard with all 6 agents displayed as interactive cards
+- 🔌 Connection panel to configure LangFlow URL, API key, and Flow IDs
+- 🌙 Dark / Light mode toggle with theme persistence
+- 📝 Tailored input forms for each agent (JIRA keys, file uploads, JSON payloads)
+- 📊 Markdown-rendered results with raw JSON inspector
+- 🚀 One-click agent execution with loading states and error handling
+
+**Run the UI locally:**
+
+```bash
+cd Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/ui
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` and click **Connection** in the header to configure:
+- **LangFlow Base URL** (e.g. `http://localhost:7860`)
+- **API Key** (your `x-api-key` if authentication is enabled)
+- **Flow IDs** for each agent (copy from the LangFlow UI)
+
+Then click any agent card to launch its interactive page and run the flow.
