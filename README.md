@@ -18,6 +18,7 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 - [Chapter 05 — AI Agents with LangFlow](#chapter-05--ai-agents-with-langflow)
 - [Live Task — Test Strategy Generator for Jira IDs](#live-task--test-strategy-generator-for-jira-ids)
 - [Live Task — Job Tracker (13th June)](#live-task--job-tracker-13th-june)
+- [Live Task — LangFlow QA Agents (27th June)](#live-task--langflow-qa-agents-27th-june)
 - [How to Use This Repo](#how-to-use-this-repo)
 - [Requirements](#requirements)
 - [Chapter History](#chapter-history)
@@ -88,6 +89,12 @@ mindmap
       Undo/redo, archive, bulk operations
       Smart follow-up reminders
       Vercel deployment
+    Live Task - LangFlow QA Agents (27th June)
+      6 production-grade Langflow agent pipelines
+      Bug triage, flaky test analyzer, RCA bot
+      Test case generator, test plan creator, JSON schema validator
+      JIRA + local document ingestion
+      Docker deployment with volume mounts
 ```
 
 ---
@@ -173,12 +180,21 @@ mindmap
 │   │       ├── api/               Vercel serverless endpoints
 │   │       ├── src/               React UI (Dark/Light mode)
 │   │       └── tools/             Jira, GROQ, and Markdown engines
-│   └── Task_13th_June/
+  │   └── Task_13th_June/
 │       └── job_tracker_task/      Enhanced local-first job tracker
 │           ├── README.md
 │           ├── package.json
 │           ├── src/               React + Vite SPA
-│   └── dist/              Production build
+│           └── dist/              Production build
+│   └── Task_27th_June/
+│       └── langflow-qa-agents/    6 production-grade Langflow agent pipelines
+│           ├── README.md
+│           ├── Bug_Triage_Agent.json
+│           ├── Flaky_Test_Case_generator.json
+│           ├── JSON-Schema-Validator.json
+│           ├── RCA-Bot.json
+│           ├── Test-Case-Generator.json
+│           └── Test-Plan-Creator.json
 ```
 
 ---
@@ -658,6 +674,40 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 
 ---
 
+## Live Task — LangFlow QA Agents (27th June)
+
+`Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/` contains **6 production-grade Langflow agent pipelines and validation tools** designed to automate critical QA and SDLC phases. These are importable JSON flow definitions that run inside a local or containerised LangFlow instance.
+
+**What's here:**
+- `Bug_Triage_Agent.json` — fetches JIRA bug details and generates priority, severity, and categorisation recommendations.
+- `Flaky_Test_Case_generator.json` — compares two test execution logs (pass vs fail) to identify flaky patterns and remediation strategies.
+- `RCA-Bot.json` — pulls incident data from JIRA and exports structured Root Cause Analysis documents in `.md` and `.docx`.
+- `Test-Case-Generator.json` — generates standard test cases plus a complete E2E **Playwright automation framework** (POM, fixtures, config) from JIRA tickets or local PRD/spec files.
+- `Test-Plan-Creator.json` — builds high-level Test Plans and Test Strategies from JIRA Epics or local spec documents, writing `test_plan.md` and `test_strategy.md`.
+- `JSON-Schema-Validator.json` — validates JSON payloads (raw strings, JSONL, directory batches, or URL endpoints) against a JSON Schema using multi-threaded workers.
+
+**Why a QA engineer should care:** these flows turn repetitive QA analysis into callable, reusable pipelines. JIRA integration, local document ingestion, and multi-file output mean the agents fit real workflows without manual copy-paste from chat.
+
+**How to use the agents:**
+1. Start LangFlow locally (Docker recommended):
+   ```bash
+   mkdir -p langflow-data && chmod 777 langflow-data
+   docker run -d \
+     -v $(pwd)/langflow-data:/app/langflow \
+     -e LANGFLOW_CONFIG_DIR=/app/flow \
+     --name langflow \
+     -p 7860:7860 \
+     langflowai/langflow:latest
+   ```
+2. Open `http://localhost:7860`, create a new project, and import any `.json` flow via **Upload**.
+3. Configure JIRA credentials in the **API Request** component headers (`Authorization: Basic <base64>`) if the flow uses JIRA.
+4. Run the flow from the playground or publish it and call `POST /api/v1/run/{flowId}`.
+
+**Read the full setup, JIRA configuration, and Docker volume mount guide in:**
+`Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/README.md`
+
+---
+
 ## How to Use This Repo
 
 You can read it linearly (chapter 01 → 05) or jump straight to a project:
@@ -677,6 +727,7 @@ You can read it linearly (chapter 01 → 05) or jump straight to a project:
 - **"I want to tell flaky tests from real failures."** → `chapter_05_AI_Agents_LangFlow/flaky_test_analyzer_ai_Agent/`.
 - **"I want to validate an API response against a JSON schema."** → `chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`.
 - **"I want an advanced job tracker with interview rounds and analytics."** → `Live_Task_AI_Testing/Task_13th_June/job_tracker_task/`.
+- **"I want 6 ready-to-import LangFlow QA agent pipelines."** → `Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/`.
 
 ## Requirements
 
@@ -690,6 +741,7 @@ You can read it linearly (chapter 01 → 05) or jump straight to a project:
 - For Chapter 5 LangFlow: a running LangFlow instance (default `http://localhost:7861`) and an OpenRouter (or compatible) API key; **Node.js 20+** and npm to run the Flaky Test Analyzer UI.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 - For Live Task (Job Tracker): **Node.js 20.19+ or 22.12+** and npm for Vite 8.
+- For Live Task (LangFlow QA Agents): a running LangFlow instance (Docker or local) and, for JIRA-connected flows, an Atlassian API token.
 
 ## Chapter History
 
@@ -701,6 +753,7 @@ You can read it linearly (chapter 01 → 05) or jump straight to a project:
 `bbc77dc` — chapter 05 LangFlow Flaky Test Analyzer agent + React UI.
 `e98d376` — chapter 05 API Contract Validator agent.
 `1f2fb9e` — Live Task: Enhanced Job Tracker with interview rounds, analytics dashboard, command palette, undo/redo, archive, and smart follow-up reminders.
+`TBD` — Live Task: 6 production-grade LangFlow QA agent pipelines — Bug Triage, Flaky Test Analyzer, RCA Bot, Test Case Generator, Test Plan Creator, and JSON Schema Validator.
 
 ---
 
