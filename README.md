@@ -4,6 +4,7 @@ A practical, project-driven curriculum for QA engineers learning to use LLMs as 
 Each chapter pairs concept material with a hands-on project, a prompt template, and runnable code where applicable.
 
 - **Author:** Rahul Jaiswal
+- **Role:** Lead Consultant
 
 ---
 
