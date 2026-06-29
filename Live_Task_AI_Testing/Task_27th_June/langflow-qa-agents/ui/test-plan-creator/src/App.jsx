@@ -8,13 +8,13 @@ function App() {
     return localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
   })
   const [config, setConfig] = useState(() => {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '' } }
-    catch { return { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '' } }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '', model: 'gpt-4o' } }
+    catch { return { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '', model: 'gpt-4o' } }
   })
   const [showSettings, setShowSettings] = useState(false)
-  const [jiraKey, setJiraKey] = useState('')
-  const [docContent, setDocContent] = useState('')
-  const [source, setSource] = useState('jira')
+  const [jiraKey, setJiraKey] = useState(() => localStorage.getItem(`${STORAGE_KEY}-jiraKey`) || '')
+  const [docContent, setDocContent] = useState(() => localStorage.getItem(`${STORAGE_KEY}-docContent`) || '')
+  const [source, setSource] = useState(() => localStorage.getItem(`${STORAGE_KEY}-source`) || 'jira')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
@@ -25,6 +25,9 @@ function App() {
   }, [darkMode])
 
   useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(config)) }, [config])
+  useEffect(() => { localStorage.setItem(`${STORAGE_KEY}-jiraKey`, jiraKey) }, [jiraKey])
+  useEffect(() => { localStorage.setItem(`${STORAGE_KEY}-docContent`, docContent) }, [docContent])
+  useEffect(() => { localStorage.setItem(`${STORAGE_KEY}-source`, source) }, [source])
 
   const runFlow = async () => {
     setLoading(true); setResult(null); setError(null)
@@ -69,6 +72,15 @@ function App() {
               <div><label>API Key</label><input type="password" value={config.apiKey} onChange={e => setConfig(p => ({ ...p, apiKey: e.target.value }))} /></div>
             </div>
             <div><label>Flow ID</label><input type="text" value={config.flowId} onChange={e => setConfig(p => ({ ...p, flowId: e.target.value }))} placeholder="e.g. test-plan-abc123" /></div>
+            <div>
+              <label>Model</label>
+              <select value={config.model} onChange={e => setConfig(p => ({ ...p, model: e.target.value }))}>
+                <option value="gpt-4o">GPT-4o</option>
+                <option value="gpt-4o-mini">GPT-4o Mini</option>
+                <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+                <option value="claude-3-haiku">Claude 3 Haiku</option>
+              </select>
+            </div>
           </div>
         </div>
       )}

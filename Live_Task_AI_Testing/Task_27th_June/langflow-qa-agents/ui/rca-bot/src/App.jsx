@@ -8,11 +8,11 @@ function App() {
     return localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
   })
   const [config, setConfig] = useState(() => {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '' } }
-    catch { return { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '' } }
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '', model: 'gpt-4o' } }
+    catch { return { baseUrl: 'http://localhost:7860', apiKey: '', flowId: '', model: 'gpt-4o' } }
   })
   const [showSettings, setShowSettings] = useState(false)
-  const [jiraKey, setJiraKey] = useState('')
+  const [jiraKey, setJiraKey] = useState(() => localStorage.getItem(`${STORAGE_KEY}-jiraKey`) || '')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
@@ -23,6 +23,7 @@ function App() {
   }, [darkMode])
 
   useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(config)) }, [config])
+  useEffect(() => { localStorage.setItem(`${STORAGE_KEY}-jiraKey`, jiraKey) }, [jiraKey])
 
   const runFlow = async () => {
     if (!jiraKey.trim()) return
@@ -67,6 +68,15 @@ function App() {
               <div><label>API Key</label><input type="password" value={config.apiKey} onChange={e => setConfig(p => ({ ...p, apiKey: e.target.value }))} /></div>
             </div>
             <div><label>Flow ID</label><input type="text" value={config.flowId} onChange={e => setConfig(p => ({ ...p, flowId: e.target.value }))} placeholder="e.g. rca-bot-abc123" /></div>
+            <div>
+              <label>Model</label>
+              <select value={config.model} onChange={e => setConfig(p => ({ ...p, model: e.target.value }))}>
+                <option value="gpt-4o">GPT-4o</option>
+                <option value="gpt-4o-mini">GPT-4o Mini</option>
+                <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+                <option value="claude-3-haiku">Claude 3 Haiku</option>
+              </select>
+            </div>
           </div>
         </div>
       )}

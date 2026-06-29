@@ -262,17 +262,19 @@ If you must mount the volume to a different container path (e.g., `/data` instea
 
 Each agent has its own **separate, standalone React UI** for focused demos. Each runs on a different port with dedicated inputs and result display.
 
-| Agent | UI Folder | Port | URL |
-|---|---|---|---|
-| 🐛 Bug Triage | `ui/bug-triage/` | 5173 | http://localhost:5173 |
-| 🔄 Flaky Test Analyzer | `ui/flaky-test/` | 5174 | http://localhost:5174 |
-| 🔍 RCA Bot | `ui/rca-bot/` | 5175 | http://localhost:5175 |
-| 📝 Test Case Generator | `ui/test-case-generator/` | 5176 | http://localhost:5176 |
-| 📋 Test Plan Creator | `ui/test-plan-creator/` | 5177 | http://localhost:5177 |
-| 📁 JSON Schema Validator | `ui/json-schema-validator/` | 5178 | http://localhost:5178 |
+| Agent | UI Folder | Port | Local URL | Deployed URL |
+|---|---|---|---|---|
+| 🐛 Bug Triage | `ui/bug-triage/` | 5173 | http://localhost:5173 | https://dist-qdaravbhw-rahul-jaiswal-s-projects.vercel.app |
+| 🔄 Flaky Test Analyzer | `ui/flaky-test/` | 5174 | http://localhost:5174 | https://dist-6zijvoyfk-rahul-jaiswal-s-projects.vercel.app |
+| 🔍 RCA Bot | `ui/rca-bot/` | 5175 | http://localhost:5175 | https://dist-gvx2rlwj1-rahul-jaiswal-s-projects.vercel.app |
+| 📝 Test Case Generator | `ui/test-case-generator/` | 5176 | http://localhost:5176 | https://dist-q3hmuf0x3-rahul-jaiswal-s-projects.vercel.app |
+| 📋 Test Plan Creator | `ui/test-plan-creator/` | 5177 | http://localhost:5177 | https://dist-5k6pq24xd-rahul-jaiswal-s-projects.vercel.app |
+| 📁 JSON Schema Validator | `ui/json-schema-validator/` | 5178 | http://localhost:5178 | https://dist-foy8k5f0v-rahul-jaiswal-s-projects.vercel.app |
 
 **Common Features (all 6 UIs):**
-- 🔌 Settings panel to configure LangFlow URL, API key, and Flow ID
+- 🔌 Settings panel to configure LangFlow URL, API key, Flow ID, and **LLM Model selection**
+- 🧠 **Model Persistence**: Selected model (GPT-4o, GPT-4o Mini, Claude 3.5 Sonnet, Claude 3 Haiku) is saved via `localStorage` and restored on page reload
+- 💾 **Form Persistence**: All user inputs (JIRA keys, logs, schemas, document content) are saved via `localStorage` and restored automatically
 - 🌙 Dark / Light mode toggle with theme persistence
 - 📝 Tailored input forms specific to each agent
 - 📊 Markdown-rendered results with collapsible raw JSON inspector
