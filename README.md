@@ -17,9 +17,17 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 - [Chapter 03 — BLAST Jira Test Plan Generator](#chapter-03--blast-jira-test-plan-generator)
 - [Chapter 04 — n8n and Local AI Agents for QA](#chapter-04--n8n-and-local-ai-agents-for-qa)
 - [Chapter 05 — AI Agents with LangFlow](#chapter-05--ai-agents-with-langflow)
-- [Live Task — Test Strategy Generator for Jira IDs](#live-task--test-strategy-generator-for-jira-ids)
+- [Chapter 06 — AI Social Media Content Creation](#chapter-06--ai-social-media-content-creation)
+- [Chapter 07 — RAG (Retrieval-Augmented Generation)](#chapter-07--rag-retrieval-augmented-generation)
+- [Project — Job Tracker AI](#project--job-tracker-ai)
+- [Live Task — RAG Explorer (04th July)](#live-task--rag-explorer-04th-july)
+- [Live Task — Test Strategy Generator for Jira IDs (06th June)](#live-task--test-strategy-generator-for-jira-ids-06th-june)
 - [Live Task — Job Tracker (13th June)](#live-task--job-tracker-13th-june)
+- [Live Task — (14th June)](#live-task--14th-june)
+- [Live Task — (20th June)](#live-task--20th-june)
 - [Live Task — API Contract Validator (21st June)](#live-task--api-contract-validator-21st-june)
+- [Live Task — (23rd May)](#live-task--23rd-may)
+- [Live Task — (24th May)](#live-task--24th-may)
 - [Live Task — LangFlow QA Agents (27th June)](#live-task--langflow-qa-agents-27th-june)
 - [How to Use This Repo](#how-to-use-this-repo)
 - [Requirements](#requirements)
@@ -219,6 +227,14 @@ mindmap
   │       └── favicon.svg
   │
   └── Live_Task_AI_Testing/          Live class tasks and real-time projects
+      ├── Task_04th_July/
+      │   ├── README.md
+      │   ├── data/
+      │   │   └── vwo-prd.pdf        VWO Product Requirements Document
+      │   └── rag-explorer/          End-to-end RAG pipeline demo
+      │       ├── server/            Express API (PDF, chunk, embed, ChromaDB, Groq)
+      │       ├── src/               React UI (two-column layout, pipeline viz)
+      │       └── README.md
       ├── Task_06th_June/
       │   └── Test_Stratgey_generation_agent_for_Jira_id/
       │       ├── README.md
@@ -234,8 +250,12 @@ mindmap
       │       ├── package.json
       │       ├── src/               React + Vite SPA
       │       └── dist/              Production build
+      ├── Task_14th_June/
+      ├── Task_20th_June/
       ├── Task_21st_June/
       │   └── API_Contract_Validator.json   LangFlow API contract validation flow
+      ├── Task_23rd_May/
+      ├── Task_24th_May/
       └── Task_27th_June/
           └── langflow-qa-agents/    6 production-grade Langflow agent pipelines
               ├── README.md
@@ -769,7 +789,32 @@ Open the Vite URL (default `http://localhost:5175`), click **Ingest PDF**, then 
 
 ---
 
-## Live Task — Test Strategy Generator for Jira IDs
+## Live Task — RAG Explorer (04th July)
+
+`Live_Task_AI_Testing/Task_04th_July/` contains a full **end-to-end RAG (Retrieval-Augmented Generation) pipeline demo**. It reads a PDF (VWO PRD), splits it into chunks, generates embeddings with **Nomic Embed** (via Ollama), stores them in **ChromaDB**, and uses **Groq (`openai/gpt-oss-120b`)** to answer questions based on the retrieved top-4 chunks.
+
+**What's here:**
+- **Two-column React UI** — left side shows the ingestion pipeline, right side shows query + answer + retrieved chunks
+- **PDF parsing, chunking (1200 chars / 200 overlap), embedding, vector storage**
+- **Visual pipeline** showing every step: PDF → Chunk → Embed → Store → Query → Retrieve → Answer
+- **Reset button** to re-run the ingestion demo from scratch
+- **Loading spinner** with status text during query processing
+
+**Tech stack:** React 18 + Vite + Express + pdf-parse + chromadb (npm) + Ollama + Groq
+
+**Run it locally:**
+```bash
+cd Live_Task_AI_Testing/Task_04th_July/rag-explorer
+npm install
+cp .env.example .env    # add your GROQ_API_KEY
+npm run dev             # starts Express (:3001) + Vite (:5173)
+```
+
+Open **http://localhost:5173**, click **"Ingest VWO PRD"**, then ask a question like *"What is VWO?"* or *"List the key features."*
+
+---
+
+## Live Task — Test Strategy Generator for Jira IDs (06th June)
 
 `Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id/` is a lightweight **React + Express** app built with the **B.L.A.S.T.** protocol. Enter a Jira ID (e.g., `KAN-5`) and get a **comprehensive Test Strategy** in 8 sections, matching the professional PDF format.
 
@@ -791,6 +836,12 @@ npm run dev
 ```
 
 Open `http://localhost:5173`, add Jira + GROQ credentials in the Settings tab, then generate a strategy from a Jira ID.
+
+---
+
+## Live Task — (14th June)
+
+`Live_Task_AI_Testing/Task_14th_June/` — Live class task folder.
 
 ---
 
@@ -823,6 +874,12 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 
 ---
 
+## Live Task — (20th June)
+
+`Live_Task_AI_Testing/Task_20th_June/` — Live class task folder.
+
+---
+
 ## Live Task — API Contract Validator (21st June)
 
 `Live_Task_AI_Testing/Task_21st_June/API_Contract_Validator.json` is a **LangFlow API Contract Validator flow** that validates live API responses against their agreed JSON schema. Import this JSON into LangFlow to run a visual agent pipeline that checks for contract drift — missing fields, wrong types, and extra keys — without writing per-endpoint assertion code.
@@ -846,6 +903,18 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 
 **Read the full walkthrough, sample schema, and example output in:**
 `chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`
+
+---
+
+## Live Task — (23rd May)
+
+`Live_Task_AI_Testing/Task_23rd_May/` — Live class task folder.
+
+---
+
+## Live Task — (24th May)
+
+`Live_Task_AI_Testing/Task_24th_May/` — Live class task folder.
 
 ---
 
@@ -900,13 +969,14 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - **"I want to tailor my resume to a job (ATS)."** → `chapter_04_AI_Agents_n8n/resume-tailor/SKILL.md`.
 - **"I want to build AI agents visually (low-code)."** → `chapter_05_AI_Agents_LangFlow/`.
 - **"I want to tell flaky tests from real failures."** → `chapter_05_AI_Agents_LangFlow/flaky_test_analyzer_ai_Agent/`.
+  - **"I want to see how a RAG pipeline works end to end."** → `Live_Task_AI_Testing/Task_04th_July/rag-explorer/`.
   - **"I want to validate an API response against a JSON schema."** → `chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`.
   - **"I want an advanced job tracker with interview rounds and analytics."** → `Live_Task_AI_Testing/Task_13th_June/job_tracker_task/`.
   - **"I want to validate an API response against a JSON schema (LangFlow flow)."** → `Live_Task_AI_Testing/Task_21st_June/API_Contract_Validator.json`.
   - **"I want 6 ready-to-import LangFlow QA agent pipelines."** → `Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/`.
   - **"I want to turn one idea into content for every platform."** → `chapter_06_AI_Social_Media_Content_Creation/` (start at `00_Hook_Story_Offer_Planning.md`).
   - **"I want to publish a LinkedIn post that actually gets reach."** → `chapter_06_AI_Social_Media_Content_Creation/07_LinkedIn_Post_Template.md`.
-  - **"I want to see how a RAG pipeline works end to end."** → `chapter_07_RAG/Basic_RAG/rag-explorer/`.
+  - **"I want to see how a RAG pipeline works end to end (chapter material)."** → `chapter_07_RAG/Basic_RAG/rag-explorer/`.
   - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 
 ## Requirements
@@ -923,6 +993,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - For Chapter 7 RAG Explorer: **Node.js 20+**, **Ollama** with `nomic-embed-text` pulled, **ChromaDB** (`pip install chromadb`), and a **Groq API key**.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 - For Live Task (Job Tracker): **Node.js 20.19+ or 22.12+** and npm for Vite 8.
+- For Live Task (RAG Explorer): **Node.js 20+**, npm, **Ollama** with `nomic-embed-text`, **ChromaDB** (or in-memory fallback), and a **Groq API key**.
 - For Live Task (LangFlow QA Agents): a running LangFlow instance (Docker or local) and, for JIRA-connected flows, an Atlassian API token.
 
 ## Chapter History
@@ -939,6 +1010,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 `1f2fb9e` — Live Task: Enhanced Job Tracker with interview rounds, analytics dashboard, command palette, undo/redo, archive, and smart follow-up reminders.
 `TBD` — Live Task: API Contract Validator LangFlow flow for live endpoint schema validation.
 `TBD` — Live Task: 6 production-grade LangFlow QA agent pipelines — Bug Triage, Flaky Test Analyzer, RCA Bot, Test Case Generator, Test Plan Creator, and JSON Schema Validator.
+`ecf9257` — Live Task: RAG Explorer (04th July) — React + Express + ChromaDB + Ollama + Groq pipeline demo.
 
 ---
 
