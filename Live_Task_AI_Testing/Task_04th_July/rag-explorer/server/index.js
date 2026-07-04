@@ -124,6 +124,12 @@ app.get('/api/ingest-status', (req, res) => {
   res.json(ingestionState);
 });
 
+// Reset ingestion state
+app.post('/api/reset', (req, res) => {
+  ingestionState = { status: 'idle', filename: null, totalChunks: 0, collectionName: 'rag-collection' };
+  res.json({ success: true, status: 'idle' });
+});
+
 // ── QUERY ─────────────────────────────────────────────────────────
 
 app.post('/api/query', async (req, res) => {
