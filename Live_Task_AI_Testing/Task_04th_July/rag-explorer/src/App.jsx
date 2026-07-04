@@ -3,31 +3,34 @@ import Pipeline from './components/Pipeline';
 import ChunkList from './components/ChunkList';
 
 const STEPS = [
-  { id: 'pdf', label: 'PDF Ingestion', desc: 'Read the Product Requirements Document from the data folder' },
-  { id: 'chunk', label: 'Chunking', desc: 'Split the document into overlapping text chunks (1200 chars, 200 overlap)' },
-  { id: 'embed', label: 'Embedding', desc: 'Generate 768-dim vectors using Nomic Embed via Ollama' },
-  { id: 'store', label: 'Vector Store', desc: 'Store embeddings in local ChromaDB collection' },
-  { id: 'query', label: 'Query & Retrieve', desc: 'Embed the question, find top-4 similar chunks by cosine distance' },
-  { id: 'answer', label: 'Answer Generation', desc: 'Groq (openai/gpt-oss-120b) generates the final grounded answer' },
+  { id: 'idle', label: 'Ready', desc: 'Click Ingest to start the pipeline' },
+  { id: 'parsing', label: 'PDF Ingestion', desc: 'Reading the Product Requirements Document' },
+  { id: 'chunking', label: 'Chunking', desc: 'Splitting into overlapping text chunks (1200 chars, 200 overlap)' },
+  { id: 'embedding', label: 'Embedding', desc: 'Generating 768-dim vectors via Nomic Embed (Ollama)' },
+  { id: 'storing', label: 'Vector Store', desc: 'Saving embeddings to local ChromaDB collection' },
+  { id: 'done', label: 'Ready to Query', desc: 'Document indexed — ask a question' },
 ];
 
 export default function App() {
   const [status, setStatus] = useState('idle');
+  const [totalChunks, setTotalChunks] = useState(0);
   const [ingesting, setIngesting] = useState(false);
   const [query, setQuery] = useState('');
   const [querying, setQuerying] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [serverReady, setServerReady] = useState(false);
 
-  // Poll ingestion status
   useEffect(() => {
     const poll = setInterval(async () => {
       try {
         const res = await fetch('/api/ingest-status');
         const data = await res.json();
         setStatus(data.status);
+        setTotalChunks(data.totalChunks || 0);
+        setServerReady(true);
       } catch {
-        // ignore polling errors
+        setServerReady(false);
       }
     }, 800);
     return () => clearInterval(poll);
@@ -41,10 +44,22 @@ export default function App() {
       const res = await fetch('/api/ingest-default', { method: 'POST' });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Ingestion failed');
+      setTotalChunks(data.totalChunks);
     } catch (err) {
       setError(err.message);
     } finally {
       setIngesting(false);
+    }
+  }
+
+  async function handleReset() {
+    try {
+      await fetch('/api/reset', { method: 'POST' });
+      setResult(null);
+      setError(null);
+      setQuery('');
+    } catch (err) {
+      setError(err.message);
     }
   }
 
@@ -58,10 +73,10 @@ export default function App() {
       const res = await fetch('/api/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: query, topK: 4 }),
+        body: JSON.stringify({ question: query.trim(), topK: 4 }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Query failed');
+      if (!res.ok) throw new Error(data.error || `Query failed (${res.status})`);
       setResult(data);
     } catch (err) {
       setError(err.message);
@@ -79,84 +94,110 @@ export default function App() {
         <p className="subtitle">Task 04th July — End-to-end RAG pipeline demo</p>
       </header>
 
-      <main className="container">
-        {/* Pipeline Visualizer */}
-        <section className="card pipeline-card">
-          <h2>RAG Pipeline</h2>
-          <Pipeline steps={STEPS} activeStep={status} />
-        </section>
+      {!serverReady && (
+        <div className="banner error">
+          <strong>⚠ Server Offline</strong> — Cannot reach Express API at <code>localhost:3001</code>. Run <code>npm run server</code>.
+        </div>
+      )}
 
-        {/* Ingestion */}
-        <section className="card">
-          <h2>1. Document Ingestion</h2>
-          <p className="hint">
-            Source: <code>data/vwo-prd.pdf</code> — Product Requirements Document for VWO.com
-          </p>
-          <button
-            className="btn primary"
-            onClick={handleIngestDefault}
-            disabled={ingesting || isIngested}
-          >
-            {ingesting ? 'Ingesting…' : isIngested ? 'Ingested ✓' : 'Ingest VWO PRD'}
-          </button>
-          {status === 'error' && <div className="badge error">Ingestion failed</div>}
-          {isIngested && (
-            <div className="badge success">
-              Document ingested — {status.totalChunks || 'N/A'} chunks stored in ChromaDB
+      <main className="layout">
+        {/* LEFT PANEL — Ingestion + Pipeline */}
+        <aside className="panel left">
+          <section className="card">
+            <h2>📄 Document Ingestion</h2>
+            <p className="hint">
+              Source: <code>data/vwo-prd.pdf</code> — VWO Product Requirements Document
+            </p>
+
+            <Pipeline steps={STEPS} activeStep={status} />
+
+            <div className="btn-row" style={{ marginTop: '1rem' }}>
+              <button
+                className="btn primary"
+                onClick={handleIngestDefault}
+                disabled={ingesting || isIngested}
+              >
+                {ingesting ? 'Ingesting…' : isIngested ? 'Ingested ✓' : 'Ingest VWO PRD'}
+              </button>
+              {isIngested && (
+                <button className="btn secondary" onClick={handleReset}>
+                  Reset
+                </button>
+              )}
             </div>
-          )}
-        </section>
 
-        {/* Query */}
-        <section className="card">
-          <h2>2. Ask a Question</h2>
-          <form onSubmit={handleQuery} className="query-form">
-            <input
-              type="text"
-              className="query-input"
-              placeholder="e.g. What is the goal of VWO?"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              disabled={querying || !isIngested}
-            />
-            <button
-              type="submit"
-              className="btn primary"
-              disabled={querying || !isIngested}
-            >
-              {querying ? 'Asking Groq…' : 'Ask'}
-            </button>
-          </form>
-          {!isIngested && (
-            <p className="hint warn">Ingest the document first to enable querying.</p>
-          )}
-        </section>
-
-        {/* Error */}
-        {error && (
-          <section className="card error-card">
-            <h3>Error</h3>
-            <pre>{error}</pre>
-          </section>
-        )}
-
-        {/* Results */}
-        {result && (
-          <section className="card result-card">
-            <h2>Answer</h2>
-            <div className="answer-box">
-              <div className="meta">
-                <span className="badge">Model: {result.model}</span>
-                <span className="badge">Embedding: {result.embeddingModel}</span>
-                <span className="badge">Chunks used: {result.topK}</span>
+            {status === 'error' && (
+              <div className="badge error" style={{ marginTop: '0.75rem' }}>
+                Ingestion failed — check server logs
               </div>
-              <div className="answer-text">{result.answer}</div>
-            </div>
-
-            <h3>Top {result.topK} Retrieved Chunks</h3>
-            <ChunkList chunks={result.chunks} />
+            )}
+            {isIngested && (
+              <div className="badge success" style={{ marginTop: '0.75rem' }}>
+                {totalChunks} chunks indexed in ChromaDB
+              </div>
+            )}
           </section>
-        )}
+        </aside>
+
+        {/* RIGHT PANEL — Query + Results */}
+        <section className="panel right">
+          <div className="card">
+            <h2>❓ Ask a Question</h2>
+            <form onSubmit={handleQuery} className="query-form">
+              <input
+                type="text"
+                className="query-input"
+                placeholder="e.g. What is the goal of VWO?"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                disabled={querying || !isIngested}
+              />
+              <button
+                type="submit"
+                className="btn primary"
+                disabled={querying || !isIngested}
+              >
+                {querying ? 'Asking…' : 'Ask'}
+              </button>
+            </form>
+            {!isIngested && (
+              <p className="hint warn">Ingest the document first to enable querying.</p>
+            )}
+          </div>
+
+          {error && (
+            <div className="card error-card">
+              <h3>Error</h3>
+              <pre>{error}</pre>
+            </div>
+          )}
+
+          {querying && !result && !error && (
+            <div className="card">
+              <div className="spinner-wrap">
+                <div className="spinner"></div>
+                <p>Embedding query → Retrieving top-4 chunks → Generating answer…</p>
+              </div>
+            </div>
+          )}
+
+          {result && (
+            <div className="card result-card">
+              <h2>💡 Answer</h2>
+              <div className="answer-box">
+                <div className="meta">
+                  <span className="badge">{result.model}</span>
+                  <span className="badge">{result.embeddingModel}</span>
+                  <span className="badge">{result.topK} chunks</span>
+                </div>
+                <div className="answer-text">{result.answer}</div>
+              </div>
+
+              <h3>📑 Top {result.topK} Retrieved Chunks</h3>
+              <ChunkList chunks={result.chunks} />
+            </div>
+          )}
+        </section>
       </main>
 
       <footer className="app-footer">
