@@ -1014,4 +1014,4 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 
 ---
 
-Made by [Rahul Jaiswal](https://thetestingacademy.com/) for The Testing Academy.
+Made by [Rahul Jaiswal]
