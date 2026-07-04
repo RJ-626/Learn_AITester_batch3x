@@ -6,7 +6,7 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-import { parsePdf } from './lib/pdf.js';
+import { parseFile, parseUrl } from './lib/parser.js';
 import { chunkText } from './lib/chunk.js';
 import { embedChunks, embedQuery } from './lib/embed.js';
 import { initChroma, storeChunks, retrieve } from './lib/chroma.js';
@@ -43,8 +43,8 @@ app.post('/api/ingest-default', async (req, res) => {
 
     ingestionState = { status: 'parsing', filename: 'vwo-prd.pdf', totalChunks: 0, collectionName: 'rag-collection' };
 
-    // 1. Parse PDF
-    const text = await parsePdf(pdfPath);
+    // 1. Parse file
+    const text = await parseFile(pdfPath, 'vwo-prd.pdf');
 
     // 2. Chunk
     ingestionState.status = 'chunking';
@@ -81,12 +81,12 @@ app.post('/api/ingest-default', async (req, res) => {
 // Upload + ingest any PDF
 app.post('/api/ingest', upload.single('pdf'), async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ error: 'No PDF uploaded' });
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
     const pdfPath = req.file.path;
     ingestionState = { status: 'parsing', filename: req.file.originalname, totalChunks: 0, collectionName: 'rag-collection' };
 
-    const text = await parsePdf(pdfPath);
+    const text = await parseFile(pdfPath, req.file.originalname);
     ingestionState.status = 'chunking';
     const chunks = chunkText(text, 1200, 200);
     ingestionState.totalChunks = chunks.length;
@@ -119,6 +119,45 @@ app.post('/api/ingest', upload.single('pdf'), async (req, res) => {
   }
 });
 
+// Ingest from URL
+app.post('/api/ingest-url', async (req, res) => {
+  try {
+    const { url } = req.body;
+    if (!url) return res.status(400).json({ error: 'URL is required' });
+
+    ingestionState = { status: 'parsing', filename: url, totalChunks: 0, collectionName: 'rag-collection' };
+
+    // 1. Fetch & parse URL
+    const text = await parseUrl(url);
+    ingestionState.status = 'chunking';
+    const chunks = chunkText(text, 1200, 200);
+    ingestionState.totalChunks = chunks.length;
+
+    ingestionState.status = 'embedding';
+    const embeddings = await embedChunks(chunks);
+
+    ingestionState.status = 'storing';
+    const collection = await initChroma(ingestionState.collectionName);
+    await storeChunks(collection, chunks, embeddings);
+
+    ingestionState.status = 'done';
+
+    res.json({
+      success: true,
+      filename: url,
+      totalChunks: chunks.length,
+      chunkSize: 1200,
+      overlap: 200,
+      embeddingModel: 'nomic-embed-text (Ollama)',
+      vectorStore: 'ChromaDB (local)',
+    });
+  } catch (err) {
+    ingestionState.status = 'error';
+    console.error('URL ingestion error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Get ingestion status
 app.get('/api/ingest-status', (req, res) => {
   res.json(ingestionState);
@@ -128,6 +167,11 @@ app.get('/api/ingest-status', (req, res) => {
 app.post('/api/reset', (req, res) => {
   ingestionState = { status: 'idle', filename: null, totalChunks: 0, collectionName: 'rag-collection' };
   res.json({ success: true, status: 'idle' });
+});
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', uptime: process.uptime() });
 });
 
 // ── QUERY ─────────────────────────────────────────────────────────
@@ -168,11 +212,26 @@ app.post('/api/query', async (req, res) => {
 
 // ── START ─────────────────────────────────────────────────────────
 
+// Serve static React build in production
+const distPath = path.join(__dirname, '..', 'dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+  console.log(`Serving React production build from ${distPath}`);
+} else {
+  console.log(`No production build found at ${distPath}. Run "npm run build" then "npm start" for production mode.`);
+}
+
 app.listen(PORT, () => {
   console.log(`RAG Explorer server running on http://localhost:${PORT}`);
   console.log(`API endpoints:`);
   console.log(`  POST /api/ingest-default  - ingest the built-in VWO PRD`);
-  console.log(`  POST /api/ingest          - upload and ingest any PDF`);
+  console.log(`  POST /api/ingest          - upload and ingest any file (PDF, TXT, MD, JSON, code, etc.)`);
+  console.log(`  POST /api/ingest-url      - ingest a webpage URL`);
   console.log(`  GET  /api/ingest-status   - check ingestion state`);
   console.log(`  POST /api/query           - ask a question`);
+  console.log(`  GET  /api/health          - health check`);
 });
