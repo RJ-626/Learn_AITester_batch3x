@@ -1,18 +1,16 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
 
 import { parsePdf } from './lib/pdf.js';
 import { chunkText } from './lib/chunk.js';
 import { embedChunks, embedQuery } from './lib/embed.js';
 import { initChroma, storeChunks, retrieve } from './lib/chroma.js';
 import { askGroq } from './lib/groq.js';
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,7 +36,7 @@ let ingestionState = {
 // Ingest the built-in VWO PRD
 app.post('/api/ingest-default', async (req, res) => {
   try {
-    const pdfPath = path.join(__dirname, '..', 'data', 'vwo-prd.pdf');
+    const pdfPath = path.join(__dirname, '..', '..', 'data', 'vwo-prd.pdf');
     if (!fs.existsSync(pdfPath)) {
       return res.status(404).json({ error: 'Default PDF not found at data/vwo-prd.pdf' });
     }
