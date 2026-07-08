@@ -1,37 +1,11 @@
-# Learn_AITester_batch3x
+# AI Tester Blueprint 3.x
 
 A practical, project-driven curriculum for QA engineers learning to use LLMs as a real testing tool — not a toy.
 Each chapter pairs concept material with a hands-on project, a prompt template, and runnable code where applicable.
 
-- **Author:** Rahul Jaiswal
-- **Role:** Lead Consultant
-
----
-
-## Table of Contents
-
-- [Curriculum Map](#curriculum-map)
-- [Repository Layout](#repository-layout)
-- [Chapter 01 — LLM Basics](#chapter-01--llm-basics)
-- [Chapter 02 — Prompt Engineering for QA](#chapter-02--prompt-engineering-for-qa)
-- [Chapter 03 — BLAST Jira Test Plan Generator](#chapter-03--blast-jira-test-plan-generator)
-- [Chapter 04 — n8n and Local AI Agents for QA](#chapter-04--n8n-and-local-ai-agents-for-qa)
-- [Chapter 05 — AI Agents with LangFlow](#chapter-05--ai-agents-with-langflow)
-- [Chapter 06 — AI Social Media Content Creation](#chapter-06--ai-social-media-content-creation)
-- [Chapter 07 — RAG (Retrieval-Augmented Generation)](#chapter-07--rag-retrieval-augmented-generation)
-- [Project — Job Tracker AI](#project--job-tracker-ai)
-- [Live Task — RAG Explorer (04th July)](#live-task--rag-explorer-04th-july)
-- [Live Task — Test Strategy Generator for Jira IDs (06th June)](#live-task--test-strategy-generator-for-jira-ids-06th-june)
-- [Live Task — Job Tracker (13th June)](#live-task--job-tracker-13th-june)
-- [Live Task — (14th June)](#live-task--14th-june)
-- [Live Task — (20th June)](#live-task--20th-june)
-- [Live Task — API Contract Validator (21st June)](#live-task--api-contract-validator-21st-june)
-- [Live Task — (23rd May)](#live-task--23rd-may)
-- [Live Task — (24th May)](#live-task--24th-may)
-- [Live Task — LangFlow QA Agents (27th June)](#live-task--langflow-qa-agents-27th-june)
-- [How to Use This Repo](#how-to-use-this-repo)
-- [Requirements](#requirements)
-- [Chapter History](#chapter-history)
+- **Author:** Pramod Dutta — Principal SDET
+- **Website:** [The Testing Academy](https://thetestingacademy.com/)
+- **LinkedIn:** [linkedin.com/in/pramoddutta](https://www.linkedin.com/in/pramoddutta/)
 
 ---
 
@@ -91,6 +65,7 @@ mindmap
       Published flow = REST API
       Flaky Test Analyzer + React UI
       API Contract Validator
+      Bug Triage agent
       LangFlow vs LangGraph vs LangSmith
     Ch 06 - AI Social Media Content
       Hook - Story - Offer planning
@@ -103,23 +78,17 @@ mindmap
       Nomic Embed via Ollama
       Local ChromaDB store
       Retrieve top-k + Groq answer
+    E2E AI QA Pipeline (blueprint)
+      Jira JQL to test plan
+      RAG test cases
+      Playwright .md automation
+      Browser Bash execution
+      Flakiness + RCA + dashboard
     Project - Job Tracker AI
       Local-first React Kanban board
       IndexedDB persistence
       Drag-and-drop job cards
       JSON backup and restore
-    Live Task - Job Tracker (13th June)
-      Enhanced Kanban with interview rounds
-      Analytics dashboard + command palette
-      Undo/redo, archive, bulk operations
-      Smart follow-up reminders
-      Vercel deployment
-    Live Task - LangFlow QA Agents (27th June)
-      6 production-grade Langflow agent pipelines
-      Bug triage, flaky test analyzer, RCA bot
-      Test case generator, test plan creator, JSON schema validator
-      JIRA + local document ingestion
-      Docker deployment with volume mounts
 ```
 
 ---
@@ -191,80 +160,46 @@ mindmap
 │   │   ├── AI3X_002_Flaky_Test_AIAgent.json
 │   │   ├── AI3X_003_Bug_Triage_AI_Agent.json
 │   │   └── AI3X_004_API_Contract_Validator.md
-  │   └── flaky_test_analyzer_ai_Agent/
-  │       ├── PROMPTS.md             Agent prompt + UI build prompt (shareable)
-  │       ├── result1.json / result2.json   Sample Playwright runs
-  │       └── ui/                    React UI proxied to the LangFlow API
-  │
-  ├── chapter_06_AI_Social_Media_Content_Creation/   One idea to a full content pack
-  │   ├── README.md
-  │   ├── 00_Hook_Story_Offer_Planning.md    Plan any idea before writing
-  │   ├── 01_YouTube_Video_Template.md
-  │   ├── 02_Instagram_Reel_Template.md
-  │   ├── 03_Instagram_Post_Template.md
-  │   ├── 04_Instagram_Carousel_Template.md
-  │   ├── 05_Medium_Article_Template.md
-  │   ├── 06_Blog_Post_Template.md
-  │   └── 07_LinkedIn_Post_Template.md
-  │
-  ├── chapter_07_RAG/                Retrieval-Augmented Generation
-  │   ├── RAG_Explorer.jpg
-  │   └── Basic_RAG/
-  │       ├── data/                  Source PDF (VWO PRD)
-  │       └── rag-explorer/          React + Express RAG demo app
-  │           ├── server/            Express API: pdf, chunk, embed, chroma, groq
-  │           ├── src/               React UI (pipeline view, ingest, query)
-  │           └── README.md
-  │
-  ├── Project_Job_TRACKERAI/         Local-first job application tracker
-  │   ├── README.md
-  │   ├── package.json
-  │   ├── src/
-  │   │   ├── App.jsx
-  │   │   ├── constants.js
-  │   │   └── db.js
-  │   └── public/
-  │       └── favicon.svg
-  │
-  └── Live_Task_AI_Testing/          Live class tasks and real-time projects
-      ├── Task_04th_July/
-      │   ├── README.md
-      │   ├── data/
-      │   │   └── vwo-prd.pdf        VWO Product Requirements Document
-      │   └── rag-explorer/          End-to-end RAG pipeline demo
-      │       ├── server/            Express API (PDF, chunk, embed, ChromaDB, Groq)
-      │       ├── src/               React UI (two-column layout, pipeline viz)
-      │       └── README.md
-      ├── Task_06th_June/
-      │   └── Test_Stratgey_generation_agent_for_Jira_id/
-      │       ├── README.md
-      │       ├── gemini.md          Project Constitution
-      │       ├── task_plan.md       Phase tracking
-      │       ├── architecture/      Layer 1 SOPs
-      │       ├── api/               Vercel serverless endpoints
-      │       ├── src/               React UI (Dark/Light mode)
-      │       └── tools/             Jira, GROQ, and Markdown engines
-      ├── Task_13th_June/
-      │   └── job_tracker_task/      Enhanced local-first job tracker
-      │       ├── README.md
-      │       ├── package.json
-      │       ├── src/               React + Vite SPA
-      │       └── dist/              Production build
-      ├── Task_14th_June/
-      ├── Task_20th_June/
-      ├── Task_21st_June/
-      │   └── API_Contract_Validator.json   LangFlow API contract validation flow
-      ├── Task_23rd_May/
-      ├── Task_24th_May/
-      └── Task_27th_June/
-          └── langflow-qa-agents/    6 production-grade Langflow agent pipelines
-              ├── README.md
-              ├── Bug_Triage_Agent.json
-              ├── Flaky_Test_Case_generator.json
-              ├── JSON-Schema-Validator.json
-              ├── RCA-Bot.json
-              ├── Test-Case-Generator.json
-              └── Test-Plan-Creator.json
+│   └── flaky_test_analyzer_ai_Agent/
+│       ├── PROMPTS.md             Agent prompt + UI build prompt (shareable)
+│       ├── result1.json / result2.json   Sample Playwright runs
+│       └── ui/                    React UI proxied to the LangFlow API
+│
+├── chapter_06_AI_Social_Media_Content_Creation/   One idea to a full content pack
+│   ├── README.md
+│   ├── 00_Hook_Story_Offer_Planning.md    Plan any idea before writing
+│   ├── 01_YouTube_Video_Template.md
+│   ├── 02_Instagram_Reel_Template.md
+│   ├── 03_Instagram_Post_Template.md
+│   ├── 04_Instagram_Carousel_Template.md
+│   ├── 05_Medium_Article_Template.md
+│   ├── 06_Blog_Post_Template.md
+│   └── 07_LinkedIn_Post_Template.md
+│
+├── chapter_07_RAG/                Retrieval-Augmented Generation
+│   ├── RAG_Explorer.jpg
+│   ├── BASIC_RAG_N8N.jpg
+│   ├── Basic_RAG/
+│   │   ├── data/                  Source PDF (VWO PRD)
+│   │   └── rag-explorer/          React + Express RAG demo app
+│   │       ├── server/            Express API: pdf, chunk, embed, chroma, groq
+│   │       ├── src/               React UI (pipeline view, ingest, query)
+│   │       └── README.md
+│   └── n8n_BASIC_RAG/             No-code Basic RAG (n8n workflow)
+│       └── AI3X_Basic_RAG.json
+│
+├── E2E_QA_Pipeline/               End-to-end AI QA pipeline blueprint
+│   └── E2E_QA_Pipeline.md         8-step flow: Jira -> plan -> cases -> automation -> run -> RCA
+│
+└── Project_Job_TRACKERAI/         Local-first job application tracker
+    ├── README.md
+    ├── package.json
+    ├── src/
+    │   ├── App.jsx
+    │   ├── constants.js
+    │   └── db.js
+    └── public/
+        └── favicon.svg
 ```
 
 ---
@@ -387,9 +322,16 @@ TC_API_007,Create booking with valid payload,"Auth token obtained","POST /bookin
 
 Goal: prove RICE-POT can build production code, not just test cases.
 
-- `pom.xml` — Maven project with Selenium 4, TestNG.
-- `src/test/java/pages/` — Page Object Model (POM) classes (`AccountPage.java`, `AuthPage.java`).
-- `src/test/java/tests/` — TestNG test classes (`AuthTest.java`).
+- `Problem.md` — the brief: "generate a Selenium framework from scratch with two page objects, production ready."
+- `SKILL.md` — the RICE-POT prompt-builder skill definition. Tells the AI how to interview you, assemble the prompt, and deliver it copy-pasteable.
+- `blank-template-rice-pot.md` — fill-in template with the recommended anti-hallucination Parameters block.
+- `AdvanceSeleniumFramework/` — the actual output the framework generates:
+  - Maven project, Java 11, Selenium 4.25, TestNG 7.10.
+  - `LoginPage.java` — PageFactory POM with explicit waits, fluent API, no Thread.sleep.
+  - `BaseTest.java` — driver lifecycle.
+  - `ConfigReader.java` — `config.properties` loader.
+  - `ValidLoginTest.java` / `InvalidLoginTest.java` — positive + negative TestNG cases.
+  - `testng.xml` / `testng-smoke.xml` — full and smoke suites.
 
 **Q&A — Project 2 design choices:**
 - **Q: Why XPath only?** A: The prompt locked it to one locator strategy on purpose — consistency makes generated code reviewable. In production you'd mix CSS + XPath, but the discipline of "one strategy" is what the prompt enforces.
@@ -439,9 +381,10 @@ public class LoginPage {
 
 **Run it:**
 ```bash
-cd chapter_02_Prompt_Eng/Project2_Selenium_Framework
+cd chapter_02_Prompt_Eng/Project2_Selenium_Framework/AdvanceSeleniumFramework
 mvn -q clean test-compile
-mvn test
+mvn test                       # full suite
+mvn test -DsuiteXmlFile=testng-smoke.xml   # smoke only
 ```
 
 ### Templates — RTCFR + RICE-POT (`templates/`)
@@ -449,7 +392,7 @@ mvn test
 Six copy-paste prompt templates for the most common QA tasks. Each follows the **RTCFR** shape — Role, Task, Constraints, Format, Requirements — which is the lightweight cousin of RICE-POT.
 
 | # | File | Purpose |
-|---|---|------|
+|---|------|---------|
 | 01 | `01_TestCaseGeneration_Prompt.md` | Basic test-case generation from free-form requirements. |
 | 02 | `02_TestCases_from_prd` | Comprehensive PRD → test cases (functional, negative, boundary, edge). |
 | 03 | `03_API_Test_Generation.md` | API endpoint test cases from API docs. |
@@ -476,8 +419,6 @@ This chapter turns a Jira ticket into a formal QA test plan through a lightweigh
 - `architecture/` — SOPs for Jira fetch, GROQ generation, and the 13-section test-plan template.
 
 **Why a QA engineer should care:** Jira tickets are often the real source of truth. This project shows how to keep credentials out of the browser, fetch ticket context safely, ask an LLM for structured JSON, and render a repeatable test plan without relying on free-form chat output.
-
-**Live URL:** [https://smart-pro-test-case-generator.vercel.app](https://smart-pro-test-case-generator.vercel.app)
 
 **Run it locally:**
 ```bash
@@ -787,168 +728,70 @@ npm run dev               # starts ChromaDB + Express API + Vite UI
 
 Open the Vite URL (default `http://localhost:5175`), click **Ingest PDF**, then ask a question. See `chapter_07_RAG/Basic_RAG/rag-explorer/README.md` for the full walkthrough and troubleshooting.
 
+### Basic RAG in n8n (no-code)
+
+`chapter_07_RAG/n8n_BASIC_RAG/AI3X_Basic_RAG.json` is the same RAG idea built as a **no-code n8n workflow** — the pipeline without writing a backend.
+
+![Basic RAG in n8n](chapter_07_RAG/BASIC_RAG_N8N.jpg)
+
+**Two phases:**
+- **Phase 1 - Ingestion:** a form-submission trigger loads a text/PDF, a Recursive Character Text Splitter chunks it, OpenAI embeddings vectorise it, and the vectors land in a Pinecone vector store.
+- **Phase 2 - RAG Fetching:** a chat-message trigger drives a RAG Agent (gpt-5-mini brain + chat memory) that retrieves from Pinecone (via OpenAI embeddings) and answers grounded in the ingested docs.
+
+**Import + run:** open n8n, import `AI3X_Basic_RAG.json`, reconnect the OpenAI + Pinecone credentials, submit a document, then chat.
+
 ---
 
-## Live Task — RAG Explorer (04th July)
+## End-to-End AI QA Pipeline (Blueprint)
 
-`Live_Task_AI_Testing/Task_04th_July/` contains a full **end-to-end RAG (Retrieval-Augmented Generation) pipeline demo**. It reads a PDF (VWO PRD), splits it into chunks, generates embeddings with **Nomic Embed** (via Ollama), stores them in **ChromaDB**, and uses **Groq (`openai/gpt-oss-120b`)** to answer questions based on the retrieved top-4 chunks.
+**Concept:** `E2E_QA_Pipeline/` is the blueprint that ties the whole course together — an AI pipeline that reads a Jira story and drives it all the way to executed automation and an analysed results dashboard, with a RAG pipeline supplying historical test plans and cases along the way.
 
-**What's here:**
-- **Two-column React UI** — left side shows the ingestion pipeline, right side shows query + answer + retrieved chunks
-- **PDF parsing, chunking (1200 chars / 200 overlap), embedding, vector storage**
-- **Visual pipeline** showing every step: PDF → Chunk → Embed → Store → Query → Retrieve → Answer
-- **Reset button** to re-run the ingestion demo from scratch
-- **Loading spinner** with status text during query processing
+**Why:** Each chapter builds one capability (prompts, agents, RAG, automation). This document shows how they compose into a single autonomous loop: from a Jira story to test plan, test cases, Playwright automation, execution, and root-cause analysis — no manual step in between.
 
-**Tech stack:** React 18 + Vite + Express + pdf-parse + chromadb (npm) + Ollama + Groq
+**Q&A — the end-to-end loop:**
+- **Q: Where does RAG fit?** A: Steps 3 and 4. The agent generates the test plan and test cases by referencing a RAG store of past plans, cases, and testing docs — so output is context-aware and reusable, not generated from scratch.
+- **Q: How do test cases become runnable?** A: Step 5 — a LangChain agent converts them into `.md` automation-flow files against the Playwright framework, which Browser Bash (step 6) executes with a cost-effective LLM (e.g. DeepSeek).
+- **Q: What closes the loop?** A: Step 8 — `result.json` is fed back to an agent that checks flakiness, runs RCA, triages failures, and pushes the final data to a dashboard.
 
-**Run it locally:**
-```bash
-cd Live_Task_AI_Testing/Task_04th_July/rag-explorer
-npm install
-cp .env.example .env    # add your GROQ_API_KEY
-npm run dev             # starts Express (:3001) + Vite (:5173)
+**The 8-step flow:**
+
+```mermaid
+flowchart TD
+    J[1. Fetch Jira stories<br/>JQL + LangChain agent] --> P[2. Process story<br/>one by one - VWO-109]
+    P --> TP[3. Create test plan]
+    TP --> TC[4. Generate test cases]
+    RAG[(RAG pipeline<br/>past plans + cases + docs)] -.reference.-> TP
+    RAG -.reference.-> TC
+    TC --> MD[5. Convert to .md<br/>Playwright automation flow]
+    MD --> EX[6. Execute via Browser Bash<br/>DeepSeek / cheap LLM]
+    EX --> RJ[7. Generate result.json<br/>pass/fail, logs, errors]
+    RJ --> AN[8. Analyze results<br/>flakiness + RCA + triage]
+    AN --> DASH[Dashboard<br/>final reporting]
 ```
 
-Open **http://localhost:5173**, click **"Ingest VWO PRD"**, then ask a question like *"What is VWO?"* or *"List the key features."*
+Read `E2E_QA_Pipeline/E2E_QA_Pipeline.md` for the full step-by-step write-up.
 
 ---
 
-## Live Task — Test Strategy Generator for Jira IDs (06th June)
+## Project - Job Tracker AI
 
-`Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id/` is a lightweight **React + Express** app built with the **B.L.A.S.T.** protocol. Enter a Jira ID (e.g., `KAN-5`) and get a **comprehensive Test Strategy** in 8 sections, matching the professional PDF format.
+`Project_Job_TRACKERAI/` is a local-first job application tracker built as a Vite + React single-page app. It stores every job card in the browser with IndexedDB through the `idb` library, so there is no backend, authentication, or external database.
 
 **What's here:**
-- **Objective, Scope, Focus Areas, Approach, Deliverables, Team & Schedule, Entry & Exit Criteria, Risks**
-- Dark Mode / Light Mode toggle with theme persistence
-- Jira ticket fetch (minimal data: summary, description, type)
-- GROQ LLM generation using `openai/gpt-oss-120b` (free tier)
-- Download strategy as `.md` file
-- Settings stored in browser localStorage (fallback to server `.env`)
-
-**Live URL:** https://test-strategy-generator-beta.vercel.app
+- Six Kanban columns: Wishlist, Applied, Follow-up, Interview, Offer, and Rejected.
+- Drag-and-drop cards between columns with `@dnd-kit/core`.
+- Add, edit, delete, search, and sort job cards.
+- Resume-name reuse, LinkedIn job links, days-since-applied labels, salary notes, and status color accents.
+- Light/dark mode plus JSON export/import for backups.
 
 **Run it locally:**
 ```bash
-cd Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id
-npm install
-npm run dev
-```
-
-Open `http://localhost:5173`, add Jira + GROQ credentials in the Settings tab, then generate a strategy from a Jira ID.
-
----
-
-## Live Task — (14th June)
-
-`Live_Task_AI_Testing/Task_14th_June/` — Live class task folder.
-
----
-
-## Live Task — Job Tracker (13th June)
-
-`Live_Task_AI_Testing/Task_13th_June/job_tracker_task/` is an **enhanced local-first job application tracker** built as a Vite + React single-page app. It extends the original Job Tracker with interview round management, analytics, command palette, undo/redo, archive mode, and smart reminders.
-
-**What's here:**
-- **Six Kanban columns**: Wishlist, Applied, Follow-up, Interview, Offer, and Rejected.
-- **Drag-and-drop** cards between columns with `@dnd-kit/core`.
-- **Interview Round Tracker**: Manage HR Screen, Technical, System Design, Behavioral, and custom rounds with status (Scheduled / Completed / Passed / Failed), dates, and notes.
-- **Smart Follow-Up Reminders**: Auto-badges stale cards (Applied ≥7 days, scheduled interviews ≥3 days past).
-- **Command Palette (⌘+K)**: Spotlight search across jobs + quick actions.
-- **Undo / Redo (⌘+Z / ⌘+Y)**: Full history stack for drag, edit, delete, archive, and import.
-- **Archive Mode + Bulk Operations**: Soft-delete jobs, bulk archive via multi-select, restore from archive view.
-- **Pipeline Analytics Dashboard**: Funnel visualization, response rate, offer rate, resume performance, and average time to interview.
-- **Duplicate Detection**: Warns when adding a job at the same company + role.
-- **Search, sort, dark mode, JSON export/import** — all 100% local via IndexedDB.
-
-**Live URL:** https://job-tracker-olive-eta.vercel.app
-
-**Run it locally:**
-```bash
-cd Live_Task_AI_Testing/Task_13th_June/job_tracker_task
+cd Project_Job_TRACKERAI
 npm install
 npm run dev
 ```
 
-Open the local Vite URL and use the app directly in the browser. Data persists in the browser's IndexedDB database named `job-tracker-db`.
-
----
-
-## Live Task — (20th June)
-
-`Live_Task_AI_Testing/Task_20th_June/` — Live class task folder.
-
----
-
-## Live Task — API Contract Validator (21st June)
-
-`Live_Task_AI_Testing/Task_21st_June/API_Contract_Validator.json` is a **LangFlow API Contract Validator flow** that validates live API responses against their agreed JSON schema. Import this JSON into LangFlow to run a visual agent pipeline that checks for contract drift — missing fields, wrong types, and extra keys — without writing per-endpoint assertion code.
-
-**What's here:**
-- `API_Contract_Validator.json` — importable LangFlow flow definition (API Request → Prompt → LLM → Chat output).
-- Validates real HTTP responses against a JSON Schema using an LLM judge for human-readable PASS/FAIL + diff output.
-- Catches breaking API changes that slip past traditional tests.
-
-**Why a QA engineer should care:** APIs drift silently in production. This flow turns contract validation into a reusable, visual pipeline you can run on-demand or wire into CI via LangFlow's published API endpoint.
-
-**How to use it:**
-1. Start LangFlow locally (Docker or pip):
-   ```bash
-   docker run -d -p 7860:7860 langflowai/langflow:latest
-   ```
-2. Open `http://localhost:7860`, create a new project, and import `API_Contract_Validator.json` via **Upload**.
-3. Configure the **API Request** component with your target endpoint URL, method, and headers.
-4. Update the **Prompt** component with the JSON Schema you want to validate against.
-5. Run the flow from the playground or publish it and call `POST /api/v1/run/{flowId}`.
-
-**Read the full walkthrough, sample schema, and example output in:**
-`chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`
-
----
-
-## Live Task — (23rd May)
-
-`Live_Task_AI_Testing/Task_23rd_May/` — Live class task folder.
-
----
-
-## Live Task — (24th May)
-
-`Live_Task_AI_Testing/Task_24th_May/` — Live class task folder.
-
----
-
-## Live Task — LangFlow QA Agents (27th June)
-
-`Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/` contains **6 production-grade Langflow agent pipelines and validation tools** designed to automate critical QA and SDLC phases. These are importable JSON flow definitions that run inside a local or containerised LangFlow instance.
-
-**What's here:**
-- `Bug_Triage_Agent.json` — fetches JIRA bug details and generates priority, severity, and categorisation recommendations.
-- `Flaky_Test_Case_generator.json` — compares two test execution logs (pass vs fail) to identify flaky patterns and remediation strategies.
-- `RCA-Bot.json` — pulls incident data from JIRA and exports structured Root Cause Analysis documents in `.md` and `.docx`.
-- `Test-Case-Generator.json` — generates standard test cases plus a complete E2E **Playwright automation framework** (POM, fixtures, config) from JIRA tickets or local PRD/spec files.
-- `Test-Plan-Creator.json` — builds high-level Test Plans and Test Strategies from JIRA Epics or local spec documents, writing `test_plan.md` and `test_strategy.md`.
-- `JSON-Schema-Validator.json` — validates JSON payloads (raw strings, JSONL, directory batches, or URL endpoints) against a JSON Schema using multi-threaded workers.
-
-**Why a QA engineer should care:** these flows turn repetitive QA analysis into callable, reusable pipelines. JIRA integration, local document ingestion, and multi-file output mean the agents fit real workflows without manual copy-paste from chat.
-
-**How to use the agents:**
-1. Start LangFlow locally (Docker recommended):
-   ```bash
-   mkdir -p langflow-data && chmod 777 langflow-data
-   docker run -d \
-     -v $(pwd)/langflow-data:/app/langflow \
-     -e LANGFLOW_CONFIG_DIR=/app/flow \
-     --name langflow \
-     -p 7860:7860 \
-     langflowai/langflow:latest
-   ```
-2. Open `http://localhost:7860`, create a new project, and import any `.json` flow via **Upload**.
-3. Configure JIRA credentials in the **API Request** component headers (`Authorization: Basic <base64>`) if the flow uses JIRA.
-4. Run the flow from the playground or publish it and call `POST /api/v1/run/{flowId}`.
-
-**Read the full setup, JIRA configuration, and Docker volume mount guide in:**
-`Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/README.md`
+Open the local Vite URL and use the app directly in the browser. Data persists in the browser's IndexedDB database named `job-tracker-ai`.
 
 ---
 
@@ -957,11 +800,10 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 You can read it linearly (chapter 01 → 07) or jump straight to a project:
 
 - **"I want better test cases now."** → `chapter_02_Prompt_Eng/templates/01_TestCaseGeneration_Prompt.md` or `02_TestCases_from_prd`.
-- **"I want to write tests from a PDF/API doc."** → `chapter_02_Prompt_Eng/Project1_Test_Case_Generation/`.
-- **"I want to scaffold a Selenium project."** → `chapter_02_Prompt_Eng/Project2_Selenium_Framework/`.
+- **"I want to write tests from a PDF/API doc."** → `chapter_02_Prompt_Eng/Project1_TC_Gen/`.
+- **"I want to scaffold a Selenium project."** → `chapter_02_Prompt_Eng/Project2_Selenium_Framework/SKILL.md`, then run the Maven project under `AdvanceSeleniumFramework/`.
 - **"I want my model to stop making things up."** → `chapter_02_Prompt_Eng/Anti_Hallucinations_Rules.md`.
 - **"I want to generate a test plan from Jira."** → `chapter_03_BLAST_FW_JIRA_AI_AGENT/`.
-- **"I want to generate a test strategy from Jira."** → `Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id/`.
 - **"I want reusable QA automation agents."** → `chapter_04_AI_Agents_n8n/n8n_AIAgent/`.
 - **"I want a local AI content dashboard."** → `chapter_04_AI_Agents_n8n/social_ai_agent/contentforge/`.
 - **"I want publish-ready Testing Academy content."** → `chapter_04_AI_Agents_n8n/skillfile_content_generation/output/`.
@@ -969,22 +811,18 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - **"I want to tailor my resume to a job (ATS)."** → `chapter_04_AI_Agents_n8n/resume-tailor/SKILL.md`.
 - **"I want to build AI agents visually (low-code)."** → `chapter_05_AI_Agents_LangFlow/`.
 - **"I want to tell flaky tests from real failures."** → `chapter_05_AI_Agents_LangFlow/flaky_test_analyzer_ai_Agent/`.
-  - **"I want to see how a RAG pipeline works end to end."** → `Live_Task_AI_Testing/Task_04th_July/rag-explorer/`.
-  - **"I want to validate an API response against a JSON schema."** → `chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`.
-  - **"I want an advanced job tracker with interview rounds and analytics."** → `Live_Task_AI_Testing/Task_13th_June/job_tracker_task/`.
-  - **"I want to validate an API response against a JSON schema (LangFlow flow)."** → `Live_Task_AI_Testing/Task_21st_June/API_Contract_Validator.json`.
-  - **"I want 6 ready-to-import LangFlow QA agent pipelines."** → `Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/`.
-  - **"I want to turn one idea into content for every platform."** → `chapter_06_AI_Social_Media_Content_Creation/` (start at `00_Hook_Story_Offer_Planning.md`).
-  - **"I want to publish a LinkedIn post that actually gets reach."** → `chapter_06_AI_Social_Media_Content_Creation/07_LinkedIn_Post_Template.md`.
-  - **"I want to see how a RAG pipeline works end to end (chapter material)."** → `chapter_07_RAG/Basic_RAG/rag-explorer/`.
-  - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
+- **"I want to validate an API response against a JSON schema."** → `chapter_05_AI_Agents_LangFlow/Project/AI3X_004_API_Contract_Validator.md`.
+- **"I want to turn one idea into content for every platform."** → `chapter_06_AI_Social_Media_Content_Creation/` (start at `00_Hook_Story_Offer_Planning.md`).
+- **"I want to publish a LinkedIn post that actually gets reach."** → `chapter_06_AI_Social_Media_Content_Creation/07_LinkedIn_Post_Template.md`.
+- **"I want to see how a RAG pipeline works end to end."** → `chapter_07_RAG/Basic_RAG/rag-explorer/`.
+- **"I want the big picture — Jira story to executed automation."** → `E2E_QA_Pipeline/E2E_QA_Pipeline.md`.
+- **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 
 ## Requirements
 
 - Any modern LLM (Claude / GPT / Gemini / DeepSeek). No specific provider required.
 - For Project 2 only: **JDK 11+** and **Maven 3.9+** to compile and run the Selenium framework.
 - For Chapter 3: **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
-- For Live Task (Test Strategy Generator): **Node.js 18+**, npm, Jira API credentials, and a GROQ API key.
 - For Chapter 4 n8n workflows: n8n Cloud or self-hosted n8n, plus credentials for whichever workflow nodes you enable.
 - For Chapter 4 ContentForge: **Node.js 20+**, npm, `GROQ_API_KEY`, and `GEMINI_API_KEY`.
 - For Chapter 4 Social Media Agent: n8n plus credentials for a chat model (DeepSeek / Gemini / OpenAI), Google Sheets, and Google Drive.
@@ -992,26 +830,18 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - For Chapter 6 Content Templates: nothing but a Markdown editor and any LLM — the templates are tooling-free.
 - For Chapter 7 RAG Explorer: **Node.js 20+**, **Ollama** with `nomic-embed-text` pulled, **ChromaDB** (`pip install chromadb`), and a **Groq API key**.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
-- For Live Task (Job Tracker): **Node.js 20.19+ or 22.12+** and npm for Vite 8.
-- For Live Task (RAG Explorer): **Node.js 20+**, npm, **Ollama** with `nomic-embed-text`, **ChromaDB** (or in-memory fallback), and a **Groq API key**.
-- For Live Task (LangFlow QA Agents): a running LangFlow instance (Docker or local) and, for JIRA-connected flows, an Atlassian API token.
 
 ## Chapter History
 
 `a2eb280` — chapter 01 LLM basics with interactive attention visualisations.
 `dfe2653` — chapter 02 prompt engineering with RICE-POT framework + Selenium project.
 `187a77f` — chapter 03 B.L.A.S.T. Jira to Test Plan generator.
-`f5ccf83` — Live Task: Test Strategy Generator for Jira IDs with Dark Mode + B.L.A.S.T. protocol.
 `f67b4f6` — chapter 04 ContentForge local content pipeline + skill output pack.
 `bbc77dc` — chapter 05 LangFlow Flaky Test Analyzer agent + React UI.
 `e98d376` — chapter 05 API Contract Validator agent.
 `d81aef0` — chapter 05 LangFlow agents (Hello World, Bug Triage) + chapter 04 skills.
 `2d00d6f` — chapter 06 AI social media content templates + chapter 05 PROMPTS.md.
-`1f2fb9e` — Live Task: Enhanced Job Tracker with interview rounds, analytics dashboard, command palette, undo/redo, archive, and smart follow-up reminders.
-`TBD` — Live Task: API Contract Validator LangFlow flow for live endpoint schema validation.
-`TBD` — Live Task: 6 production-grade LangFlow QA agent pipelines — Bug Triage, Flaky Test Analyzer, RCA Bot, Test Case Generator, Test Plan Creator, and JSON Schema Validator.
-`ecf9257` — Live Task: RAG Explorer (04th July) — React + Express + ChromaDB + Ollama + Groq pipeline demo.
 
 ---
 
-Made by [Rahul Jaiswal]
+Made by [Pramod Dutta](https://thetestingacademy.com/) for The Testing Academy.
