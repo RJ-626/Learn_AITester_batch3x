@@ -204,6 +204,35 @@ mindmap
 
 ---
 
+## Quick Start
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/RJ-626/Learn_AITester_batch3x.git
+   cd Learn_AITester_batch3x
+   ```
+2. **Install prerequisites**
+   - Node.js 20+ (for most projects)
+   - Ollama + `nomic-embed-text` (for RAG chapters)
+   - JDK 11+ and Maven 3.9+ (for Selenium project)
+3. **Pick a chapter or live task** and follow the `Run it locally` steps in that section.
+4. **Copy the prompt templates** from `chapter_02_Prompt_Eng/templates/` into your LLM tool and start generating test cases.
+
+---
+
+## Troubleshooting
+
+| Issue | Likely Cause | Fix |
+|---|---|---|
+| `npm install` fails with EACCES | Permission issue on global packages | Use `npm install` without sudo, or run `npx` commands |
+| Ollama embedding times out | Model not pulled | Run `ollama pull nomic-embed-text` first |
+| Vite UI shows "Failed to fetch" on file upload | CORS / LangFlow not running | Ensure LangFlow is up at `http://localhost:7861` and the Vite proxy is forwarding `/api` |
+| Jira API returns 401 | Invalid or missing token | Check `Authorization: Basic <base64>` header and Jira base URL |
+| ChromaDB `Connection refused` | Chroma not started | In RAG Explorer, run `npm run dev` which starts Chroma alongside Express |
+| Generated CSV has blank rows | Model ignored the `Output` constraint | Tighten the `O - Output` block in the RICE-POT prompt and pin `temperature=0` |
+
+---
+
 ## Chapter 01 — LLM Basics
 
 Foundational material on how Large Language Models read text and decide what to output. The key idea: a model is not a database lookup — it weighs every token against every other token (attention) and predicts the next one.
@@ -795,6 +824,19 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 
 ---
 
+## Contributing & Feedback
+
+This repo is a living curriculum. If you hit a bug, find a broken link, or want to add a new template or project:
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feat/your-change`.
+3. Make your changes and update relevant README sections.
+4. Open a pull request with a short description of what changed and why.
+
+For quick feedback or questions, open a GitHub Issue or reach out directly.
+
+---
+
 ## How to Use This Repo
 
 You can read it linearly (chapter 01 → 07) or jump straight to a project:
@@ -841,6 +883,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 `e98d376` — chapter 05 API Contract Validator agent.
 `d81aef0` — chapter 05 LangFlow agents (Hello World, Bug Triage) + chapter 04 skills.
 `2d00d6f` — chapter 06 AI social media content templates + chapter 05 PROMPTS.md.
+`73db9ca` — Merged upstream updates: added E2E QA Pipeline blueprint, n8n Basic RAG workflow, and Chapter 07 n8n assets.
 
 ---
 
