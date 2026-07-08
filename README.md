@@ -3,7 +3,7 @@
 A practical, project-driven curriculum for QA engineers learning to use LLMs as a real testing tool — not a toy.
 Each chapter pairs concept material with a hands-on project, a prompt template, and runnable code where applicable.
 
-- **Author:** Pramod Dutta — Principal SDET
+- **Author:** Pramod Dutta — Lead Consultant
 - **Website:** [The Testing Academy](https://thetestingacademy.com/)
 - **LinkedIn:** [linkedin.com/in/pramoddutta](https://www.linkedin.com/in/pramoddutta/)
 
@@ -190,6 +190,20 @@ mindmap
 │
 ├── E2E_QA_Pipeline/               End-to-end AI QA pipeline blueprint
 │   └── E2E_QA_Pipeline.md         8-step flow: Jira -> plan -> cases -> automation -> run -> RCA
+│
+├── Live_Task_AI_Testing/          Live class tasks and real-time projects
+│   ├── Task_23rd_May/             LLM research notes and local model comparison
+│   ├── Task_24th_May/             Rest Assured framework + local LLM test plans
+│   ├── Task_06th_June/            Jira Test Strategy generator (B.L.A.S.T.)
+│   ├── Task_13th_June/            Enhanced Job Tracker (Kanban + analytics)
+│   ├── Task_14th_June/            ContentForge live content pipeline
+│   ├── Task_20th_June/            LangFlow Hello World chatbot
+│   ├── Task_21st_June/            API Contract Validator (LangFlow)
+│   ├── Task_27th_June/            LangFlow QA Agents suite (6 agents + React UI)
+│   ├── Task_04th_July/            End-to-end RAG Explorer (React + Express + ChromaDB)
+│   └── Task_05th_July/            n8n Basic RAG no-code workflow
+│
+├── job-tracker/                   Alternate local-first job tracker (Vite + React)
 │
 └── Project_Job_TRACKERAI/         Local-first job application tracker
     ├── README.md
@@ -824,6 +838,34 @@ Open the local Vite URL and use the app directly in the browser. Data persists i
 
 ---
 
+## Live Class Tasks
+
+`Live_Task_AI_Testing/` holds real-time class projects and daily tasks built during the live AI Tester Blueprint sessions. These are applied, repeatable implementations of the chapter concepts.
+
+| Task | Date | What it covers |
+|------|------|----------------|
+| **Task_23rd_May** | 23 May | Research notes comparing open-source vs. closed-source LLMs, local model feasibility for 16 GB RAM, and a feature comparison matrix. |
+| **Task_24th_May** | 24 May | Rest Assured API testing framework, Test Plan creation with a local LLM, and Project1 TestPlan Generator. |
+| **Task_06th_June** | 06 June | Test Strategy generator for Jira IDs — a React + Express app using the **B.L.A.S.T.** protocol to produce a 10-section test strategy from any Jira ticket. |
+| **Task_13th_June** | 13 June | Enhanced Job Tracker — a Vite + React Kanban board with interview round management, analytics dashboard, command palette, undo/redo, archive mode, and smart reminders. |
+| **Task_14th_June** | 14 June | ContentForge live content pipeline task. |
+| **Task_20th_June** | 20 June | LangFlow Hello World chatbot (`AI3X_001_Live_Task_simple chatbot.json`) — the simplest possible flow to confirm the canvas and API work. |
+| **Task_21st_June** | 21 June | API Contract Validator (`API_Contract_Validator.json`) — a LangFlow flow that validates live API responses against a JSON Schema without per-endpoint assertion code. |
+| **Task_27th_June** | 27 June | LangFlow QA Agents suite — **6 production-grade agents** (Bug Triage, Flaky Test Generator, RCA Bot, Test Case Generator, Test Plan Creator, JSON Schema Validator) with a custom React UI and custom export components. |
+| **Task_04th_July** | 04 July | Full end-to-end **RAG Explorer** — React + Express + ChromaDB + Ollama + Groq. Reads a PDF (VWO PRD), chunks it, embeds with Nomic Embed, stores in ChromaDB, and answers questions via Groq. Includes production hosting scripts and multi-source ingestion. |
+| **Task_05th_July** | 05 July | **n8n Basic RAG** no-code workflow (`AI3X_Basic_RAG_n8n.json`) — form-triggered document upload, OpenAI embeddings, Pinecone vector store, and a RAG Agent that retrieves and answers grounded in the ingested docs. |
+
+**Jump to a live task:**
+- **"I want to research which LLM to run locally."** → `Live_Task_AI_Testing/Task_23rd_May/notes.md`
+- **"I want a Rest Assured framework built from a prompt."** → `Live_Task_AI_Testing/Task_24th_May/Rest_assured_testing_framework/`
+- **"I want to generate a test strategy from a Jira ID."** → `Live_Task_AI_Testing/Task_06th_June/Test_Stratgey_generation_agent_for_Jira_id/`
+- **"I want an enhanced job tracker with analytics."** → `Live_Task_AI_Testing/Task_13th_June/Job_Tracker_Task/`
+- **"I want 6 LangFlow QA agents in one suite."** → `Live_Task_AI_Testing/Task_27th_June/langflow-qa-agents/`
+- **"I want a production-ready RAG Explorer."** → `Live_Task_AI_Testing/Task_04th_July/rag-explorer/`
+- **"I want a no-code RAG workflow in n8n."** → `Live_Task_AI_Testing/Task_05th_July/AI3X_Basic_RAG_n8n.json`
+
+---
+
 ## Contributing & Feedback
 
 This repo is a living curriculum. If you hit a bug, find a broken link, or want to add a new template or project:
@@ -859,6 +901,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - **"I want to see how a RAG pipeline works end to end."** → `chapter_07_RAG/Basic_RAG/rag-explorer/`.
 - **"I want the big picture — Jira story to executed automation."** → `E2E_QA_Pipeline/E2E_QA_Pipeline.md`.
 - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
+- **"I want the live class tasks and daily builds."** → `Live_Task_AI_Testing/` (see the Live Class Tasks table above).
 
 ## Requirements
 
@@ -884,6 +927,13 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 `d81aef0` — chapter 05 LangFlow agents (Hello World, Bug Triage) + chapter 04 skills.
 `2d00d6f` — chapter 06 AI social media content templates + chapter 05 PROMPTS.md.
 `73db9ca` — Merged upstream updates: added E2E QA Pipeline blueprint, n8n Basic RAG workflow, and Chapter 07 n8n assets.
+`d736710` — Added Chapter 07 n8n Basic RAG workflow + README screenshots.
+`5e7cc07` — RAG Explorer multi-source ingestion, 24/7 hosting, and production mode.
+`96a0c08` — E2E AI QA pipeline blueprint added to README.
+`407e82c` — README expanded with Quick Start, Troubleshooting, Contributing, and full live-task index.
+`3113371` — Added all Live_Task_AI_Testing folders (04th July, 14th June, 20th June, 23rd May, 24th May) with RAG Explorer section.
+`ead8ed8` — Task_04th_July RAG Explorer: two-column UI, reset endpoint, server-ready banner, spinner, sticky left panel.
+`c825ad5` — Task_27th_June LangFlow QA Agents: 6 standalone agent UIs with model persistence and form state persistence.
 
 ---
 
