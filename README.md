@@ -78,6 +78,8 @@ mindmap
       Nomic Embed via Ollama
       Local ChromaDB store
       Retrieve top-k + Groq answer
+      Vector Store viewer + upload
+      n8n + LangFlow RAG flows
     E2E AI QA Pipeline (blueprint)
       Jira JQL to test plan
       RAG test cases
@@ -185,8 +187,12 @@ mindmap
 │   │       ├── server/            Express API: pdf, chunk, embed, chroma, groq
 │   │       ├── src/               React UI (pipeline view, ingest, query)
 │   │       └── README.md
-│   └── n8n_BASIC_RAG/             No-code Basic RAG (n8n workflow)
-│       └── AI3X_Basic_RAG.json
+│   ├── n8n_BASIC_RAG/             No-code Basic RAG (n8n workflow)
+│   │   └── AI3X_Basic_RAG.json
+│   └── LangFlow_RAG/              Visual RAG flows (Naive + improved chunking)
+│       ├── AI_3X_Naive RAG.json
+│       ├── AI_3X_Naive RAG_Imporve_Chunk.json
+│       └── data/                  VWO_500_Test_Cases.csv
 │
 ├── E2E_QA_Pipeline/               End-to-end AI QA pipeline blueprint
 │   └── E2E_QA_Pipeline.md         8-step flow: Jira -> plan -> cases -> automation -> run -> RCA
@@ -726,7 +732,12 @@ ollama pull nomic-embed-text
 npm run dev               # starts ChromaDB + Express API + Vite UI
 ```
 
-Open the Vite URL (default `http://localhost:5175`), click **Ingest PDF**, then ask a question. See `chapter_07_RAG/Basic_RAG/rag-explorer/README.md` for the full walkthrough and troubleshooting.
+Open the Vite URL (default `http://localhost:5175`), click **Ingest folder** (or **upload your own** PDF / `.txt` / `.md`), then ask a question. Two tabs:
+
+- **Explorer** — the pipeline view: ingestion stats, a sample embedding, retrieved chunks with similarity scores, and the augmented prompt sent to Groq.
+- **Vector Store** — shows exactly what ChromaDB holds per chunk: each stored `id → 768-dim vector` rendered as a heatmap, plus its L2 norm / min / max and a raw-values view.
+
+See `chapter_07_RAG/Basic_RAG/rag-explorer/README.md` for the full walkthrough and troubleshooting.
 
 ### Basic RAG in n8n (no-code)
 
@@ -739,6 +750,17 @@ Open the Vite URL (default `http://localhost:5175`), click **Ingest PDF**, then 
 - **Phase 2 - RAG Fetching:** a chat-message trigger drives a RAG Agent (gpt-5-mini brain + chat memory) that retrieves from Pinecone (via OpenAI embeddings) and answers grounded in the ingested docs.
 
 **Import + run:** open n8n, import `AI3X_Basic_RAG.json`, reconnect the OpenAI + Pinecone credentials, submit a document, then chat.
+
+### RAG in LangFlow (visual)
+
+`chapter_07_RAG/LangFlow_RAG/` builds the same retrieval idea on the LangFlow canvas, over a real QA dataset (`data/VWO_500_Test_Cases.csv` — 500 VWO test cases):
+
+- `AI_3X_Naive RAG.json` — a naive RAG flow: load the CSV, embed, store, retrieve, answer.
+- `AI_3X_Naive RAG_Imporve_Chunk.json` — the same flow with an **improved chunking** strategy, to show how chunk size/overlap changes retrieval quality.
+
+**Why two flows:** chunking is the single biggest lever on RAG quality. Running a naive split next to a tuned one on the same 500-row dataset makes the difference visible — the retrieved rows get more relevant without touching the model.
+
+**Import + run:** open LangFlow, import either JSON, reconnect your embedding + LLM credentials, and run the flow against the CSV.
 
 ---
 
