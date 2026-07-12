@@ -21,3 +21,11 @@ export const query = (question) =>
 
 export const reset = () =>
   fetch('/api/reset', { method: 'POST' }).then(jsonOrThrow)
+
+export const ingestUpload = (file) => {
+  const form = new FormData()
+  form.append('file', file)
+  return fetch('/api/ingest-upload', { method: 'POST', body: form }).then(jsonOrThrow)
+}
+
+export const getEmbeddings = () => fetch('/api/embeddings').then(jsonOrThrow)

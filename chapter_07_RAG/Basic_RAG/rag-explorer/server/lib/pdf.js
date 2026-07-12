@@ -13,13 +13,17 @@ export function listPdfs(dataDir) {
     .map((f) => ({ file: f, path: path.join(dataDir, f) }))
 }
 
-// Extracts raw text + page count from one PDF.
-export async function extractPdf(filePath) {
-  const buf = fs.readFileSync(filePath)
+// Extracts raw text + page count from a PDF buffer (used for uploads).
+export async function extractPdfBuffer(buf) {
   const data = await pdfParse(buf)
   return {
     text: data.text || '',
     numPages: data.numpages || 0,
     info: data.info || {},
   }
+}
+
+// Extracts raw text + page count from one PDF on disk.
+export async function extractPdf(filePath) {
+  return extractPdfBuffer(fs.readFileSync(filePath))
 }

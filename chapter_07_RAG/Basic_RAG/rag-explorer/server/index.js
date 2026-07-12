@@ -1,10 +1,11 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
+import multer from 'multer'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { listPdfs, extractPdf } from './lib/pdf.js'
+import { listPdfs, extractPdf, extractPdfBuffer } from './lib/pdf.js'
 import { chunkText } from './lib/chunk.js'
 import { embedTexts, embedInfo } from './lib/embed.js'
 import { getCollection, resetCollection, storeChunks, retrieve, countChunks, pingChroma } from './lib/chroma.js'
@@ -21,6 +22,8 @@ const app = express()
 app.use(cors())
 app.use(express.json({ limit: '2mb' }))
 
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024 } })
+
 // Remembers the last ingestion so the UI can render the pipeline state.
 let lastIngest = null
 
@@ -28,6 +31,46 @@ const wrap = (fn) => (req, res) => fn(req, res).catch((err) => {
   console.error(err)
   res.status(500).json({ error: err.message || String(err) })
 })
+
+// Shared pipeline: sources[{ file, text, numPages }] -> chunk -> embed -> store.
+async function runIngest(sources) {
+  const collection = await resetCollection() // fresh store each ingest
+  const files = []
+  let allChunks = []
+
+  for (const s of sources) {
+    const chunks = chunkText(s.text, { size: CHUNK_SIZE, overlap: CHUNK_OVERLAP })
+    chunks.forEach((c) => { c.file = s.file })
+    files.push({ file: s.file, numPages: s.numPages || 0, chars: s.text.length, numChunks: chunks.length })
+    allChunks = allChunks.concat(chunks)
+  }
+  if (!allChunks.length) throw new Error('No text extracted from the document.')
+
+  const embeddings = await embedTexts(allChunks.map((c) => c.text))
+  const dims = embeddings[0]?.length || 0
+
+  await storeChunks(collection, {
+    ids: allChunks.map((c, i) => `chunk_${i}`),
+    documents: allChunks.map((c) => c.text),
+    embeddings,
+    metadatas: allChunks.map((c) => ({
+      file: c.file, index: c.index, charStart: c.charStart, charEnd: c.charEnd, length: c.length,
+    })),
+  })
+
+  lastIngest = {
+    at: null,
+    files,
+    totalChunks: allChunks.length,
+    embedDims: dims,
+    embedModel: embedInfo.model,
+    sampleChunks: allChunks.slice(0, 3).map((c) => ({
+      index: c.index, file: c.file, length: c.length, preview: c.text.slice(0, 320),
+    })),
+    sampleVector: (embeddings[0] || []).slice(0, 8),
+  }
+  return lastIngest
+}
 
 // --- Status: what's wired up, what's ingested -------------------------------
 app.get('/api/status', wrap(async (req, res) => {
@@ -49,49 +92,82 @@ app.get('/api/status', wrap(async (req, res) => {
   })
 }))
 
-// --- Ingest: PDF -> chunk -> embed -> store ---------------------------------
+// --- Ingest from the data folder --------------------------------------------
 app.post('/api/ingest', wrap(async (req, res) => {
   const pdfs = listPdfs(DATA_DIR)
   if (!pdfs.length) return res.status(400).json({ error: `No PDFs found in ${DATA_DIR}` })
 
-  const collection = await resetCollection() // fresh store each ingest
-  const files = []
-  let allChunks = []
-
+  const sources = []
   for (const pdf of pdfs) {
     const { text, numPages } = await extractPdf(pdf.path)
-    const chunks = chunkText(text, { size: CHUNK_SIZE, overlap: CHUNK_OVERLAP })
-    chunks.forEach((c) => { c.file = pdf.file })
-    files.push({ file: pdf.file, numPages, chars: text.length, numChunks: chunks.length })
-    allChunks = allChunks.concat(chunks)
+    sources.push({ file: pdf.file, text, numPages })
   }
+  res.json(await runIngest(sources))
+}))
 
-  const embeddings = await embedTexts(allChunks.map((c) => c.text))
-  const dims = embeddings[0]?.length || 0
+// --- Ingest an uploaded PDF / .txt / .md ------------------------------------
+app.post('/api/ingest-upload', upload.single('file'), wrap(async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded.' })
+  const { originalname, mimetype, buffer } = req.file
+  const name = originalname.toLowerCase()
 
-  await storeChunks(collection, {
-    ids: allChunks.map((c, i) => `chunk_${i}`),
-    documents: allChunks.map((c) => c.text),
-    embeddings,
-    metadatas: allChunks.map((c) => ({
-      file: c.file, index: c.index, charStart: c.charStart, charEnd: c.charEnd, length: c.length,
-    })),
+  let text = ''
+  let numPages = 0
+  if (mimetype === 'application/pdf' || name.endsWith('.pdf')) {
+    const r = await extractPdfBuffer(buffer)
+    text = r.text; numPages = r.numPages
+  } else if (name.endsWith('.txt') || name.endsWith('.md') || (mimetype || '').startsWith('text/')) {
+    text = buffer.toString('utf8')
+  } else {
+    return res.status(400).json({ error: `Unsupported file: ${originalname}. Upload a PDF, .txt, or .md.` })
+  }
+  if (!text.trim()) return res.status(400).json({ error: 'No extractable text found in that file.' })
+
+  res.json(await runIngest([{ file: originalname, text, numPages }]))
+}))
+
+// --- Embeddings: show exactly what ChromaDB stored per chunk ----------------
+app.get('/api/embeddings', wrap(async (req, res) => {
+  const collection = await getCollection()
+  const stored = await countChunks(collection)
+  if (!stored) return res.json({ collection: process.env.CHROMA_COLLECTION || 'vwo_prd', count: 0, dims: 0, items: [] })
+
+  // Pull every record back out of the vector DB *including* the raw vectors.
+  const data = await collection.get({ include: ['embeddings', 'documents', 'metadatas'] })
+  const ids = data.ids || []
+  const embs = data.embeddings || []
+  const docs = data.documents || []
+  const metas = data.metadatas || []
+
+  const items = ids.map((id, i) => {
+    const v = embs[i] || []
+    let min = Infinity, max = -Infinity, sumSq = 0
+    for (const x of v) { if (x < min) min = x; if (x > max) max = x; sumSq += x * x }
+    return {
+      id,
+      metadata: metas[i] || {},
+      preview: (docs[i] || '').slice(0, 220),
+      dims: v.length,
+      vector: v, // full vector — the UI draws a heatmap + shows a raw slice
+      stats: {
+        min: v.length ? min : 0,
+        max: v.length ? max : 0,
+        norm: Math.sqrt(sumSq), // L2 magnitude of the stored vector
+      },
+    }
   })
 
-  lastIngest = {
-    at: null, // timestamps set client-side to keep server deterministic
-    files,
-    totalChunks: allChunks.length,
-    embedDims: dims,
-    embedModel: embedInfo.model,
-    // small preview so the UI can show real chunk text
-    sampleChunks: allChunks.slice(0, 3).map((c) => ({
-      index: c.index, file: c.file, length: c.length, preview: c.text.slice(0, 320),
-    })),
-    sampleVector: (embeddings[0] || []).slice(0, 8),
-  }
+  // keep them in chunk order for a readable table
+  items.sort((a, b) => (a.metadata.index ?? 0) - (b.metadata.index ?? 0))
 
-  res.json(lastIngest)
+  res.json({
+    collection: process.env.CHROMA_COLLECTION || 'vwo_prd',
+    distance: 'cosine',
+    embedModel: embedInfo.model,
+    count: items.length,
+    dims: items[0]?.dims || 0,
+    items,
+  })
 }))
 
 // --- Query: embed -> retrieve top-k -> Groq answer --------------------------
@@ -124,6 +200,12 @@ app.post('/api/reset', wrap(async (req, res) => {
   lastIngest = null
   res.json({ ok: true })
 }))
+
+// Turn multer / body errors into clean JSON instead of HTML stack traces.
+app.use((err, req, res, next) => {
+  if (err) return res.status(400).json({ error: err.message || String(err) })
+  next()
+})
 
 app.listen(PORT, () => {
   console.log(`RAG Explorer API on http://localhost:${PORT}`)
