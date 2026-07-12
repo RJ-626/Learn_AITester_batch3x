@@ -78,6 +78,9 @@ mindmap
       Nomic Embed via Ollama
       Local ChromaDB store
       Retrieve top-k + Groq answer
+      Vector Store viewer + upload
+      n8n + LangFlow RAG flows
+      Advanced RAG (hybrid + rerank)
     E2E AI QA Pipeline (blueprint)
       Jira JQL to test plan
       RAG test cases
@@ -185,8 +188,17 @@ mindmap
 │   │       ├── server/            Express API: pdf, chunk, embed, chroma, groq
 │   │       ├── src/               React UI (pipeline view, ingest, query)
 │   │       └── README.md
-│   └── n8n_BASIC_RAG/             No-code Basic RAG (n8n workflow)
-│       └── AI3X_Basic_RAG.json
+│   ├── n8n_BASIC_RAG/             No-code Basic RAG (n8n workflow)
+│   │   └── AI3X_Basic_RAG.json
+│   ├── LangFlow_RAG/              Visual RAG flows (Naive + improved chunking)
+│   │   ├── AI_3X_Naive RAG.json
+│   │   ├── AI_3X_Naive RAG_Imporve_Chunk.json
+│   │   └── data/                  VWO_500_Test_Cases.csv
+│   └── Advance_RAG/               Hybrid RAG app (bge-m3 + Qdrant + rerank)
+│       ├── app.py, rag_core.py, ingest.py
+│       ├── testcase/              5,000 VWO test cases (Jira CSV)
+│       ├── templates/, static/    Two-pane Flask UI
+│       └── Advanced_RAG_Explained.html   Standalone animated explainer
 │
 ├── E2E_QA_Pipeline/               End-to-end AI QA pipeline blueprint
 │   └── E2E_QA_Pipeline.md         8-step flow: Jira -> plan -> cases -> automation -> run -> RCA
@@ -769,7 +781,12 @@ ollama pull nomic-embed-text
 npm run dev               # starts ChromaDB + Express API + Vite UI
 ```
 
-Open the Vite URL (default `http://localhost:5175`), click **Ingest PDF**, then ask a question. See `chapter_07_RAG/Basic_RAG/rag-explorer/README.md` for the full walkthrough and troubleshooting.
+Open the Vite URL (default `http://localhost:5175`), click **Ingest folder** (or **upload your own** PDF / `.txt` / `.md`), then ask a question. Two tabs:
+
+- **Explorer** — the pipeline view: ingestion stats, a sample embedding, retrieved chunks with similarity scores, and the augmented prompt sent to Groq.
+- **Vector Store** — shows exactly what ChromaDB holds per chunk: each stored `id → 768-dim vector` rendered as a heatmap, plus its L2 norm / min / max and a raw-values view.
+
+See `chapter_07_RAG/Basic_RAG/rag-explorer/README.md` for the full walkthrough and troubleshooting.
 
 ### Basic RAG in n8n (no-code)
 
@@ -782,6 +799,56 @@ Open the Vite URL (default `http://localhost:5175`), click **Ingest PDF**, then 
 - **Phase 2 - RAG Fetching:** a chat-message trigger drives a RAG Agent (gpt-5-mini brain + chat memory) that retrieves from Pinecone (via OpenAI embeddings) and answers grounded in the ingested docs.
 
 **Import + run:** open n8n, import `AI3X_Basic_RAG.json`, reconnect the OpenAI + Pinecone credentials, submit a document, then chat.
+
+### RAG in LangFlow (visual)
+
+`chapter_07_RAG/LangFlow_RAG/` builds the same retrieval idea on the LangFlow canvas, over a real QA dataset (`data/VWO_500_Test_Cases.csv` — 500 VWO test cases):
+
+- `AI_3X_Naive RAG.json` — a naive RAG flow: load the CSV, embed, store, retrieve, answer.
+- `AI_3X_Naive RAG_Imporve_Chunk.json` — the same flow with an **improved chunking** strategy, to show how chunk size/overlap changes retrieval quality.
+
+**Why two flows:** chunking is the single biggest lever on RAG quality. Running a naive split next to a tuned one on the same 500-row dataset makes the difference visible — the retrieved rows get more relevant without touching the model.
+
+**Import + run:** open LangFlow, import either JSON, reconnect your embedding + LLM credentials, and run the flow against the CSV.
+
+### Advanced RAG — hybrid retrieval + reranking
+
+`chapter_07_RAG/Advance_RAG/` upgrades Basic RAG into a production-shaped pipeline over **5,000 VWO test cases** (`testcase/vwo_5000_test_cases.csv`, Jira format). A Flask app with a two-pane UI shows every stage of a real hybrid pipeline.
+
+**Concept:** `bge-m3` emits **dense + sparse** vectors from one model; **Qdrant** (embedded, no Docker) stores them; results are merged with **Reciprocal Rank Fusion**, re-scored by the **`bge-reranker-v2-m3`** cross-encoder, and answered by Groq — with **query rewriting** before retrieval.
+
+**Why:** A single dense embedding + top-k misses exact IDs/keywords and ranks coarsely. Hybrid search + RRF + a cross-encoder reranker is what makes retrieval accurate on a real corpus, and the UI shows *why* an answer was grounded the way it was.
+
+**Q&A — the advanced techniques:**
+- **Q: What does the two-pane UI show?** A: Left = a live pipeline tracker (Read -> Build -> Chunk -> Embed -> Index, then Rewrite -> Dense -> Sparse -> RRF -> Rerank -> Generate). Right = Upload / Ingest (live SSE) / Chunks / Chat, with dense vs sparse vs fused vs reranked tables per query.
+- **Q: Where do the models run?** A: `bge-m3` + the reranker run locally (downloaded once, ~2.3 GB + ~570 MB); only generation and query rewriting call out to Groq. Qdrant is an embedded file store.
+- **Q: What's "Generate" mode?** A: A query like *"create a test case for VWO-3400 heatmap privacy masking"* auto-switches to producing a structured test case from the retrieved similar cases as templates.
+
+**The pipeline:**
+
+```mermaid
+flowchart LR
+    CSV[5,000 test cases] --> CK[chunk] --> M[bge-m3<br/>dense + sparse] --> Q[(Qdrant)]
+    QN[question] --> RW[rewrite x3] --> SR[dense + sparse search]
+    Q --> SR --> RRF[RRF fuse] --> RR[bge-reranker-v2-m3] --> L[Groq gpt-oss-120b] --> A[answer + citations]
+```
+
+![Advanced RAG pipeline](chapter_07_RAG/Advanced-RAG-Pipeline.png)
+
+A standalone, animated **`Advanced_RAG_Explained.html`** teaches the whole concept (hybrid embeddings, RRF, reranking, rewriting) with diagrams — open it in any browser or upload it anywhere.
+
+![Advanced RAG explainer](chapter_07_RAG/Advanced-RAG-Explained.png)
+
+**Run it:**
+```bash
+cd chapter_07_RAG/Advance_RAG
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env      # paste your GROQ_API_KEY
+python app.py             # http://127.0.0.1:5050
+```
+
+See `chapter_07_RAG/Advance_RAG/README.md` for the full walkthrough and tunables.
 
 ---
 
@@ -899,6 +966,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - **"I want to turn one idea into content for every platform."** → `chapter_06_AI_Social_Media_Content_Creation/` (start at `00_Hook_Story_Offer_Planning.md`).
 - **"I want to publish a LinkedIn post that actually gets reach."** → `chapter_06_AI_Social_Media_Content_Creation/07_LinkedIn_Post_Template.md`.
 - **"I want to see how a RAG pipeline works end to end."** → `chapter_07_RAG/Basic_RAG/rag-explorer/`.
+- **"I want hybrid retrieval + reranking on a real 5,000-row corpus."** → `chapter_07_RAG/Advance_RAG/`.
 - **"I want the big picture — Jira story to executed automation."** → `E2E_QA_Pipeline/E2E_QA_Pipeline.md`.
 - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 - **"I want the live class tasks and daily builds."** → `Live_Task_AI_Testing/` (see the Live Class Tasks table above).
@@ -914,6 +982,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - For Chapter 5 LangFlow: a running LangFlow instance (default `http://localhost:7861`) and an OpenRouter (or compatible) API key; **Node.js 20+** and npm to run the Flaky Test Analyzer UI.
 - For Chapter 6 Content Templates: nothing but a Markdown editor and any LLM — the templates are tooling-free.
 - For Chapter 7 RAG Explorer: **Node.js 20+**, **Ollama** with `nomic-embed-text` pulled, **ChromaDB** (`pip install chromadb`), and a **Groq API key**.
+- For Chapter 7 Advanced RAG: **Python 3.10+** and `pip install -r requirements.txt` (Flask, qdrant-client, FlagEmbedding/torch, pandas), plus a **Groq API key**. Models download on first use.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 
 ## Chapter History

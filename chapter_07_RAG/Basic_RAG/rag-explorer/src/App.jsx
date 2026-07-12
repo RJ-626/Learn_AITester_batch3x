@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Pipeline from './components/Pipeline.jsx'
 import ChunkList from './components/ChunkList.jsx'
+import VectorStore from './components/VectorStore.jsx'
 import * as api from './lib/api.js'
 
 const SAMPLE_QUESTIONS = [
@@ -16,12 +17,16 @@ export default function App() {
   const [status, setStatus] = useState(null)
   const [stageState, setStageState] = useState({})
   const [ingesting, setIngesting] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [dragOver, setDragOver] = useState(false)
   const [ingest, setIngest] = useState(null)
+  const fileRef = useRef(null)
   const [question, setQuestion] = useState('')
   const [querying, setQuerying] = useState(false)
   const [result, setResult] = useState(null)
   const [showPrompt, setShowPrompt] = useState(false)
   const [error, setError] = useState('')
+  const [tab, setTab] = useState('explorer')
 
   const refreshStatus = () => api.getStatus().then(setStatus).catch((e) => setError(e.message))
 
@@ -35,24 +40,41 @@ export default function App() {
     }
   }, [status])
 
-  async function handleIngest() {
-    setError(''); setIngesting(true); setResult(null)
+  // Shared pipeline animation around whichever ingest call is passed in.
+  async function ingestFlow(doIngest) {
+    setError(''); setResult(null)
     setStageState({ pdf: 'active' })
-    try {
-      // visual staging — the backend does it all in one call, we animate the steps
-      await sleep(250); setStageState({ pdf: 'done', chunk: 'active' })
-      await sleep(250); setStageState({ pdf: 'done', chunk: 'done', embed: 'active' })
-      const data = await api.ingest()
-      setStageState({ pdf: 'done', chunk: 'done', embed: 'done', store: 'active' })
-      await sleep(300)
-      setStageState({ pdf: 'done', chunk: 'done', embed: 'done', store: 'done' })
-      setIngest(data)
-      await refreshStatus()
-    } catch (e) {
-      setError(e.message); setStageState({})
-    } finally {
-      setIngesting(false)
-    }
+    await sleep(250); setStageState({ pdf: 'done', chunk: 'active' })
+    await sleep(250); setStageState({ pdf: 'done', chunk: 'done', embed: 'active' })
+    const data = await doIngest()
+    setStageState({ pdf: 'done', chunk: 'done', embed: 'done', store: 'active' })
+    await sleep(300)
+    setStageState({ pdf: 'done', chunk: 'done', embed: 'done', store: 'done' })
+    setIngest(data)
+    await refreshStatus()
+  }
+
+  async function handleIngest() {
+    setIngesting(true)
+    try { await ingestFlow(api.ingest) }
+    catch (e) { setError(e.message); setStageState({}) }
+    finally { setIngesting(false) }
+  }
+
+  async function handleUpload(file) {
+    if (!file) return
+    const ok = /\.(pdf|txt|md)$/i.test(file.name)
+    if (!ok) { setError(`Unsupported file: ${file.name}. Upload a PDF, .txt, or .md.`); return }
+    setUploading(true)
+    try { await ingestFlow(() => api.ingestUpload(file)) }
+    catch (e) { setError(e.message); setStageState({}) }
+    finally { setUploading(false); if (fileRef.current) fileRef.current.value = '' }
+  }
+
+  function onDrop(e) {
+    e.preventDefault(); setDragOver(false)
+    const file = e.dataTransfer?.files?.[0]
+    if (file) handleUpload(file)
   }
 
   async function handleQuery(q) {
@@ -96,6 +118,17 @@ export default function App() {
         </div>
       </header>
 
+      <nav className="tabs">
+        <button className={`tab ${tab === 'explorer' ? 'on' : ''}`} onClick={() => setTab('explorer')}>Explorer</button>
+        <button className={`tab ${tab === 'vectors' ? 'on' : ''}`} onClick={() => setTab('vectors')}>
+          Vector Store{status?.chroma?.stored ? ` · ${status.chroma.stored}` : ''}
+        </button>
+      </nav>
+
+      {tab === 'vectors' ? (
+        <VectorStore active />
+      ) : (
+      <>
       <Pipeline stageState={stageState} />
 
       {(chromaDown || groqMissing || error) && (
@@ -112,10 +145,10 @@ export default function App() {
           <div className="panel-head">
             <h2>1 · Ingestion</h2>
             <div className="panel-actions">
-              <button className="btn primary" onClick={handleIngest} disabled={ingesting}>
-                {ingesting ? 'Ingesting…' : 'Ingest PDF'}
+              <button className="btn primary" onClick={handleIngest} disabled={ingesting || uploading}>
+                {ingesting ? 'Ingesting…' : 'Ingest folder'}
               </button>
-              {ready && <button className="btn ghost" onClick={handleReset} disabled={ingesting}>Reset</button>}
+              {ready && <button className="btn ghost" onClick={handleReset} disabled={ingesting || uploading}>Reset</button>}
             </div>
           </div>
 
@@ -125,6 +158,35 @@ export default function App() {
               {(status?.pdfs || []).map((f) => <li key={f}>📄 {f}</li>)}
               {!status?.pdfs?.length && <li className="muted">no PDFs found</li>}
             </ul>
+          </div>
+
+          <div className="or-divider"><span>or upload your own</span></div>
+
+          <div
+            className={`dropzone ${dragOver ? 'over' : ''} ${uploading ? 'busy' : ''}`}
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={onDrop}
+            onClick={() => !uploading && fileRef.current?.click()}
+            role="button"
+            tabIndex={0}
+          >
+            <input
+              ref={fileRef}
+              type="file"
+              accept=".pdf,.txt,.md,application/pdf,text/plain,text/markdown"
+              hidden
+              onChange={(e) => handleUpload(e.target.files?.[0])}
+            />
+            {uploading ? (
+              <span>Ingesting your file…</span>
+            ) : (
+              <>
+                <span className="dz-icon">⬆</span>
+                <span><strong>Drop a PDF, .txt or .md here</strong> — or click to browse</span>
+                <span className="muted small">Your file replaces the store and is chunked, embedded, and indexed.</span>
+              </>
+            )}
           </div>
 
           {ingest && (
@@ -206,6 +268,8 @@ export default function App() {
           )}
         </section>
       </div>
+      </>
+      )}
 
       <footer className="foot">
         Chapter 07 · Basic RAG — local vector DB (ChromaDB) + Nomic Embed + Groq. Built for The Testing Academy.
