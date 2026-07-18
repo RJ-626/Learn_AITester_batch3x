@@ -854,6 +854,25 @@ flowchart LR
     Q --> H --> F[RRF fuse] --> R[bge-reranker-v2-m3<br/>top 6 + threshold] --> G[Groq gpt-oss-120b] --> A["answer + [n] citations<br/>file:line / ticket / page / build"]
 ```
 
+![QA Buddy home](chapter_08_QABuddyAI/qabuddy-home.png)
+
+**Feature checklist (what's in the box):**
+- **10-source knowledge base** with source-appropriate chunking: 1 method/class per chunk for code (with line numbers), 1 row per test case, 1 ticket per JIRA chunk, failure blocks for Jenkins logs, heading-aware splits for PDFs/docs, speaker-turn windows for transcripts.
+- **Hybrid retrieval**: one `bge-m3` pass emits dense + lexical sparse vectors; RRF fusion; `bge-reranker-v2-m3` cross-encoder keeps the best 6 chunks (the token-efficiency lever: ~3k tokens per answer).
+- **Trust-first answers**: clickable `[n]` citations resolving to `file:line`, ticket key, PDF page, or build number, with expandable source snippets and rerank scores; a confidence gate answers "not in the KB" instead of hallucinating.
+- **4 modes, auto-detected**: answer, generate test cases (team template), review coverage gaps, root cause analysis.
+- **Conversational retrieval**: follow-up questions are condensed into standalone queries; LLM query rewriting widens recall (3 variants).
+- **Live chat UI** (cream, claude.ai-style): streaming SSE answers, per-source filter checkboxes, live chunk counts, in-UI ingest panel with progress bar, "how your answer is fetched" explainer.
+- **Idempotent ingestion**: stable chunk ids + per-file manifest diff — unchanged files skip, changed files re-embed, removed files delete; CLI (`ingest --all/--source NN`) and UI both.
+- **Company glossary injection** (`glossary.yaml`) and all tunables (chunk sizes, thresholds, top-k) in `config.yaml`, no code changes needed.
+- **Quality harness**: 12 unit tests + golden-question retrieval eval (`scripts/eval.py`, 13/13 = 100% on the seeded corpus).
+- **JIRA two ways**: interactive MCP pulls or headless REST + JQL (`scripts/jira_fetch.py`), same JSON schema.
+- **Ops ready**: docker-compose (Qdrant server + app + Caddy TLS/basic-auth), nightly backup script, health/stats endpoints, ~$0.001 per question on Groq.
+
+**A real cross-source answer** — one RCA question cites a meeting note, a JIRA ticket, a Lucid flow, and repo code with line numbers:
+
+![QA Buddy cited answer](chapter_08_QABuddyAI/qabuddy-cited-answer.png)
+
 **Modes:** the ask pipeline auto-detects intent — plain **answer**, **generate** (new test cases in the team template, grounded in similar cases + PRD), **review** (coverage gaps vs requirements), and **RCA** (root cause from logs + tickets + code).
 
 **Run it:**

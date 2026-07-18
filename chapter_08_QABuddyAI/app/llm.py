@@ -42,10 +42,13 @@ def chat_stream(messages, temperature=None, max_tokens=None):
     )
     if not r.ok:
         raise RuntimeError(f"LLM {r.status_code}: {r.text[:300]}")
-    for raw in r.iter_lines(decode_unicode=True):
-        if not raw or not raw.startswith("data:"):
+    for raw in r.iter_lines():
+        # decode utf-8 ourselves: requests falls back to latin-1 when the SSE
+        # content-type carries no charset, mangling quotes/dashes
+        line = raw.decode("utf-8", "replace") if isinstance(raw, bytes) else raw
+        if not line or not line.startswith("data:"):
             continue
-        data = raw[5:].strip()
+        data = line[5:].strip()
         if data == "[DONE]":
             break
         try:

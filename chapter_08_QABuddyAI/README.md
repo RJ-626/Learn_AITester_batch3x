@@ -10,6 +10,12 @@ model) -> **Qdrant** (named vectors, RRF-fused hybrid) -> **bge-reranker-v2-m3**
 
 Full design + decisions: [`Plan.md`](Plan.md) · architecture: [`docs/architecture.md`](docs/architecture.md)
 
+![QA Buddy home](qabuddy-home.png)
+
+One RCA question, four source types cited (meeting + JIRA + Lucid + repo code with line numbers):
+
+![QA Buddy cited answer](qabuddy-cited-answer.png)
+
 ## Quickstart (local)
 
 ```bash
