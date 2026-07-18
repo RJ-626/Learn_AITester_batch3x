@@ -81,6 +81,15 @@ mindmap
       Vector Store viewer + upload
       n8n + LangFlow RAG flows
       Advanced RAG (hybrid + rerank)
+    Ch 08 - QABuddy.ai
+      Multi-source hybrid RAG
+      10 QA knowledge sources
+      bge-m3 dense + sparse
+      Qdrant + RRF + reranker
+      Cited answers only
+      Answer / generate / review / RCA modes
+      Cream chat UI
+      VPS deploy pack
     E2E AI QA Pipeline (blueprint)
       Jira JQL to test plan
       RAG test cases
@@ -199,6 +208,20 @@ mindmap
 │       ├── testcase/              5,000 VWO test cases (Jira CSV)
 │       ├── templates/, static/    Two-pane Flask UI
 │       └── Advanced_RAG_Explained.html   Standalone animated explainer
+│
+├── chapter_08_QABuddyAI/          QABuddy.ai — multi-source hybrid RAG for QA teams
+│   ├── Plan.md                    Approved architecture, decisions, phases
+│   ├── app/
+│   │   ├── core/                  bge-m3 embedder, Qdrant store, RRF, reranker, chunkers
+│   │   ├── ingestion/             10 source loaders + idempotent pipeline + CLI
+│   │   ├── retrieval.py           condense -> rewrite -> hybrid -> rerank -> cite
+│   │   └── server/                Flask API (SSE) + cream chat UI
+│   ├── data/01..10_*/             The 10 knowledge sources (payloads gitignored)
+│   ├── eval/ + tests/             Golden-question retrieval eval + 12 unit tests
+│   ├── scripts/                   fetch_repos, jira_fetch, eval, backup, dev
+│   ├── docker-compose.yml         qdrant + app + caddy — 24x7 VPS stack
+│   ├── deploy to VPS information.md   Step-by-step droplet runbook
+│   └── docs/                      architecture, phase 2 plan, JIRA MCP how-to
 │
 ├── E2E_QA_Pipeline/               End-to-end AI QA pipeline blueprint
 │   └── E2E_QA_Pipeline.md         8-step flow: Jira -> plan -> cases -> automation -> run -> RCA
@@ -809,6 +832,46 @@ See `chapter_07_RAG/Advance_RAG/README.md` for the full walkthrough and tunables
 
 ---
 
+## Chapter 08 — QABuddy.ai (Multi-source Hybrid RAG)
+
+`chapter_08_QABuddyAI/` is the capstone: a self-hosted **QA knowledge brain** that answers one question with one **cited** answer, grounded in 10 real sources — the Selenium and Playwright framework repos, **5,000 test cases**, JIRA tickets, company docs, meeting transcripts, Lucid flow exports, PRDs, and Jenkins logs. It productionizes the ch07 Advanced RAG stack into a team tool with a chat UI, an eval harness, and a one-command VPS deployment.
+
+**Concept:** every source gets its own loader and its own chunking (1 method per chunk for code with line numbers, 1 row per test case, 1 ticket per chunk, failure blocks for logs, heading-aware splits for docs). One `bge-m3` pass emits **dense + lexical sparse** vectors into a single **Qdrant** collection with `source_type` filters; queries are rewritten, searched both ways, **RRF-fused**, cut to 6 chunks by **`bge-reranker-v2-m3`**, and answered by Groq's open-weight **`gpt-oss-120b`** — with `[n]` citations mapping back to `file:line`, ticket key, PDF page, or build number.
+
+**Why:** QA questions mix exact identifiers (`VWO-2002`, `NoSuchElementException`, `doLogin()`) with fuzzy intent ("why is checkout flaky?"). Dense-only search misses the identifiers, keyword-only misses the intent — and answers without citations cannot be trusted in a QA workflow. Hybrid retrieval + reranking + a confidence threshold ("not in KB" instead of guessing) fixes all three.
+
+**Q&A — the production upgrades over ch07:**
+- **Q: How do 10 sources live in one index?** A: One collection + a `source_type` payload filter per chunk. Cross-source answers come free (an RCA can cite a meeting note, a JIRA ticket, and repo code together), and the UI's source checkboxes just add a query filter.
+- **Q: What makes re-ingestion cheap enough for hourly sync?** A: Stable chunk ids (`uuid5` of source|path|content) plus a per-file signature manifest — unchanged files are skipped, changed files delete+reinsert, removed files are deleted. Phase 2's hourly cron is just scheduling.
+- **Q: How is answer quality measured?** A: `eval/golden_questions.yaml` + `scripts/eval.py` check that the right source appears in the top-6 chunks per question (13/13 = 100% on the seeded corpus of 5,531 chunks) — retrieval-only, no LLM cost.
+
+**The pipeline:**
+
+```mermaid
+flowchart LR
+    S[10 sources<br/>repos, CSV, JIRA, PDFs,<br/>notes, Lucid, Jenkins] --> L[per-source loaders<br/>+ chunkers] --> M[bge-m3<br/>dense + sparse] --> Q[(Qdrant<br/>one collection)]
+    QN[question] --> CW[condense + rewrite] --> H[dense + sparse search<br/>source filters]
+    Q --> H --> F[RRF fuse] --> R[bge-reranker-v2-m3<br/>top 6 + threshold] --> G[Groq gpt-oss-120b] --> A["answer + [n] citations<br/>file:line / ticket / page / build"]
+```
+
+**Modes:** the ask pipeline auto-detects intent — plain **answer**, **generate** (new test cases in the team template, grounded in similar cases + PRD), **review** (coverage gaps vs requirements), and **RCA** (root cause from logs + tickets + code).
+
+**Run it:**
+```bash
+cd chapter_08_QABuddyAI
+uv venv .venv --python 3.13 && uv pip install -p .venv/bin/python -r requirements.txt
+cp .env.example .env               # paste your GROQ_API_KEY
+./scripts/fetch_repos.sh && ./scripts/setup_fixtures.sh
+.venv/bin/python -m app.ingestion.cli ingest --all
+./scripts/dev.sh                   # cream chat UI on http://127.0.0.1:5080
+```
+
+**Deploy 24x7:** `docker-compose.yml` (Qdrant server + app + Caddy TLS/basic-auth) with the step-by-step runbook in **`deploy to VPS information.md`** — roughly **$55-75/month** total: an 8GB droplet plus ~$0.001 per question on Groq (embeddings, reranking, and the vector DB run locally and cost nothing).
+
+Full design rationale (embedding model, vector DB, chunk sizes, preprocessing — each with alternatives rejected) lives in `chapter_08_QABuddyAI/Plan.md`; Phase 2 (hourly auto-ingest, Figma, QABuddy MCP server for IDE copilots) is designed in `docs/phase2.md`.
+
+---
+
 ## End-to-End AI QA Pipeline (Blueprint)
 
 **Concept:** `E2E_QA_Pipeline/` is the blueprint that ties the whole course together — an AI pipeline that reads a Jira story and drives it all the way to executed automation and an analysed results dashboard, with a RAG pipeline supplying historical test plans and cases along the way.
@@ -883,6 +946,8 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - **"I want to publish a LinkedIn post that actually gets reach."** → `chapter_06_AI_Social_Media_Content_Creation/07_LinkedIn_Post_Template.md`.
 - **"I want to see how a RAG pipeline works end to end."** → `chapter_07_RAG/Basic_RAG/rag-explorer/`.
 - **"I want hybrid retrieval + reranking on a real 5,000-row corpus."** → `chapter_07_RAG/Advance_RAG/`.
+- **"I want one cited answer across my whole QA knowledge base."** → `chapter_08_QABuddyAI/` (QA Buddy chat UI).
+- **"I want to deploy an internal QA RAG to a VPS, 24x7."** → `chapter_08_QABuddyAI/deploy to VPS information.md`.
 - **"I want the big picture — Jira story to executed automation."** → `E2E_QA_Pipeline/E2E_QA_Pipeline.md`.
 - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 
@@ -898,6 +963,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - For Chapter 6 Content Templates: nothing but a Markdown editor and any LLM — the templates are tooling-free.
 - For Chapter 7 RAG Explorer: **Node.js 20+**, **Ollama** with `nomic-embed-text` pulled, **ChromaDB** (`pip install chromadb`), and a **Groq API key**.
 - For Chapter 7 Advanced RAG: **Python 3.10+** and `pip install -r requirements.txt` (Flask, qdrant-client, FlagEmbedding/torch, pandas), plus a **Groq API key**. Models download on first use.
+- For Chapter 8 QABuddy.ai: **Python 3.11+** (`uv` recommended) and `requirements.txt` (Flask, qdrant-client, FlagEmbedding/torch, transformers, pymupdf, pandas), a **Groq API key**; **Docker + docker-compose** only for the VPS deployment. bge-m3 + reranker (~4.6GB) download on first ingest.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 
 ## Chapter History
