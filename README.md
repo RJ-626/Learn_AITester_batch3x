@@ -3,7 +3,7 @@
 A practical, project-driven curriculum for QA engineers learning to use LLMs as a real testing tool — not a toy.
 Each chapter pairs concept material with a hands-on project, a prompt template, and runnable code where applicable.
 
-- **Author:** Pramod Dutta — Lead Consultant
+- **Author:** Rahul Jaiswal — Lead Consultant
 - **Website:** [The Testing Academy](https://thetestingacademy.com/)
 - **LinkedIn:** [linkedin.com/in/pramoddutta](https://www.linkedin.com/in/pramoddutta/)
 
@@ -1094,4 +1094,4 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 
 ---
 
-Made by [Pramod Dutta](https://thetestingacademy.com/) for The Testing Academy.
+Made by [Rahul Jaiswal](https://thetestingacademy.com/) for The Testing Academy.
