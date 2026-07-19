@@ -1088,6 +1088,9 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 `3113371` — Added all Live_Task_AI_Testing folders (04th July, 14th June, 20th June, 23rd May, 24th May) with RAG Explorer section.
 `ead8ed8` — Task_04th_July RAG Explorer: two-column UI, reset endpoint, server-ready banner, spinner, sticky left panel.
 `c825ad5` — Task_27th_June LangFlow QA Agents: 6 standalone agent UIs with model persistence and form state persistence.
+`479a8d6` — Chapter 08 QABuddy.ai: multi-source hybrid RAG with bge-m3 + Qdrant + reranker, 10 QA knowledge sources, cited answers, cream chat UI, and VPS deploy pack.
+`0b7d3b4` — Fixed ch08 SSE UTF-8 decode and added README screenshots for QABuddy.ai.
+`51b93b3` — Merged upstream main: synced latest Chapter 08, learnings docs, and README updates.
 
 ---
 
