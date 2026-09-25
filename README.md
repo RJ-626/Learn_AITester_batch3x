@@ -9,6 +9,26 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 
 ---
 
+## Study Notes (PDF & DOCX)
+
+Beautiful, printable study notes covering the entire 3.x curriculum — from LLM basics to MCP servers.
+
+| Format | File | Description |
+|---|---|---|
+| **PDF** | [`3x_AI_Tester_Blueprint_Final.pdf`](./3x_AI_Tester_Blueprint_Final.pdf) | Print-ready, professional layout with TOC, tables, and 150+ interview Q&A |
+| **Word** | [`3x_AI_Tester_Blueprint_Final.docx`](./3x_AI_Tester_Blueprint_Final.docx) | Editable version with green banner chapters, dotted-leader TOC, and page numbers |
+
+**What's inside:**
+- 11 chapters + E2E Pipeline — all concepts explained in plain English
+- Tabular comparisons (AI Engineer vs ML Engineer, Open vs Closed LLMs, LangFlow vs LangGraph vs LangSmith, etc.)
+- Prompt strategies with examples: Zero-Shot, Few-Shot, Chain-of-Thought, Tree-of-Thought, Role-Based
+- Modern frameworks: RICE-POT, RTCFR, RISE-CEPT, APE, COSTAR
+- Trending 2025 concepts: JSON Mode, Function Calling, ReAct, Agentic AI, Multi-modal RAG
+- 150+ interview questions and answers for beginner to senior (7–8 years) level
+- Clean formatting: Arial font throughout, green section headers, code blocks, note boxes
+
+---
+
 ## Curriculum Map
 
 ```mermaid
