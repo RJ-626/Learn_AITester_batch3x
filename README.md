@@ -20,20 +20,22 @@ Both are chapter 16. Nothing to install to read them; clone the repo to run the 
 
 ## Study Notes (PDF & DOCX)
 
-Beautiful, printable study notes covering the entire 3.x curriculum — from LLM basics to MCP servers.
+Beautiful, printable study notes covering the entire 3.x curriculum — from LLM basics to LangGraph agents.
 
 | Format | File | Description |
 |---|---|---|
-| **PDF** | [`3x_AI_Tester_Blueprint_Final.pdf`](./3x_AI_Tester_Blueprint_Final.pdf) | Print-ready, professional layout with TOC, tables, and 150+ interview Q&A |
+| **PDF** | [`3x_AI_Tester_Blueprint_Final.pdf`](./3x_AI_Tester_Blueprint_Final.pdf) | Print-ready, professional layout with TOC, tables, and 230+ interview Q&A |
 | **Word** | [`3x_AI_Tester_Blueprint_Final.docx`](./3x_AI_Tester_Blueprint_Final.docx) | Editable version with green banner chapters, dotted-leader TOC, and page numbers |
 
 **What's inside:**
-- 11 chapters + E2E Pipeline — all concepts explained in plain English
-- Tabular comparisons (AI Engineer vs ML Engineer, Open vs Closed LLMs, LangFlow vs LangGraph vs LangSmith, etc.)
+- 18 chapters + E2E Pipeline — all concepts explained in plain English
+- Chapters 12–18: CrewAI multi-agent automation, the production Jira QA Crew, LLM evaluation, DeepEval in practice, the DeepEval framework (25 metric cards), LangChain agents with 32 Playwright tools, and LangGraph state machines, branches and loops
+- Key terms tables and trending 2025–2026 concepts in every new chapter (multi-agent crews, LLM-as-Judge, G-Eval, red-teaming attack libraries, browser agents, durable graphs)
+- Tabular comparisons (AI Engineer vs ML Engineer, Open vs Closed LLMs, LangFlow vs LangGraph vs LangSmith, Faithfulness vs Hallucination, etc.)
 - Prompt strategies with examples: Zero-Shot, Few-Shot, Chain-of-Thought, Tree-of-Thought, Role-Based
 - Modern frameworks: RICE-POT, RTCFR, RISE-CEPT, APE, COSTAR
-- Trending 2025 concepts: JSON Mode, Function Calling, ReAct, Agentic AI, Multi-modal RAG
-- 150+ interview questions and answers for beginner to senior (7–8 years) level
+- Trending concepts: JSON Mode, Function Calling, ReAct, Agentic AI, Multi-modal RAG, LLM-as-Judge, orchestrator-worker crews
+- 230+ interview questions and answers for beginner to senior (7–8 years) level, including trending LLM-eval, multi-agent and LangGraph interview questions
 - Clean formatting: Arial font throughout, green section headers, code blocks, note boxes
 
 ---
