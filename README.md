@@ -7,6 +7,15 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 - **Website:** [The Testing Academy](https://thetestingacademy.com/)
 - **LinkedIn:** [linkedin.com/in/pramoddutta](https://www.linkedin.com/in/pramoddutta/)
 
+### Live
+
+| | |
+|---|---|
+| **[DeepEval Dashboard](https://deepeval-dashboard.vercel.app)** | 25 metrics scored against a live chatbot and RAG pipeline. Real scores, judge reasons, latencies and token counts from one recorded run. |
+| **[How the framework works](https://deepeval-dashboard.vercel.app/how-it-works)** | Illustrated walkthrough: the evaluation loop, what each metric reads, the attack library, and the four ways the numbers mislead you. |
+
+Both are chapter 16. Nothing to install to read them; clone the repo to run the suite live.
+
 ---
 
 ## Study Notes (PDF & DOCX)
@@ -110,6 +119,20 @@ mindmap
       Answer / generate / review / RCA modes
       Cream chat UI
       VPS deploy pack
+    Ch 09 - MCP Basics
+      The N x M integration problem
+      Host - Client - Server
+      JSON-RPC 2.0 wire format
+      Tools - Resources - Prompts
+        Who triggers each one
+      Templated resource URIs
+      Elicitation and sampling
+      Capability negotiation
+        server/discover
+      stdio vs Streamable HTTP
+        Never write to stdout
+      Spec 2026-07-28 is stateless
+      Security and consent model
     Ch 10 - Build an MCP Server
       FastMCP over 5,000 test cases
       Tools - model invoked
@@ -119,7 +142,7 @@ mindmap
       stdio JSON-RPC transport
       MCP Inspector + Claude Desktop
     Ch 11 - Python for Testers
-      23 runnable labs
+      185 Python files
       ex_01 - print + comments
       ex_02 - keywords + identifiers + variables
         Identifier rules cheat sheet
@@ -129,12 +152,172 @@ mindmap
         Multi-line comments
         Built-in functions
         input&#40;&#41; + int&#40;&#41; casting
-    E2E AI QA Pipeline (blueprint)
-      Jira JQL to test plan
-      RAG test cases
-      Playwright .md automation
-      Browser Bash execution
-      Flakiness + RCA + dashboard
+        Escape sequences + raw strings
+      ex_04 - operators
+        Arithmetic, // and % and **
+        Comparison + logical + membership
+        Ternary one-liner
+      ex_05 - if / elif / else
+        Nested conditions + input guards
+      ex_06 - match-case
+        Python 3.10 structural switch
+      ex_07 - loops
+        for + range&#40;&#41;, while, break/continue/pass
+      ex_08 - functions
+        4 function types
+        Default + keyword args
+        Multiple return values
+        *args - infinite arguments
+        Nested function definitions
+      ex_09 - scopes
+        Local vs global variables
+        Shadowing inside a function
+        Inner function visibility
+      ex_10 - decorators
+        Wrapper pattern - before/after
+        @time_decorator for test timing
+        Stacked decorators - bottom-up
+      ex_11 - type conversion
+        int&#40;&#41; str&#40;&#41; float&#40;&#41; bool&#40;&#41; list&#40;&#41; tuple&#40;&#41;
+      ex_12 - lambda expressions
+        One-line anonymous functions
+        Ternary inside lambda
+      ex_13 - list
+        Mutable, indexed, mixed types
+        append / extend / insert / remove
+        pop / sort / slice / nested lists
+      ex_14 - tuple
+        Immutable - TypeError on assign
+        Single-element trailing comma
+        tuple&#40;&#41; and list&#40;&#41; round trip
+      ex_15 - set + frozenset
+        Unique unordered values
+        Union + intersection + difference
+        Set comprehensions
+      ex_16 - map + filter
+        Transform every item with map&#40;&#41;
+        Select matching items with filter&#40;&#41;
+        QA result + response-time examples
+      ex_17 - dictionary
+        Key-value CRUD + iteration
+        Nested test data
+        zip + merge + frequency counting
+      ex_18 - object-oriented Python
+        Classes + objects
+        Constructors + instance variables
+        Encapsulation + access conventions
+        5 inheritance patterns + MRO
+        QA BaseTest examples
+        Polymorphism + method overriding
+        Abstract base classes
+        Static methods + class methods
+        Exceptions + custom errors
+        Standard-library modules
+      ex_19 - packages
+        Local modules + imports
+        __init__.py package marker
+      ex_20 - collections + file I/O
+        namedtuple + Counter + defaultdict
+        os.path absolute-path fixes
+        python-dotenv secrets
+        CSV login data + pandas
+      ex_21 - pytest basics
+        assert + @pytest.mark smoke/regression
+        -k keyword vs -m marker filtering
+        Fixtures + parametrize cheat sheet
+    Ch 12 - CrewAI Test Analyst Agent
+      Agent role + goal + backstory
+      Groq LLM via OpenAI-compatible URL
+      Task + Crew + kickoff
+      Requirement to 5-10 P0 test cases
+      Bug triage crew
+        Severity vs priority
+        Root cause + kill tests
+        Test strategy handoff
+    Ch 13 - Jira QA Crew (app)
+      Four agents, sequential
+        Analyst - Plan - Cases - Playwright
+      MCP primary, REST fallback
+        Chosen in Python, not by an agent
+      Pydantic contracts per stage
+        Validation gate + one repair
+      Traceability computed, not claimed
+      Streamlit UI + ZIP artifacts
+      260 tests, no live Jira or LLM
+    Ch 14 - LLM Evaluation
+      Why assertEquals breaks
+        Non-determinism
+        Open-ended outputs
+      Hallucination + faithfulness
+      Golden dataset + ground truth
+      LLM-as-judge
+      Relevancy + context precision
+      Cost and latency as signals
+    Ch 15 - DeepEval Hands-On
+      pytest-shaped LLM tests
+        LLMTestCase + assert_test
+      AnswerRelevancyMetric
+        Threshold, not equality
+      The judge is configurable
+        Groq gpt-oss-120b as local model
+        OpenAI, Ollama, LiteLLM
+      deepeval CLI provider switch
+    Ch 16 - DeepEval Framework
+      Three subsystems
+        A - ShopSphere chatbot :8201
+        B - RAG Explorer :8202
+        C - the grader :8203
+      Two models, never one
+        qwen3.8-27b under test
+        gpt-oss-120b as judge
+      One catalogue, two front doors
+        metrics_catalog.py
+        pytest + dashboard share it
+      25 metric cards
+        Quality + retrieval
+        Safety + security
+        G-Eval rubrics
+        Conversational
+      27-prompt attack library
+        Direct injection
+        Jailbreak + obfuscation
+        Exfiltration
+        Social engineering
+        Out-of-domain misuse
+      Token accounting
+        Target vs judge split
+      289 pytest cases
+    Ch 17 - LangChain Agents
+      From builder to plain Python
+        create_agent in one line
+        Groq, Gemini, DeepSeek
+      Thirteen scripts, one idea each
+        001-004 - model call to system prompt
+        005 - asyncio.gather concurrency
+        006-007 - custom tools
+        008 - Pydantic structured output
+        009-011 - browser agent, full E2E
+        012 - Jira ticket to browser run
+        013 - the whole QA pipeline
+      Local RAG over the test library
+        20 TTACart cases, valid + invalid
+        fastembed, no server, no key
+        duplicate detection in the schema
+      Dummy Slack MCP
+        reporter agent posts the verdict
+      Content blocks, not strings
+        message.text over .content
+      playwright_tools.py
+        32 agent-safe tools
+        aria_snapshot to see the page
+        PASS/FAIL assertion tools
+        console + network diagnostics
+      E2E AI QA Pipeline (blueprint)
+        Jira JQL to test plan
+        RAG test cases
+        Playwright .md automation
+        Browser Bash execution
+        Flakiness + RCA + dashboard
     Project - Job Tracker AI
       Local-first React Kanban board
       IndexedDB persistence
@@ -264,6 +447,9 @@ mindmap
 │   ├── deploy to VPS information.md   Step-by-step droplet runbook
 │   └── docs/                      architecture, phase 2 plan, JIRA MCP how-to
 │
+├── chapter_09_MCP_Basics/         MCP concepts — read before chapter 10
+│   └── MCP.md                     Protocol, roles, 3 primitives, transports, security
+│
 ├── chapter_10_MCP_Creation_VIBE/  Build your own MCP server (FastMCP)
 │   ├── Prompt.md                  The RISE-CEPT brief used to generate it
 │   ├── resource/
@@ -273,7 +459,7 @@ mindmap
 │       ├── pyproject.toml         Pinned fastmcp==3.4.4
 │       └── README.md              Install / run / Inspector / Claude Desktop
 │
-├── chapter_11_Python_Learning/    Python fundamentals for testers (23 labs)
+├── chapter_11_Python_Learning/    Python fundamentals for testers (185 Python files)
 │   ├── ex_01_Python_Basics/
 │   │   ├── Lab001_Hello.py            print() with many arguments
 │   │   ├── Lab002_Comment.py          Single-line comments
@@ -284,14 +470,230 @@ mindmap
 │   │   ├── Lab010..012                Arithmetic, BODMAS, multiple assignment
 │   │   ├── Lab013..015                str + int TypeError and str() fix
 │   │   └── rules_for_identifier.md    7 naming rules + PEP 8 + cheat sheet
-│   └── ex_03_Literals/
-│       ├── Lab016..018                Literals, single vs multi-line comments
-│       ├── Lab019_Data_Type.py        type(), max(), min()
-│       ├── Lab020_BuiltIn_Functions.py  pow(), abs()
-│       └── Lab021..023                input() and int() casting
+│   ├── ex_03_Literals/
+│   │   ├── Lab016..018                Literals, single vs multi-line comments
+│   │   ├── Lab019_Data_Type.py        type(), max(), min()
+│   │   ├── Lab020_BuiltIn_Functions.py  pow(), abs()
+│   │   ├── Lab021..025                input(), int() casting, str concat
+│   │   ├── Lab026_Literals.py         bin 0b / oct 0o / hex 0x / float / bool / complex
+│   │   ├── Lab027_Escape_Char.py      \n  \t  \b
+│   │   ├── Lab028_String_Double_Single_Diff.py  r"" raw strings for Windows paths
+│   │   └── Lab029..030                Practice tasks (arithmetic, divmod)
+│   ├── ex_04_Operators/
+│   │   ├── Lab031..035                Arithmetic, //, %, **, unary +/-
+│   │   ├── Lab036..039                Comparison and logical operators
+│   │   ├── Lab040_Operators_P9.py     divmod(), tuple unpack, += -= *= (no ++)
+│   │   ├── Lab040_Ternary_Operator.py  value if cond else value
+│   │   ├── Lab041                     Ternary vs if/else on user input
+│   │   └── Lab042_Memership_Operator.py  in / not in + math module
+│   ├── ex_05_Condition_Loops/
+│   │   ├── Lab043_IF_Condition.py     if / else on int(input())
+│   │   ├── Lab044_ELSEIF.py           Nested if — sign then even/odd
+│   │   ├── Lab046_if_else_elif.py     Max of 3 numbers with elif
+│   │   └── src/.../Lab043_..._Optimized.py  Input validation guard + .strip()
+│   ├── ex_06_Switch_Match/
+│   │   ├── LabSwitch01.py             match-case day-of-week + case _ default
+│   │   └── LabSwitch02.py             match on test type (API/UI/Perf/Security)
+│   ├── ex_07_Loops/
+│   │   ├── Lab048..051                range(start, stop, step), for, while
+│   │   ├── Lab054..056                break, pass, condition-in-loop
+│   │   └── Lab058..059                Even numbers, continue
+│   ├── ex_08_Functions/
+│   │   ├── Lab060..062                Built-in vs user-defined, def + call
+│   │   ├── Lab063..064                Parameters, return values
+│   │   ├── Lab065..067                Default params, multi-return, keyword args
+│   │   ├── Lab068..069                input() into a function, all 4 function types
+│   │   ├── Lab071_IQ.py               All-default params called 5 different ways
+│   │   ├── Lab072_Infinite_Args.py    *args — variable-length argument tuple
+│   │   ├── Lab073_Real_Args.py        *args applied (make_pizza toppings)
+│   │   └── LabIQ02.py                 Nested def — inner function is not callable outside
+│   ├── ex_09_Functions_Scopes/
+│   │   ├── Lab075_Local_Variable.py   Local invisible outside, global visible inside
+│   │   ├── Lab076.py                  Public vs private "toilet" scope analogy
+│   │   ├── Lab077_Local_Var.py        Assigning to a global name shadows it locally
+│   │   └── Lab078_Inner_Functions.py  Closure read vs local shadow in sibling inners
+│   ├── ex_10_Decortors/
+│   │   ├── Lab079_Decortors.py        @add_security — wrapper before/after
+│   │   ├── Lab080_Decor.py            @before_after_ui_test — setup/teardown shape
+│   │   ├── Lab081.py                  The same thing without decorators (start/end)
+│   │   ├── Lab082.py                  @time_decorator + @print_logs stacked
+│   │   └── Lab083.py                  Stacking order — bottom decorator wraps first
+│   ├── ex_11_TypeConversion/
+│   │   └── Lab087_Type_Conversion.py  "10" -> int(); the 9 conversion built-ins
+│   ├── ex_12_Lambda_Exp/
+│   │   ├── Lab090.py                  def triple vs lambda num: num*3
+│   │   ├── Lab091_Lambda.py           Multi-arg lambdas (mul, sum of three)
+│   │   └── Lab094_User_Input_ODD_Even.py  Ternary inside lambda + IIFE one-liner
+│   ├── ex_13_LIST/
+│   │   ├── Lab096_List.py             [] literal, len(), indexing, IndexError
+│   │   ├── Lab097.py                  append / extend / insert / remove / copy
+│   │   └── Lab098_POP.py              pop, index, count, sort, slice, nested, del
+│   ├── ex_14_Tuple/
+│   │   ├── Lab099_Tuple.py            Immutability TypeError + single-element (3,)
+│   │   ├── Lab100_Tuple.py            Tuples as frozen API URL config
+│   │   └── Lab101.py                  in, len, iterate, tuple() <-> list() round trip
+│   ├── ex_15_SET_MAP_DICT/
+│   │   ├── 102.py                     Set literals discard duplicates
+│   │   ├── 103_SET.py                 union, intersection, difference
+│   │   ├── 104_Set_Advance.py         set() conversion, add(), iteration
+│   │   └── 105_Extra.py               Set comprehension + frozenset
+│   ├── ex_16_MAP_Filters/
+│   │   ├── 106..108                   filter() with functions and lambdas
+│   │   └── 109..111                   map() transformations for QA data
+│   ├── ex_17_Dict/
+│   │   ├── 112..115                   Dictionary CRUD + nested test data
+│   │   ├── 116_Dict_Imp.py            zip(), merge operator, get()
+│   │   └── 117..119                   Equality + character/vowel counting
+│   ├── ex_18_OOPs_Python/
+│   │   ├── 01_Class_Object/          Person + Dog classes, methods, self
+│   │   ├── 02_Constructor/           __init__, required args, user input, calculator
+│   │   ├── 03_Instance_Variable/     Global, class, instance, and local scope
+│   │   ├── 04_Encapsulation/         Public, protected, private + env login
+│   │   ├── 05_Inheritance/           Single, multiple, multilevel, hierarchical, hybrid
+│   │   ├── 06_Polymorphism/
+│   │   │   ├── MethodOverloading/
+│   │   │   │   ├── 137_MO.py         Same method name: the later definition wins
+│   │   │   │   ├── 138_MO_ALL.py     Default argument as an overload alternative
+│   │   │   │   ├── 139_MO.py         Optional third argument for int/float addition
+│   │   │   │   └── 140_IQ.py         Optional authentication argument
+│   │   │   └── MethodOverrding/
+│   │   │       ├── 141_MOR.py        Child class overrides run()
+│   │   │       └── 142_MO.py         Login/API test run() overrides
+│   │   ├── 07_Abstraction/
+│   │   │   ├── 143_Abs.py            ABC Animal with abstract sound()
+│   │   │   ├── 144_Abs.py            Abstract loan contract
+│   │   │   ├── 145_REAL_.py          Browser manager start/stop contract
+│   │   │   ├── 146_REAL2.py          Engine + gearbox abstractions
+│   │   │   └── 147_REAL_Browser.py   Browser + Excel reader test flow
+│   │   ├── 08_Static/
+│   │   │   ├── 148_Static.py         Shared class counter
+│   │   │   ├── 149.py                Static greeting utility
+│   │   │   ├── 150.py                Static sum utility
+│   │   │   ├── 151_Non_Static.py     Instance method vs static method
+│   │   │   ├── 152_REAL_Exmaple.py   Static Excel/MySQL helpers in tests
+│   │   │   └── 154_Ex.py             Class, static, and instance members
+│   │   ├── 09_Exceptions/
+│   │   │   ├── 153_Ex.py             NameError example
+│   │   │   ├── 154.py                ZeroDivisionError example
+│   │   │   ├── 155.py                TypeError example
+│   │   │   ├── 156.py                ValueError example
+│   │   │   ├── 157.py                IndexError example
+│   │   │   ├── 158.py                SyntaxError example
+│   │   │   ├── 159.py                Unhandled input/division errors
+│   │   │   ├── 160.py                Catch ZeroDivisionError
+│   │   │   ├── 161.py                Catch a tuple of exception types
+│   │   │   ├── 162.py                Separate exception handlers
+│   │   │   ├── 163.py                try/except/finally
+│   │   │   ├── 164.py                requests connection + timeout errors
+│   │   │   ├── 165.py                try/except/else/finally
+│   │   │   ├── 166.py                Raise an authorization exception
+│   │   │   ├── 167.py                Custom InvalidAgeException
+│   │   │   ├── 168.py                FileNotFoundError handling
+│   │   │   └── 169.py                Python 3.11 ExceptionGroup
+│   │   └── 10_Modules/
+│   │       └── 170.py                os module and environment access
+│   ├── ex_19_Package/
+│       ├── 170.py                     Import local modules and a package
+│       ├── mymodule.py                Greeting module
+│       └── package/
+│           ├── __init__.py            Package marker
+│           ├── util_module.py         First package utility
+│           └── util_module2.py        Second package utility
+│   ├── ex_20_Collections_FileIO/
+│   │   ├── 171.py                     collections: namedtuple, Counter, defaultdict
+│   │   ├── 172_Main.py                if __name__ == '__main__' guard
+│   │   ├── 173_Usage.py               Local functions dispatched under __main__
+│   │   ├── 174_OS.py                  os.getcwd() + os.path.join path fixes
+│   │   ├── 175_File.py                open() with os.path.join absolute paths
+│   │   ├── 176_Env.py                 python-dotenv secrets (DB_PASSWORD gate)
+│   │   ├── 177.py                     with open() + FileNotFoundError handling
+│   │   ├── 178.py                     csv.reader over login test data
+│   │   ├── 179.py                     pandas read_csv DataFrame
+│   │   ├── testdata.txt               Sample user CSV (20 rows, some empty cells)
+│   │   ├── td.csv                     Login test data (username, password, expected)
+│   │   └── pramod.txt                 Small text file for the read labs
+│   └── ex_21_PyTest/
+│       ├── 179.py                     ER == AR testing mindset note
+│       ├── test_180.py                @pytest.mark.reg + smoke asserts
+│       ├── test_181.py                @pytest.mark.smoke + regression tests
+│       └── PyTest_Cheatsheet.md       Full pytest reference (markers, fixtures, parametrize)
 │
-├── E2E_QA_Pipeline/               End-to-end AI QA pipeline blueprint
-│   └── E2E_QA_Pipeline.md         8-step flow: Jira -> plan -> cases -> automation -> run -> RCA
+├── chapter_12_CrewAI/             CrewAI multi-agent framework labs
+│   ├── 01_test_analyst_Agent.py   QA Analyst agent: requirement -> P0 test cases
+│   ├── 02_Research_Write_AI_Agent.py  Two-agent research + documentation crew
+│   ├── 04_Build_QABugTriageCrew_Prod.py  Bug triage: severity, RCA, test strategy
+│   └── .env                       Groq key + model id (gitignored)
+│
+├── chapter_13_CREW_AI_QA_Pipeline/  Jira QA Crew: Streamlit app, 4 CrewAI agents
+│   ├── app.py                     Streamlit entry point (presentation only)
+│   ├── src/jira_qa_crew/          config, models, jira/, crew/, services/, ui/
+│   │   ├── jira/gateway.py        MCP primary -> REST fallback, decided in Python
+│   │   ├── services/pipeline.py   Stage gates, validation, one repair attempt
+│   │   └── services/traceability.py  Coverage computed, never claimed by an agent
+│   ├── tests/                     260 tests, no live Jira and no LLM cost
+│   └── .env                       LLM + Jira credentials (gitignored)
+│
+├── chapter_14_LLM_Eval/           Why assertEquals breaks on generated text
+│   └── README.md                  Ground truth, golden dataset, judges, faithfulness
+│
+├── chapter_15_DeepEval/           DeepEval hands-on: the first scored test
+│   ├── Notes.md                   venv setup, install, LLM-brain options
+│   ├── test_01_Anwser_Relevancy.py  AnswerRelevancyMetric at threshold 0.9
+│   ├── .deepeval/                 Provider config + run cache (gitignored)
+│   └── .env                       Judge model API key (gitignored)
+│
+├── chapter_16_DeepEval_Framwork/  A judge model grading two live apps
+│   ├── prompts_deep_eval_framework.md   Every prompt that built it, in order
+│   ├── How_The_DeepEval_Framework_Works.html   Illustrated walkthrough
+│   │                              -> deepeval-dashboard.vercel.app/how-it-works
+│   ├── 01_Chatbot_Shopeasy_chatbot/     Subsystem A - the app under test (:8201)
+│   │   └── 01_chatbot/            FastAPI + Groq support bot, React UI
+│   ├── 02_RAG_Explorer/           Subsystem B - retrieval, exposed (:8202)
+│   │   └── 02_rag_explorer/       Flask/FastAPI + Chroma + Ollama embeddings
+│   └── 03_DeepFramework/          Subsystem C - the grader (:8203)
+│       ├── metrics_catalog.py     25 MetricSpecs; pytest and the dashboard
+│       │                          both import these, so thresholds cannot drift
+│       ├── llm_providers/judge.py gpt-oss-120b on Groq + rate-limit backoff
+│       ├── targers/               HTTP clients for subsystems A and B
+│       ├── datasets/              goldens, conversations, 27-prompt attack library
+│       ├── token_meter.py         target vs judge token split
+│       ├── dashboard/snapshot/    capture a run -> bake a static page -> Vercel
+│       │                          -> deepeval-dashboard.vercel.app
+│       ├── tests/                 289 cases: 7 chatbot files, 12 RAG files, smoke
+│       └── dashboard/             the grid UI, one card per metric
+│
+├── chapter_17_LangChain/          LangChain agents in plain Python
+│   ├── LangChain_Notes.html       Full study guide: 10 chapters + what actually broke
+│   ├── E2E_QA_Pipeline.md         8-step flow: Jira -> plan -> cases -> automation -> run -> RCA
+│   ├── src/chapters/
+│   │   ├── 001_Hello_LC.py        Raw model call - ChatGroq, no agent
+│   │   ├── 002_Hello_Gemini.py    First agent - create_agent + Gemini
+│   │   ├── 003_Hello_Gemini_Steam.py  Token streaming with stream_mode="messages"
+│   │   ├── 004_SP.py              system_prompt - giving the agent a role
+│   │   ├── 005_Agent_Parallel_Vs_Sequential.py  asyncio.gather - 4 calls at once
+│   │   ├── 006_Tool.py            @tool - one calculator the agent may call
+│   │   ├── 007_MultiTool.py       Two tools - the model picks which to use
+│   │   ├── 008_Structure_output.py  response_format - Pydantic, no JSON parsing
+│   │   ├── 009_Playwright_Agent_Orch.py     Browser agent on Groq
+│   │   ├── 010_Playwright_Agent_Orch_Deepseek.py  Same agent on DeepSeek
+│   │   ├── 011_FULL_E2E_..._Deepseek.py     Full checkout E2E, order verified
+│   │   ├── 012_Fetch_JIRA_QA_Orch.py        Jira -> plan -> browser, 2 human gates
+│   │   ├── 013_FULL_E2E_..._Local_RAG_...py The whole pipeline, 6 stages
+│   │   ├── playwright_tools.py    32 agent-safe Playwright tools, 5 bundles
+│   │   ├── tta_rag.py             Local RAG: fastembed + cached numpy index
+│   │   ├── slack_tools.py         DUMMY Slack MCP - prints, never sends
+│   │   ├── rag_corpus/            20 TTACart test cases, valid and invalid
+│   │   └── fixtures/              Offline Jira tickets for when the token expires
+│   └── .env                       GROQ + Google API keys, model ids (gitignored)
+│
+├── chapter_18_LangGraph/          Graphs: state, branches and loops
+│   └── src/
+│       ├── 001_Hello_Graph.py     One node between START and END
+│       ├── 002_Linear_Pipeline.py setup -> execute -> teardown
+│       ├── 003_Conditional_Edge.py  A router that picks the next node
+│       ├── 004_Loop_Retry.py      An edge pointing backwards, with a cap
+│       ├── Project_PW_FlakyFinder.py  The retry loop around REAL Playwright
+│       └── tests/test_login.py    Two live tests: one passes, one always fails
 │
 ├── Live_Task_AI_Testing/          Live class tasks and real-time projects
 │   ├── Task_23rd_May/             LLM research notes and local model comparison
@@ -1010,6 +1412,54 @@ Full design rationale (embedding model, vector DB, chunk sizes, preprocessing �
 
 ---
 
+## Chapter 09 — MCP Basics
+
+`chapter_09_MCP_Basics/MCP.md` is the concepts chapter that chapter 10 builds on. It answers *what MCP is and why it exists* before you write a line of server code — the protocol, the three roles, the three primitives, the two transports, and the security model, written against spec revision **`2026-07-28`**.
+
+**Concept:** MCP (Model Context Protocol) is an open protocol that standardises how an LLM application connects to an external data source or tool, using **JSON-RPC 2.0** over a **client-host-server** architecture. It takes explicit inspiration from the Language Server Protocol: LSP standardised "add language support to any editor", MCP standardises "add context and tools to any AI application".
+
+**Why:** Pasting your data into the chat window fails three ways — it burns the context window, it goes stale the moment someone edits the source, and it makes every AI client × every data source a bespoke integration. Write one MCP server and every client can use it: **N×M collapses to N+M**.
+
+**Q&A — the concepts that matter:**
+- **Q: Tool, resource, or prompt?** A: Ask who triggers it. **Tools** the *model* decides to call mid-conversation (they take arguments it computes). **Resources** the *app* fetches by URI, like a file read. **Prompts** the *user* picks from a menu, like a slash command.
+- **Q: Why can't a server just call the client?** A: Only two message directions exist — client sends requests/notifications, server sends responses/notifications. When a server needs something back (user input, an LLM completion), it answers with an `InputRequiredResult`, the client fetches it, and re-sends the original request with the input attached.
+- **Q: What's the gotcha that bites everyone?** A: **Never write to `stdout`** in a stdio server — `stdout` *is* the JSON-RPC channel, so one stray `print()` corrupts the stream and the client disconnects with a parse error. The spec explicitly permits `stderr` for logging; use it.
+
+**The three primitives, one question:**
+
+```mermaid
+flowchart LR
+    M["LLM decides<br/>mid-conversation"] -->|tools/call| S["MCP server"]
+    A["Client app fetches<br/>by URI"] -->|resources/read| S
+    U["User picks<br/>from a menu"] -->|prompts/get| S
+    S --> D[("Your data")]
+    S -.->|"InputRequiredResult"| A
+```
+
+**What a tool call actually looks like on the wire** — JSON-RPC 2.0, correlated by `id`:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 7,
+  "method": "tools/call",
+  "params": {
+    "name": "search_test_cases",
+    "arguments": { "query": "invite user", "limit": 3 }
+  }
+}
+```
+
+**Transports:** semantics are identical on both — a transport is only a *binding* that says how messages are framed. **stdio** (client launches the server as a subprocess; newline-delimited JSON-RPC over `stdin`/`stdout`) is what chapter 10 uses. **Streamable HTTP** (each message is an HTTP POST to one endpoint; the reply is JSON or a request-scoped SSE stream) is for remote and multi-user servers.
+
+**Era note worth knowing:** revision `2026-07-28` is **stateless** — every request carries its own protocol version and capabilities, and discovery happens via `server/discover`. Earlier revisions were session-based, opening with an `initialize` handshake. Both exist in the wild, and many SDKs (including the FastMCP version pinned in chapter 10) still implement the session-based model.
+
+**Security is an implementation obligation, not a protocol guarantee** — which makes it testable. The spec requires explicit user consent before exposing data or invoking any tool, and says tool descriptions from an untrusted server must themselves be treated as untrusted input. "Does the host actually ask before running this tool?" is a legitimate test case.
+
+The chapter closes with a glossary and a common-failure-modes table (silent stdout corruption, a tool the model never calls, templated resources the client has to guess at, era mismatches).
+
+---
+
 ## Chapter 10 — Build Your Own MCP Server
 
 `chapter_10_MCP_Creation_VIBE/testcase-creator-mcp/` is the flip side of every other chapter: instead of *consuming* AI tooling, you *build* the thing the AI plugs into. One ~250-line FastMCP server turns a flat 5,000-row test-case CSV into a live capability that Claude Desktop, Claude Code, Cursor, or any MCP client can call.
@@ -1093,15 +1543,15 @@ claude mcp add vwo-testcases -- uv run --directory "$(pwd)" python server.py
 
 ## Chapter 11 — Python for Testers
 
-`chapter_11_Python_Learning/` is the ground floor. Every automation framework, RAG script, and MCP server in this repo is Python — this chapter is 23 tiny runnable labs that get a manual tester from `print("Hello")` to `int(input(...))` without a single framework in the way.
+`chapter_11_Python_Learning/` is the ground floor. Its 173 Python source files take a manual tester from `print("Hello")` to decorators, collections, object-oriented programming, exception handling, modules, and packages without a framework in the way.
 
-**Concept:** Three exercise folders, each one sitting. `ex_01_Python_Basics` is output and comments. `ex_02_Keywords_Identifier_Variables` is naming things and doing arithmetic with them. `ex_03_Literals` is data types, built-in functions, and reading user input. One file per idea, no file longer than 20 lines.
+**Concept:** Nineteen focused exercise folders build the language one idea at a time. The path starts with output, variables, types, operators, conditions, loops, and functions; then moves through scope, decorators, conversion, lambdas, and Python's core collections. The final folders cover sets and `frozenset`, functional transformations with `map()` / `filter()`, dictionaries for realistic nested test data, OOP, polymorphism, abstraction, static and class methods, exceptions, modules, and packages. Each file stays small enough to run, inspect, change, and re-run in a few minutes.
 
 **Why:** Most "learn Python" material teaches a language. A tester needs a *runnable mental model* fast — why `"PRAMOD" + 10` throws, why `age` and `Age` are two variables, why `input()` always hands back a string. Each lab is small enough to run, break, and re-run in under a minute.
 
 **Q&A — how to work through it:**
-- **Q: In what order do I run these?** A: Lab number order — `Lab001` to `Lab023` — across the three folders. The numbering is continuous, so the folder split is organisational, not a restart.
-- **Q: Do I need a virtualenv or any install?** A: No. Every lab is stdlib-only, so `python3 Lab00X.py` on a stock Python 3.11+ is enough. `keyword` (Lab004) ships with Python.
+- **Q: In what order do I run these?** A: Follow the exercise folders from `ex_01` to `ex_19`, and the numbered examples from `001` through `170`. Some numbers are absent or reused in separate OOP topic folders, so follow the folder order first and filenames second. The package exercise also uses supporting files without numeric prefixes.
+- **Q: Do I need a virtualenv or any install?** A: Almost every lab is stdlib-only. `04_Encapsulation/132_Ecap_NICE.py` uses `python-dotenv`, while `09_Exceptions/164.py` uses `requests`; install both with `python3 -m pip install python-dotenv requests`. Provide `USERNAME` / `PASSWORD` in your environment or a local ignored `.env` file for the encapsulation example.
 - **Q: What's the single most common beginner error here?** A: `TypeError: can only concatenate str (not "int") to str` — Lab013 triggers it deliberately and Lab015 fixes it with `str()`. The same class of bug shows up later as `int(input(...))` in Lab022.
 
 **Learning path:**
@@ -1112,9 +1562,43 @@ flowchart TD
     A1 --> B["ex_02 — Keywords, Identifiers, Variables<br/>Lab004-015"]
     B --> B1["35 reserved keywords<br/>identifier naming rules<br/>dynamic typing + type&#40;&#41;"]
     B1 --> B2["arithmetic + BODMAS<br/>multiple assignment<br/>str + int TypeError -> str&#40;&#41;"]
-    B2 --> C["ex_03 — Literals and I/O<br/>Lab016-023"]
-    C --> C1["multi-line comments<br/>data types + built-ins<br/>input&#40;&#41; returns str -> int&#40;&#41;"]
-    C1 --> D["Ready for Chapters 07-10<br/>RAG scripts, Flask apps, MCP servers"]
+    B2 --> C["ex_03 — Literals and I/O<br/>Lab016-030"]
+    C --> C1["multi-line comments<br/>data types + built-ins<br/>input&#40;&#41; returns str -> int&#40;&#41;<br/>escape seq + raw strings"]
+    C1 --> E["ex_04 — Operators<br/>Lab031-042"]
+    E --> E1["arithmetic // % **<br/>comparison + logical<br/>membership + ternary"]
+    E1 --> F["ex_05 — if / elif / else<br/>Lab043-046"]
+    F --> G["ex_06 — match-case<br/>LabSwitch01-02"]
+    G --> H["ex_07 — Loops<br/>Lab048-059"]
+    H --> H1["for + range&#40;&#41;, while<br/>break / continue / pass"]
+    H1 --> I["ex_08 — Functions<br/>Lab060-069"]
+    I --> I1["4 function types<br/>default + keyword args<br/>multiple return values"]
+    I1 --> J["ex_09 — Scopes<br/>Lab075-078"]
+    J --> J1["local vs global<br/>shadowing<br/>inner functions"]
+    J1 --> K["ex_10 — Decorators<br/>Lab079-083"]
+    K --> K1["wrapper before/after<br/>@time_decorator<br/>stacked = bottom-up"]
+    K1 --> L["ex_11 — Type Conversion<br/>Lab087"]
+    L --> M["ex_12 — Lambda<br/>Lab090-094"]
+    M --> M1["lambda a, b: a * b<br/>ternary inside lambda"]
+    M1 --> N["ex_13 — List<br/>Lab096-098"]
+    N --> N1["mutable, indexed<br/>append/extend/insert<br/>pop/sort/slice"]
+    N1 --> O["ex_14 — Tuple<br/>Lab099-101"]
+    O --> O1["immutable<br/>&#40;3,&#41; trailing comma<br/>tuple&#40;&#41; &lt;-&gt; list&#40;&#41;"]
+    O1 --> P["ex_15 — Set + Frozenset<br/>Lab102-105"]
+    P --> P1["unique values<br/>union / intersection / difference<br/>set comprehensions"]
+    P1 --> Q["ex_16 — Map + Filter<br/>Lab106-111"]
+    Q --> Q1["select with filter&#40;&#41;<br/>transform with map&#40;&#41;<br/>functions + lambdas"]
+    Q1 --> R["ex_17 — Dictionary<br/>Lab112-119"]
+    R --> R1["key-value CRUD<br/>nested test data<br/>zip / merge / frequency count"]
+    R1 --> S["ex_18 — OOP and errors<br/>120-170"]
+    S --> S1["class + object + self<br/>constructors<br/>class vs instance variables"]
+    S1 --> S2["encapsulation<br/>public / protected / private<br/>env-backed credentials"]
+    S2 --> S3["single / multiple / multilevel<br/>hierarchical / hybrid inheritance<br/>MRO + BaseTest patterns"]
+    S3 --> S4["polymorphism<br/>default-argument overload pattern<br/>method overriding"]
+    S4 --> S5["abstract base classes<br/>static + class methods"]
+    S5 --> S6["built-in + custom exceptions<br/>try / except / else / finally<br/>ExceptionGroup"]
+    S6 --> S7["ex_18 modules<br/>os + environment"]
+    S7 --> T["ex_19 — Packages<br/>local imports + __init__.py"]
+    T --> D["Ready for Chapters 07-10<br/>RAG scripts, Flask apps, MCP servers"]
 ```
 
 **The lab that teaches the most in four lines** — `ex_03_Literals/Lab023_Strings.py`:
@@ -1145,17 +1629,1484 @@ print(num1 + num2)   # without int(), "2" + "3" would print 23, not 5
 | `class` | No | one of the 35 reserved keywords |
 | `age` vs `Age` | Both | case sensitive — two different variables |
 
-**Run any lab:**
-```bash
-cd chapter_11_Python_Learning/ex_01_Python_Basics
-python3 Lab001_Hello.py
+### ex_03 (cont.) — Literals, Escape Sequences, Raw Strings
+
+**Concept:** A literal is a value written directly in source. Python reads the same integer four ways — decimal `89`, binary `0b1010`, octal `0o130`, hex `0x12c` — plus `float`, `str`, `bool`, and `complex` (`1 + 7j`).
+
+**Why:** Testers hit non-decimal literals in API payloads, permission bits, and colour codes, and hit escape sequences the moment a Windows file path lands in a test fixture.
+
+**Q&A — why use this?**
+- **Q: When do I need `r""`?** A: Any Windows path or regex. `'C:\pramod\n.txt'` silently becomes a newline; `r"C:\pramod\n.txt"` stays literal.
+- **Q: Single or double quotes?** A: No difference in Python — `'C'` and `"C"` are identical `str`. Pick one and be consistent (PEP 8 has no preference).
+- **Q: How do I convert `"90"` to a number?** A: `int()`, `float()`, `str()` are the three casts. `int("90")` works; `int("90.5")` raises `ValueError`.
+
+```mermaid
+flowchart LR
+    L["Literal in source"] --> D["0b1010 -> binary"]
+    L --> O["0o130 -> octal"]
+    L --> H["0x12c -> hex"]
+    L --> S["'text' -> str"]
+    S --> ESC{"Has backslash?"}
+    ESC -->|"escape wanted"| E1["\\n \\t \\b interpreted"]
+    ESC -->|"literal wanted"| E2["r&#40;&#41; raw string prefix"]
+```
+
+`ex_03_Literals/Lab028_String_Double_Single_Diff.py`:
+
+```python
+c  = 'C'
+c1 = "C"
+print(c, c1)          # identical — Python has no char type
+
+# dir = 'C:\pramod\n.txt'   # \n becomes a NEWLINE — path is broken
+dir = r"C:\pramod\n.txt"    # raw: prints exactly as written
+print(dir)
 ```
 
 ---
 
-## End-to-End AI QA Pipeline (Blueprint)
+### ex_04 — Operators
 
-**Concept:** `E2E_QA_Pipeline/` is the blueprint that ties the whole course together — an AI pipeline that reads a Jira story and drives it all the way to executed automation and an analysed results dashboard, with a RAG pipeline supplying historical test plans and cases along the way.
+**Concept:** `ex_04_Operators/` walks all five operator families — arithmetic (`+ - * / // % **`), comparison (`== != > <`), logical (`and or not`), assignment (`+= -= *=`), and membership (`in` / `not in`) — plus the ternary one-liner.
+
+**Why:** Every assertion you will ever write is a comparison or a logical expression. Getting `/` vs `//`, and `=` vs `==`, wrong is the top source of silent wrong-result bugs in test code.
+
+**Q&A — why use this?**
+- **Q: What's the difference between `/` and `//`?** A: `/` always returns a `float` (`5/2 -> 2.5`); `//` is floor division and returns the quotient (`5//2 -> 2`). `%` gives the remainder. `divmod(5, 2)` returns both at once.
+- **Q: Does Python have `++` / `--`?** A: No. Use `x += 1` and `x -= 1`. `Lab040_Operators_P9.py` says this out loud because it trips up Java and JS testers.
+- **Q: When do I use the ternary?** A: One-line assignment or print where a full `if/else` block adds noise — `print("pass" if code == 200 else "fail")`. Anything with two statements per branch stays a real `if`.
+
+```mermaid
+flowchart TD
+    OP["Operators"] --> A["Arithmetic<br/>+ - * / // % **"]
+    OP --> C["Comparison<br/>== != > < >= <=<br/>-> bool"]
+    OP --> L["Logical<br/>and / or / not<br/>-> bool"]
+    OP --> AS["Assignment<br/>= += -= *=<br/>no ++ or --"]
+    OP --> M["Membership<br/>in / not in"]
+    C --> T["Ternary<br/>X if cond else Y"]
+    L --> T
+```
+
+`ex_04_Operators/Lab041_User_Input_Ternary_Operators.py` — the same rule written twice:
+
+```python
+user_age = int(input("Enter your age\n"))
+
+if user_age >= 18:
+    print("Yes You can go to GOA and vote")
+else:
+    print("Not you can't go and can't vote")
+
+# identical logic, one line
+print("Yes You can go to GOA and vote" if user_age >= 18 else "Not you can't go and can't vote")
+```
+
+| Operator | Result for `5 ? 2` | Type |
+|:---------|:-------------------|:-----|
+| `5 / 2` | `2.5` | always `float` |
+| `5 // 2` | `2` | floor quotient |
+| `5 % 2` | `1` | remainder |
+| `5 ** 2` | `25` | power |
+| `divmod(5, 2)` | `(2, 1)` | quotient + remainder tuple |
+
+---
+
+### ex_05 — Conditions (if / elif / else)
+
+**Concept:** `ex_05_Condition_Loops/` builds decision logic in three steps: a flat `if/else`, a nested `if` inside an `if`, then an `if / elif / else` chain that finds the max of three numbers.
+
+**Why:** A test is a decision. Every assertion, every skip rule, every environment switch in a framework is this construct — and nesting depth is where readability dies first.
+
+**Q&A — why use this?**
+- **Q: `elif` or a second `if`?** A: `elif` when the branches are mutually exclusive — Python stops at the first `True`. Separate `if`s all evaluate, which is slower and lets two branches both fire.
+- **Q: Why `.strip()` on `input()`?** A: A stray space makes `int(" 21 ")` fragile in real terminals. `Lab043_IF_Condition_Optimized.py` strips first, then validates the range before deciding.
+- **Q: How do I validate before branching?** A: Guard clause first. The optimized lab rejects `age <= 0 or age > 130` up front, so the business logic below never sees garbage.
+
+```mermaid
+flowchart TD
+    IN["int&#40;input&#40;&#41;.strip&#40;&#41;&#41;"] --> G{"age <= 0 or age > 130?"}
+    G -->|Yes| BAD["Enter a valid age"]
+    G -->|No| C{"age >= 21?"}
+    C -->|Yes| Y["Yes, can go club"]
+    C -->|No| N["No, can't go club"]
+```
+
+`ex_05_Condition_Loops/src/ex_05_Condition_Loops/Lab043_IF_Condition_Optimized.py`:
+
+```python
+age = int(input("Enter the age\n").strip())
+
+if age <= 0 or age > 130:
+    print("Enter a valid age")
+else:
+    if age >= 21:
+        print("Yes, can go club")
+    else:
+        print("No, can't go club")
+```
+
+---
+
+### ex_06 — match-case (Python's switch)
+
+**Concept:** `match-case` (Python 3.10+) matches a value against patterns top-down and runs the first hit. `case _` is the wildcard default.
+
+**Why:** A long `elif` chain that only ever compares one variable to constants reads better as a `match` — and in test code that shape appears constantly (test type, environment, browser, status code).
+
+**Q&A — why use this?**
+- **Q: Does it need `break` like Java/JS?** A: No. Python does not fall through — the matched case runs and the block exits.
+- **Q: What if nothing matches and there is no `case _`?** A: Nothing happens, silently. Always write `case _` as the invalid-input branch.
+- **Q: Which Python version?** A: 3.10 or newer. On 3.9 and below `match` is a `SyntaxError` — fall back to `elif` or a dict lookup.
+
+```mermaid
+flowchart TD
+    IN["test_type = input&#40;&#41;"] --> M{"match test_type"}
+    M -->|API| A["Run POSTMAN API testcase"]
+    M -->|UI| U["Run Selenium testcase"]
+    M -->|Performance| P["Run Performance testcase"]
+    M -->|Security| S["Run Security testcase"]
+    M -->|"case _"| D["Invalid Type."]
+```
+
+`ex_06_Switch_Match/LabSwitch02.py`:
+
+```python
+test_type = input("Enter the Test Type : API, UI, Performance, Security ")
+
+match test_type:
+    case "API":
+        print("We are running a POSTMAN API Testcase.")
+    case "UI":
+        print("We are running a Selenium Testcase.")
+    case "Performance":
+        print("We are running a  Performance Testcase.")
+    case "Security":
+        print("We are running a  Security Testcase.")
+    case _:
+        print("Invalid Type.")
+```
+
+---
+
+### ex_07 — Loops
+
+**Concept:** `ex_07_Loops/` covers `for i in range(start, stop, step)` (stop is exclusive), `while` with the I-C-U pattern (Initialize, Condition, Update), and the three loop-control keywords `break`, `continue`, `pass`.
+
+**Why:** Data-driven testing *is* a loop — one test body, many test IDs. Off-by-one on `range()` and a forgotten update line in `while` (infinite loop) are the two classic beginner failures, and both labs trigger them on purpose.
+
+**Q&A — why use this?**
+- **Q: `for` or `while`?** A: `for` when the count is known (`range(1, 6)` — 5 test cases). `while` when the exit depends on a condition (retry until pass, poll until ready).
+- **Q: `break` vs `continue` vs `pass`?** A: `break` exits the loop entirely, `continue` skips to the next iteration, `pass` does literally nothing (a syntactic placeholder so an empty block still parses).
+- **Q: Why does `range(1, 10)` stop at 9?** A: `stop` is exclusive. `range(10)` is 0-9, ten iterations — that's why `Lab050` uses `range(1, 6)` to get test IDs 1 through 5.
+
+```mermaid
+flowchart TD
+    S["Start"] --> I["Initialize<br/>test_id = 0"]
+    I --> C{"Condition<br/>test_id < 10"}
+    C -->|False| E["Exit loop"]
+    C -->|True| B["Body<br/>run the test case"]
+    B --> K{"break?"}
+    K -->|Yes| E
+    K -->|No| N{"continue?"}
+    N -->|Yes| U
+    N -->|No| U["Update<br/>test_id += 1"]
+    U --> C
+```
+
+`ex_07_Loops/Lab051_For_While.py` — the I-C-U pattern applied to test IDs:
+
+```python
+test_id = 0
+while test_id < 10:          # Condition
+    print("Running the testcase -> ", test_id)
+    test_id = test_id + 1    # Update — drop this line and it loops forever
+```
+
+`ex_07_Loops/Lab059.py` — `continue` as an odd-number filter:
+
+```python
+for number in range(10):
+    if number % 2 == 0:
+        continue          # skip evens, jump to next iteration
+    else:
+        print(number)     # 1 3 5 7 9
+```
+
+---
+
+### ex_08 — Functions
+
+**Concept:** A function is a named, reusable block. `ex_08_Functions/` builds all four shapes in order: no-param/no-return, param/no-return, param + default, and param + `return`.
+
+**Why:** Every fixture, helper, and page-object method you write later is one of these four. Defaults and keyword arguments are what make a test helper readable at the call site.
+
+**Q&A — why use this?**
+- **Q: Can a Python function return more than one value?** A: Yes — `return a + b, a - b, a * b` returns a tuple, unpacked at the call site into three variables.
+- **Q: Why keyword arguments?** A: They kill positional-order bugs. `display_information(role="QA", name="Pramod")` is order-independent and self-documenting at the call site.
+- **Q: What's the gotcha with default parameters?** A: They must come after non-default ones, and a *mutable* default (`def f(items=[])`) is shared across calls — use `None` and build inside. The labs stick to immutable defaults like `name="QA"`.
+
+```mermaid
+flowchart TD
+    F["def function"] --> T1["Type 1 — NRNP<br/>no param, no return<br/>greet&#40;&#41;"]
+    F --> T2["Type 2 — param, no return<br/>greet&#40;name&#41;"]
+    F --> T3["Type 3 — default param<br/>greet&#40;name='QA'&#41;"]
+    F --> T4["Type 4 — param + return<br/>sum_of_two&#40;a, b&#41; -> a + b"]
+    T4 --> MR["Multiple returns<br/>return a+b, a-b, a*b<br/>-> tuple unpack"]
+    T3 --> KW["Keyword args<br/>f&#40;role='QA', name='Pramod'&#41;"]
+```
+
+`ex_08_Functions/Lab066_Functions_Return_Multiple_Values.py` and `Lab067_Functions_Keyword_Arg.py`:
+
+```python
+def math_operations(a, b):
+    return a + b, a - b, a * b          # returns a tuple
+
+sum_result, diff_result, mul_result = math_operations(3, 4)
+print(sum_result, diff_result, mul_result)   # 7 -1 12
+
+
+def display_information(name, role):
+    print(f"Name : {name}, role is {role}")
+
+display_information(name="Pramod2", role="QA2")
+display_information(role="QA3", name="Pramod3")   # order does not matter
+```
+
+| Function type | Signature | Returns |
+|:--------------|:----------|:--------|
+| NRNP | `def greet():` | `None` |
+| Param, no return | `def greet(name):` | `None` |
+| Default param | `def greet(name="QA"):` | `None` |
+| Param + return | `def sum_of_two(a, b):` | value or tuple |
+
+**`*args` — infinite arguments** (`Lab072_Infinite_Args.py`, `Lab073_Real_Args.py`): when the caller decides how many values to pass, prefix the parameter with `*`. Python packs everything positional into a tuple.
+
+```python
+def print_mul_arg(*pramod_list):
+    for i in pramod_list:
+        print(i)
+
+print_mul_arg("pramod")
+print_mul_arg(2, 3, 1, 4)
+print_mul_arg("pramod", "dutta", "third", 3.14, True)   # mixed types are fine
+
+
+def make_pizza(*toppings):
+    print(toppings)                  # ('cheese', 'corn')
+
+make_pizza("cheese", "corn")
+make_pizza("tomato")
+```
+
+`Lab071_IQ.py` is the argument-resolution drill — one function with three defaults, called five ways (`sum_three()`, `sum_three(1, 2)`, `sum_three(b=67, a=10, c=45)`). `LabIQ02.py` shows a `def` inside a `def`: the inner name only exists during the outer call, so `f2()` at module level is a `NameError`.
+
+---
+
+### ex_09 — Scopes
+
+**Concept:** A variable created inside a function is *local* — it dies when the function returns. A variable created at module level is *global* — readable from inside any function. `ex_09_Functions_Scopes/` proves both directions with four labs.
+
+**Why:** Half of "why is my variable `None`?" in a test framework is a scope mistake — a helper set a local that the caller never sees, or a fixture reassigned a module constant and only shadowed it.
+
+**Q&A — why use this?**
+- **Q: Can a function read a global variable?** A: Yes, reading is free. `Lab075_Local_Variable.py` prints `pb_global_b` from inside `my_function()` with no declaration.
+- **Q: Can a function *change* a global?** A: Not by plain assignment. `Lab077_Local_Var.py` writes `public_toilet = "LPB"` inside `home()` and that creates a new local; the module-level value is untouched. You need the `global` keyword to actually rebind it.
+- **Q: What can an inner function see?** A: Its own locals plus the enclosing function's locals. `Lab078_Inner_Functions.py` has `inner_function()` read `var1 = 30` from the outer scope, while sibling `inner_function2()` defines its own `var1 = 100` and prints that instead. Neither can see the other's `var2`.
+
+```mermaid
+flowchart TD
+    G["Global scope<br/>public_toilet = 'PB'"] --> H["def home&#40;&#41;"]
+    G --> S["def stranger&#40;&#41;"]
+    H --> HL["local: private_toilet = 'PT'<br/>reads public_toilet ✅"]
+    S --> SL["reads public_toilet ✅<br/>private_toilet ❌ NameError"]
+    HL --> SH["public_toilet = 'LPB' inside home&#40;&#41;<br/>creates a NEW local<br/>global stays 'PB'"]
+```
+
+```python
+public_toilet = "PB"          # global
+
+def home():
+    private_toilet = "PT"     # local — only home() sees this
+    print(public_toilet)      # 'PB' — reading a global is fine
+
+def stranger():
+    print(public_toilet)      # 'PB'
+    # print(private_toilet)   # NameError: name 'private_toilet' is not defined
+```
+
+---
+
+### ex_10 — Decorators
+
+**Concept:** A decorator is a function that takes another function, wraps extra behaviour around it, and returns the wrapped version. `@add_security` above a `def` is shorthand for `drive = add_security(drive)`.
+
+**Why:** This is the exact machinery behind `@pytest.fixture`, `@pytest.mark.parametrize`, `@app.route`, and `@mcp.tool`. Once the wrapper pattern clicks, every framework annotation you will meet stops being magic. `Lab081.py` deliberately writes the same thing *without* a decorator (`start(); test_ui(); end()`) so the manual version and the decorated version sit side by side.
+
+**Q&A — why use this?**
+- **Q: What does the wrapper actually do?** A: Runs your "before" code, calls `func()`, runs your "after" code. That is setup/teardown around a test with zero edits to the test body.
+- **Q: `return wrapper` or `return wrapper()`?** A: `return wrapper` — no parentheses. Returning `wrapper()` calls it at decoration time (import time), so the "test" runs the moment the module loads and the decorated name becomes `None`. `Lab082.py` and `Lab083.py` show the correct form.
+- **Q: In what order do stacked decorators run?** A: Bottom-up at wrap time, top-down at call time. In `Lab082.py`, `@print_logs` is closest to the function so it wraps first, then `@time_decorator` wraps that — the timer therefore measures the logging too.
+
+```mermaid
+flowchart TD
+    A["@time_decorator"] --> B["@print_logs"]
+    B --> C["def test_ui_1&#40;&#41;"]
+    C --> D["Call test_ui_1&#40;&#41;"]
+    D --> E["time start"]
+    E --> F["'Start the logs'"]
+    F --> G["real test body<br/>time.sleep&#40;2&#41;"]
+    G --> H["'End of the log'"]
+    H --> I["time end -> print elapsed"]
+```
+
+```python
+import time
+
+def print_logs(func):
+    def wrapper():
+        print("Start the logs")
+        func()
+        print("End of the log")
+    return wrapper                       # no () here
+
+def time_decorator(func):
+    def wrapper():
+        start_time = time.time()
+        func()
+        end_time = time.time()
+        print("Total Time Take by Func -> ", end_time - start_time)
+    return wrapper
+
+@time_decorator
+@print_logs
+def test_ui_1():
+    print("Add a function, time taken by this function 1")
+    time.sleep(2)
+
+test_ui_1()
+```
+
+---
+
+### ex_11 — Type Conversion
+
+**Concept:** Explicit casting between built-in types with `int()`, `str()`, `float()`, `bool()`, `list()`, `tuple()`, `set()`, `dict()`, `complex()`.
+
+**Why:** `input()` always returns `str`, JSON numbers arrive as `str` from CSV exports, and API assertions compare `"200"` to `200` and fail. Casting is the fix, and `type()` is how you prove which one you are holding.
+
+**Q&A — why use this?**
+- **Q: How do I check what I actually have?** A: `print(type(a))` — `<class 'str'>` vs `<class 'int'>`. Do this before every "why did my assert fail" hunt.
+- **Q: Does `int("10.5")` work?** A: No — `ValueError`. Go through `float()` first: `int(float("10.5"))` gives `10`.
+- **Q: What is falsy when cast with `bool()`?** A: `0`, `""`, `[]`, `()`, `{}`, and `None`. Everything else is `True` — including the string `"False"`.
+
+```mermaid
+flowchart LR
+    S["'10' — str"] -->|int&#40;&#41;| I["10 — int"]
+    I -->|str&#40;&#41;| S
+    I -->|float&#40;&#41;| F["10.0 — float"]
+    L["[1, 2, 3] — list"] -->|tuple&#40;&#41;| T["&#40;1, 2, 3&#41; — tuple"]
+    T -->|list&#40;&#41;| L
+    I -->|bool&#40;&#41;| B["True — bool<br/>0 is the only falsy int"]
+```
+
+```python
+a = "10"
+print(type(a))     # <class 'str'>
+a = int(a)
+print(type(a))     # <class 'int'>
+
+# int(), str(), float(), bool(), list(), tuple(), set(), dict(), complex()
+```
+
+---
+
+### ex_12 — Lambda Expressions
+
+**Concept:** `lambda` builds an anonymous single-expression function inline. `lambda num: num * 3` is the same thing as a three-line `def triple_number(num)` with a `return`.
+
+**Why:** Lambdas are what you pass to `sorted(key=...)`, `filter()`, `map()`, and Playwright/pytest predicate arguments. Being able to read one is non-optional once you touch real test code.
+
+**Q&A — why use this?**
+- **Q: When do I use `lambda` over `def`?** A: When the function is one expression and used once, right where it is written. Anything with a branch, a loop, or a docstring stays a `def`.
+- **Q: Can a lambda take multiple arguments?** A: Yes — `lambda a, b: a * b` and `lambda a, b, c: a + b + c` (`Lab091_Lambda.py`). It can also take zero: `lambda: math.pow(...)`.
+- **Q: Can it have an `if`?** A: Only the ternary form — `lambda num: "Even" if num % 2 == 0 else "Odd"`. No statements, no `return` keyword; the expression *is* the return value.
+
+```mermaid
+flowchart TD
+    A["def triple_number&#40;num&#41;:<br/>&nbsp;&nbsp;&nbsp;&nbsp;return num*3"] -->|same behaviour| B["lambda num: num*3"]
+    B --> C["assign it<br/>f = lambda num: num*3"]
+    B --> D["call it inline — IIFE<br/>&#40;lambda n: ...&#41;&#40;value&#41;"]
+    B --> E["ternary inside<br/>'Even' if n%2==0 else 'Odd'"]
+```
+
+```python
+result_l_format = lambda num: num * 3
+print(result_l_format(3))                 # 9
+
+mul_l = lambda a, b: a * b
+print(mul_l(3, 4))                        # 12
+
+user_input = int(input("Enter the number"))
+check_even_odd_f = lambda num: "Even" if num % 2 == 0 else "Odd"
+print(check_even_odd_f(user_input))
+
+# one-liner: build it and call it immediately
+print((lambda num: "Even" if num % 2 == 0 else "Odd")(int(input("Enter the number: "))))
+```
+
+---
+
+### ex_13 — List
+
+**Concept:** A list is an ordered, indexed, **mutable** collection written with `[]`. It can hold mixed types, be grown, shrunk, sorted, sliced, and nested.
+
+**Why:** Every test suite is a list — test IDs, expected rows, API response arrays, grocery items. `for element in my_list` is the loop you will write more than any other.
+
+**Q&A — why use this?**
+- **Q: `append()` vs `extend()` vs `insert()`?** A: `append(x)` adds one item at the end. `extend([a, b])` adds each item of another list at the end. `insert(i, x)` puts one item at index `i` and shifts the rest right.
+- **Q: Does `copy()` give me an independent list?** A: Yes for a flat list — `Lab097.py` removes from the copy and the original is unchanged. For nested lists it is still a shallow copy; the inner lists are shared.
+- **Q: `pop()` vs `remove()` vs `del`?** A: `pop(i)` removes *by index* and returns the item (default last). `remove(x)` removes the first item *equal to `x`* and returns nothing. `del my_list[0]` removes by index and returns nothing.
+
+```mermaid
+flowchart TD
+    L["my_list = [1, 2, 3]<br/>mutable, indexed from 0"] --> ADD["Grow"]
+    L --> REM["Shrink"]
+    L --> RD["Read"]
+    ADD --> A1["append&#40;4&#41; — one item at end<br/>extend&#40;[7,8]&#41; — many at end<br/>insert&#40;1,'Dutta'&#41; — at index"]
+    REM --> R1["remove&#40;'Amit'&#41; — by value<br/>pop&#40;1&#41; — by index, returns it<br/>del my_list[0] — by index<br/>clear&#40;&#41; — empty it"]
+    RD --> D1["my_list[0] — index<br/>my_list[1:4] — slice<br/>len / max / min / sum<br/>20 in my_list — membership"]
+```
+
+```python
+my_list = [1, 2, 3]
+print(my_list[0])            # 1 — index from 0
+# print(my_list[6])          # IndexError: list index out of range
+
+my_list.append(4)            # [1, 2, 3, 4]
+my_list.extend([7, 8, 10])   # [1, 2, 3, 4, 7, 8, 10]
+my_list.insert(1, "Dutta")   # mixed types are allowed
+my_list.remove("Dutta")
+
+numbers = [10, 20, 30, 20, 40]
+print(numbers.index(20))     # 1 — first match
+print(numbers.count(20))     # 2
+print(numbers[1:4])          # slice: start, end-1
+print(max(numbers), min(numbers), sum(numbers))
+
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(matrix[1][2])          # 6 — nested list
+```
+
+---
+
+### ex_14 — Tuple
+
+**Concept:** A tuple is an ordered, indexed, **immutable** collection written with `()`. Same reading operations as a list; every write operation is gone.
+
+**Why:** Immutability is a guarantee, not a limitation. Environment URLs, expected status codes, and config constants should be impossible to reassign halfway through a suite — a tuple makes an accidental overwrite a crash at the line that caused it instead of a mystery failure three tests later.
+
+**Q&A — why use this?**
+- **Q: What happens if I try to change one?** A: `my_tuple[0] = 12` raises `TypeError: 'tuple' object does not support item assignment`. There is no `append()` either.
+- **Q: How do I write a one-element tuple?** A: With a trailing comma — `single = (3,)`. Without it, `(3)` is just the integer `3` in parentheses.
+- **Q: I need to edit one anyway.** A: Convert, edit, convert back: `list(my_tuple)` -> mutate -> `tuple(my_list)`. `Lab100_Tuple.py` and `Lab101.py` do the round trip both ways.
+
+```mermaid
+flowchart TD
+    T["my_tuple = &#40;1, 2, 3&#41;<br/>immutable"] --> OK["Allowed<br/>index, slice, len&#40;&#41;<br/>'Paris' in cities<br/>for c in colors"]
+    T --> NO["Blocked<br/>t[0] = 12 → TypeError<br/>t.append&#40;12&#41; → AttributeError"]
+    NO --> CONV["Need a change?<br/>list&#40;t&#41; → mutate → tuple&#40;l&#41;"]
+    T --> USE["Real use<br/>API_URLS = &#40;'…/python0x', '…'&#41;<br/>frozen config"]
+```
+
+```python
+my_tuple = (1, 2, 3)
+# my_tuple[0] = 12          # TypeError: 'tuple' object does not support item assignment
+
+single = (3,)                # trailing comma — without it this is an int
+print(type(single))          # <class 'tuple'>
+
+cities = ("London", "Paris", "Los Angeles", "Tokyo")
+print(len(cities))           # 4
+print("Paris" in cities)     # True
+
+# real use: frozen environment config
+API_URLS = ("https://sdet.live/python0x", "https://awesomeqa.com", "https://thetestingacademy.com")
+print(API_URLS[0])
+
+my_tuple = tuple([1, 2, 3])  # list -> tuple
+back_to_list = list(my_tuple)  # tuple -> list
+```
+
+| | List | Tuple |
+|:--|:--|:--|
+| Syntax | `[1, 2, 3]` | `(1, 2, 3)` |
+| Mutable | ✅ append / remove / sort | ❌ `TypeError` on assign |
+| One element | `[3]` | `(3,)` — comma required |
+| Use it for | test data you build up | frozen config, env URLs, constants |
+
+---
+
+### ex_15 — Set and Frozenset
+
+**Concept:** A set is a mutable collection of unique, unordered values. It is ideal for removing duplicates and comparing two groups with union (`|`), intersection (`&`), and difference (`-`). A `frozenset` keeps the same uniqueness rules but cannot be changed after creation.
+
+**Why:** QA data frequently needs comparison rather than position: which test IDs exist in either suite, which failures occur in both runs, or which expected permissions are missing from the actual response.
+
+**Q&A — why use this?**
+- **Q: Why did my duplicates disappear?** A: Uniqueness is the defining rule. `{1, 2, 3, 3}` contains only three values.
+- **Q: Can I rely on set order?** A: No. If output order matters, sort the result explicitly with `sorted(my_set)`.
+- **Q: `set` or `frozenset`?** A: Use `set` while adding or removing values. Use `frozenset` when the collection must stay fixed or needs to be used as a dictionary key.
+
+```python
+expected = {"login", "checkout", "logout"}
+actual = {"login", "search", "logout"}
+
+print(expected | actual)  # every unique test name
+print(expected & actual)  # tests present in both runs
+print(expected - actual)  # {'checkout'} — missing from actual
+
+squares = {x ** 2 for x in range(5)}
+fixed_ids = frozenset([1, 2, 3, 3])
+```
+
+---
+
+### ex_16 — Map and Filter
+
+**Concept:** `filter()` keeps items whose predicate is truthy; `map()` transforms every item with a function. Both return lazy iterator objects in Python 3, so the labs wrap them in `list()` to display and reuse the results.
+
+**Why:** These operations express common QA pipelines directly: keep only failed results, remove blank test names, normalize labels to uppercase, or convert response times from milliseconds to seconds.
+
+**Q&A — why use this?**
+- **Q: Why does printing `map(...)` not show my transformed values?** A: `map` and `filter` are lazy. Consume them with `list(...)`, a loop, or another iterator-aware function.
+- **Q: Named function or lambda?** A: Use a named `def` when the rule needs explanation or reuse. Use a lambda for one short expression at the call site.
+- **Q: Does `filter()` change the original list?** A: No. It produces a new iterator; the source list remains untouched.
+
+```python
+test_results = ["PASS", "FAIL", "PASS", "SKIP", "FAIL"]
+passed = list(filter(lambda result: result == "PASS", test_results))
+
+response_times_ms = [1200, 1500, 1800]
+response_times_s = list(map(lambda value: value / 1000, response_times_ms))
+
+print(passed)              # ['PASS', 'PASS']
+print(response_times_s)    # [1.2, 1.5, 1.8]
+```
+
+---
+
+### ex_17 — Dictionary
+
+**Concept:** A dictionary stores unique keys mapped to values. The labs cover lookup, insert, update, delete, membership, `.items()` iteration, safe `.get()` access, nested dictionaries, `dict(zip(...))`, and the Python 3.9+ merge operator (`|`).
+
+**Why:** JSON objects, API payloads, environment configuration, and data-driven test records all arrive in dictionary-shaped structures. Nested dictionary access is the bridge from Python fundamentals to real API assertions.
+
+**Q&A — why use this?**
+- **Q: `record["status"]` or `record.get("status")`?** A: Bracket lookup raises `KeyError` when the key is missing. `.get()` returns `None` or a default you provide, making optional fields easier to handle.
+- **Q: Does key order matter?** A: Python preserves insertion order, but access should still be by key rather than numeric position.
+- **Q: How do I count repeated values?** A: Start with `{}` and update with `counts[item] = counts.get(item, 0) + 1`.
+
+```python
+test_case = {
+    "id": "TC-101",
+    "status": "PASS",
+    "environment": {"browser": "Chrome", "region": "IN"},
+}
+
+print(test_case["status"])
+print(test_case["environment"]["browser"])
+test_case["status"] = "FAIL"
+
+char_count = {}
+for char in "automation":
+    char_count[char] = char_count.get(char, 0) + 1
+```
+
+---
+
+### ex_18 — Object-Oriented Python
+
+**Concept:** A class is a blueprint that groups data (attributes) and behaviour (methods). Calling the class creates an object; `__init__` initializes it, and each method receives that object as its first `self` parameter. The OOP path progresses from classes and constructors through variable scope, encapsulation, inheritance, polymorphism, abstraction, static/class methods, exception handling, and standard-library modules.
+
+**Why:** Page objects, API clients, test-data models, and framework fixtures are all built from classes. Polymorphism lets test subclasses customize shared behavior, abstraction defines contracts they must satisfy, and exception handling turns predictable failures into controlled test outcomes.
+
+**Q&A — why use this?**
+- **Q: Class or object?** A: `Dog` is the class blueprint; `chow = Dog()` creates an object and stores its reference in `chow`.
+- **Q: Why must a method declare `self`?** A: Python passes the current object automatically when you call `chow.bark()`. Inside the method, `self.name` means the `name` attribute on that object.
+- **Q: What does `__init__` do?** A: Python calls it automatically after creating an object. A parameterized constructor can require values such as `Dog("chow", "mastiff")`; calling the same class without those required arguments raises `TypeError`, which `124_DC.py` demonstrates deliberately.
+- **Q: Class variable or instance variable?** A: A value defined on the class is shared as a default. Assigning through `self.name` or `object.name` creates or updates a value for that specific object.
+- **Q: Are `protected` and `private` enforced?** A: A single underscore (`_config`) is a developer convention. A double-leading underscore (`__account_number`) triggers name mangling, which prevents casual access but is not a security boundary.
+- **Q: Which parent wins in multiple inheritance?** A: Python follows its method resolution order (MRO). In `class Child(Father1, Father2)`, `self.money()` finds `Father1.money()` first.
+- **Q: Does Python support traditional method overloading?** A: No. If a class defines the same method name twice, the later definition replaces the earlier one. The labs use default arguments such as `c=10` or `auth=None` when one method needs to accept different call shapes.
+- **Q: What is method overriding?** A: A child class supplies its own implementation of a method inherited from its parent. `LoginTest.run()` and `APITest.run()` replace `BaseTest.run()` for those objects.
+- **Q: Why use an abstract base class?** A: An `ABC` with `@abstractmethod` defines the operations every concrete subclass must implement, such as starting a browser or reading test data.
+- **Q: Static method or instance method?** A: Use an instance method when behavior needs object state through `self`; use `@staticmethod` for a utility that only needs its explicit arguments. Use `@classmethod` when the method needs shared class state through `cls`.
+
+| Folder | Focus | QA connection |
+|:-------|:------|:--------------|
+| `01_Class_Object` | Classes, objects, attributes, methods, `self` | Page-object foundation |
+| `02_Constructor` | Default/parameterized `__init__`, inputs, calculator methods | Test-data and client initialization |
+| `03_Instance_Variable` | Global, class/instance, and local names | Avoid shared-state bugs |
+| `04_Encapsulation` | Public/protected/private conventions, authenticated access | Credentials and controlled state |
+| `05_Inheritance` | Five inheritance shapes, MRO, reusable `BaseTest` | Shared setup across test classes |
+| `06_Polymorphism` | Same-name method behavior, default arguments, overriding | Flexible test implementations |
+| `07_Abstraction` | `ABC`, `@abstractmethod`, browser/data-reader contracts | Enforced framework interfaces |
+| `08_Static` | Class attributes, instance methods, `@staticmethod`, `@classmethod` | Shared counters and stateless utilities |
+| `09_Exceptions` | Built-in errors, handlers, `else`, `finally`, custom errors, `ExceptionGroup` | Predictable failure handling and cleanup |
+| `10_Modules` | `os` name, working directory, files, and environment | Runtime and environment inspection |
+
+```python
+class Dog:
+    name = None
+    breed = None
+
+    def bark(self):
+        print("Barking")
+        print(self.name)
+
+chow = Dog()
+chow.name = "Chow Chow"
+chow.bark()
+```
+
+The inheritance labs turn the same model into reusable test setup:
+
+```python
+class BaseTest:
+    def __init__(self, browser):
+        self.browser = browser
+
+    def setup(self):
+        print(f"Launching {self.browser}")
+
+class LoginTest(BaseTest):
+    def run_test(self):
+        self.setup()
+        print("Running login test...")
+
+LoginTest("chrome").run_test()
+```
+
+`04_Encapsulation/132_Ecap_NICE.py` reads `USERNAME` and `PASSWORD` with `python-dotenv`. Keep real values in environment variables or a local `.env`; the repository's `.gitignore` excludes `.env` files.
+
+---
+
+### ex_19 — Packages and Imports
+
+**Concept:** A module is one `.py` file; a package is a directory of modules, conventionally marked by `__init__.py`. The package exercise imports `mymodule.py` directly and imports `util_module` / `util_module2` through the local `package` directory.
+
+**Why:** Real test frameworks split page objects, API clients, fixtures, and utilities into importable modules instead of keeping the whole suite in one script. This exercise shows the smallest working version of that structure.
+
+**Q&A — modules vs packages:**
+- **Q: What does `__init__.py` do here?** A: It marks `package/` as a regular Python package and gives the package a place for initialization or exported names later.
+- **Q: Why run `170.py` from `ex_19_Package/`?** A: Python places the script's directory on the import path, so both `import mymodule` and `from package import util_module` resolve locally.
+- **Q: Do `util_module.py` and `util_module2.py` conflict?** A: No. They are separate module namespaces, even though both currently expose a function named `blah()`.
+
+---
+
+### ex_20 — Collections + File I/O
+
+**Concept:** This lab upgrades the built-in containers with `collections` (`namedtuple`, `Counter`, `defaultdict`) and adds the second half of QA scripting: reading files, resolving paths with `os.path`, loading secrets with `python-dotenv`, and parsing CSV test data, both with the stdlib `csv` module and pandas.
+
+**Why:** Real test data does not live in a hardcoded list. It lives in a `.csv` export, a `.env` config, or a text fixture. This lab shows the exact mechanics of getting data into and out of a test script without hardcoding secrets.
+
+**Q&A — containers and files:**
+- **Q: Why use `namedtuple` over a dict?** A: Attribute access (`t.name`) reads better than `t["name"]`, and the object is immutable, so test fixtures cannot be accidentally mutated mid-run.
+- **Q: What does `defaultdict` fix?** A: Missing-key handling. `defaultdict(int)` returns 0 and `defaultdict(list)` returns [] instead of raising KeyError, which removes whole classes of counting and grouping bugs.
+- **Q: Why does `open('testdata.txt')` fail from some directories?** A: Relative paths resolve against the current working directory, not the script location. Build absolute paths with `os.path.join(os.path.dirname(os.path.abspath(__file__)), name)` so the lab works from anywhere.
+
+**Mental model — from file on disk to assertion-ready data:**
+
+```mermaid
+flowchart LR
+    ENV[.env secrets] --> DOT[python-dotenv]
+    DOT --> OS[os.getenv]
+    CSV[td.csv / testdata.txt] --> OPEN[open / csv.reader / pandas]
+    PATH[os.path.join<br/>absolute paths] --> OPEN
+    OPEN --> DATA[lists / rows / DataFrame]
+    DATA --> TEST[assert or login check]
+    OS --> TEST
+```
+
+**Code sample — CSV login data into a pandas DataFrame:**
+
+```python
+import pandas as pd
+import os
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+df = pd.read_csv(os.path.join(base_dir, 'td.csv'))
+print(df)
+```
+
+`178.py` does the same with the stdlib `csv.reader`, printing each `username|password` row. `176_Env.py` loads `DB_PASSWORD` from `.env` and gates an admin check on it. Empty CSV cells become `NaN` in pandas and empty strings in `csv.reader`, and the shipped data includes both on purpose.
+
+---
+
+### ex_21 — pytest Basics
+
+**Concept:** pytest is the default Python test runner: functions named `test_*` are collected automatically, plain `assert` checks the outcome, and `@pytest.mark.*` tags split suites into groups you can run selectively. The lab adds two marker-based test files plus a full cheat sheet.
+
+**Why:** Manual `print()`-based checking does not scale past one script. pytest gives you collection, pass/fail reporting, marker filtering, fixtures, and parametrize, all with zero boilerplate. This is the same machinery production test suites use, and the prerequisite for the framework chapters later in the course.
+
+**Q&A — first steps with pytest:**
+- **Q: What is the difference between `-k` and `-m`?** A: `-k "smoke"` matches by keyword, a substring of the test name or marker id; `-m smoke` matches by marker exactly. Use `-m` for marker discipline, `-k` for quick fuzzy filtering.
+- **Q: Why does my test file get ignored?** A: pytest only collects files named `test_*.py` or `*_test.py` and functions named `test_*`. Rename the function or file and it appears immediately.
+- **Q: Why register markers in pytest.ini?** A: Custom markers like `smoke` and `regression` should be registered there, otherwise pytest runs fine but warns on every invocation. It is also where default options like `-v` live.
+
+**Mental model — how one pytest run flows:**
+
+```mermaid
+flowchart TD
+    CLI[pytest command] --> COLL[Collect test_*.py files]
+    COLL --> FILT{Filter -k / -m}
+    FILT --> RUN[Run each test function]
+    RUN --> ASSERT{assert passes?}
+    ASSERT -->|yes| PASS[PASSED]
+    ASSERT -->|no| FAIL[FAILED + diff]
+    FAIL --> REPORT[Summary: N passed, M failed]
+    PASS --> REPORT
+```
+
+**Code sample — marker-based tests from the lab:**
+
+```python
+import pytest
+
+@pytest.mark.smoke
+def test_method2():
+    print("test1")
+    assert 1 - 1 == 2        # deliberately fails
+
+@pytest.mark.regression
+def test_login():
+    print("test2")
+    assert 1 + 1 == 2        # passes
+```
+
+Run selectively: `pytest -m smoke`, `pytest -m "not smoke"`, or `pytest -k login`. `PyTest_Cheatsheet.md` in the same folder is the full reference: fixtures, scopes, parametrize, conftest.py, and plugins.
+
+---
+
+**Run any lab:**
+```bash
+cd chapter_11_Python_Learning/ex_01_Python_Basics
+python3 Lab001_Hello.py
+
+# operators, conditions, loops, functions
+cd ../ex_08_Functions
+python3 Lab069_Functions_Types.py
+
+# scopes, decorators, lambdas, collections
+cd ../ex_10_Decortors && python3 Lab082.py
+cd ../ex_13_LIST     && python3 Lab097.py
+cd ../ex_14_Tuple    && python3 Lab101.py
+
+# sets, map/filter, dictionaries
+cd ../ex_15_SET_MAP_DICT && python3 105_Extra.py
+cd ../ex_16_MAP_Filters  && python3 111_Map_IQ.py
+cd ../ex_17_Dict         && python3 119_Count_Vowel.py
+
+# object-oriented Python
+cd ../ex_18_OOPs_Python/01_Class_Object
+python3 120_Class.py
+python3 122_Clas_DOG.py
+
+cd ../02_Constructor && python3 123.py
+cd ../04_Encapsulation && python3 136_PPP.py
+cd ../05_Inheritance && python3 136_REAL.py
+
+# polymorphism, abstraction, and static methods
+cd ../06_Polymorphism/MethodOverloading && python3 139_MO.py
+cd ../MethodOverrding && python3 141_MOR.py
+cd ../../07_Abstraction && python3 147_REAL_Browser.py
+cd ../08_Static && python3 151_Non_Static.py
+
+# handled exceptions and standard-library modules
+cd ../09_Exceptions && python3 166.py
+cd ../10_Modules && python3 170.py
+
+# local modules and packages
+cd ../../ex_19_Package && python3 170.py
+
+# collections + file I/O
+cd ../ex_20_Collections_FileIO && python3 171.py
+python3 176_Env.py
+python3 178.py
+python3 179.py
+
+# pytest basics
+cd ../ex_21_PyTest && python3 -m pytest test_180.py test_181.py -v
+```
+
+---
+
+## Chapter 12 — CrewAI Test Analyst Agent
+
+**Concept:** CrewAI is a Python framework for multi-agent automation: you define Agents (role + goal + backstory), hand them Tasks, group both into a Crew, and call `kickoff()`. The lab builds a Test Analyst agent, a senior QA persona that reads a feature requirement and proposes 5-10 P0 test cases, powered by a free Groq LLM.
+
+**Why:** This is the bridge from prompting (chapter 02) to autonomous agents (chapters 04-05). Instead of copy-pasting a prompt every time, you encode the persona and instructions once as code, and reuse the agent on any requirement, including from a pipeline.
+
+**Q&A — agent anatomy:**
+- **Q: What is the difference between Agent and Task?** A: The Agent is the who (persona, skills, LLM). The Task is the what (a single unit of work). One agent can execute many tasks; one task belongs to one agent.
+- **Q: Why pass a Groq model explicitly?** A: CrewAI defaults to OpenAI when no LLM is given. Groq's free tier works through its OpenAI-compatible endpoint, so you wire `base_url=https://api.groq.com/openai/v1` plus the full model id `openai/gpt-oss-120b` from your Groq console.
+- **Q: Where do the API keys live?** A: In `chapter_12_CrewAI/.env`, loaded by python-dotenv. The repo's `.gitignore` excludes `.env`, so keys never get committed.
+
+**Mental model — from requirement to test cases:**
+
+```mermaid
+flowchart LR
+    ENV[.env<br/>GROQ_API_KEY + model] --> LLM[Groq LLM]
+    LLM --> AG[QA Analyst Agent<br/>role + goal + backstory]
+    REQ[Feature requirement] --> TASK[Test case Task]
+    AG --> TASK
+    TASK --> CREW[Crew]
+    CREW -->|kickoff| OUT[5-10 P0 test cases]
+```
+
+**Code sample — the full agent:**
+
+```python
+from crewai import Agent, Task, Crew, LLM
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+groq_llm = LLM(
+    model=f"openai/{os.getenv('GROQ_MODEL')}",
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url=os.getenv("GROQ_BASE_URL"),
+)
+
+qa_agent = Agent(
+    role="QA Engineer",
+    goal="Analyse the feature or the requirements, and create 5-10 test cases out of it.",
+    backstory="You are a senior QA engineer with 15 years of experience in test planning and testcase creation",
+    llm=groq_llm,
+    verbose=True,
+)
+
+test_case_task = Task(
+    description="Create 5-10 test cases",
+    expected_output="A numbered list of 5-10 test cases with brief descriptions for a app.vwo.com Login page with the username, password and submit button with remember me functionality",
+    agent=qa_agent,
+)
+
+crew = Crew(agents=[qa_agent], tasks=[test_case_task], verbose=True)
+
+if __name__ == "__main__":
+    result = crew.kickoff()
+    print(result)
+```
+
+Run it with the same interpreter that has crewai installed: `python chapter_12_CrewAI/01_test_analyst_Agent.py`. The agent returns numbered test cases covering valid login, empty fields, password masking, remember-me persistence, injection protection, and accessibility.
+
+---
+
+## Chapter 13 - Jira QA Crew (CrewAI + Streamlit)
+
+**Concept:** `chapter_13_CREW_AI_QA_Pipeline/` is the blueprint above, built for real. Paste one or more Jira ticket IDs into a Streamlit app and four CrewAI agents turn them into a requirements analysis, a 12-section test plan, detailed test cases, Playwright TypeScript automation, and a traceability matrix, all downloadable as Markdown, CSV, JSON, TypeScript and a ZIP.
+
+**Why:** Chapter 12 shows one agent doing one job. This shows what changes when a crew has to survive contact with production: a provider that fails halfway, a ticket that is missing acceptance criteria, and a stakeholder who needs to know which requirement is not covered. The interesting engineering is not the agents, it is everything around them.
+
+**Q&A - the parts that are not obvious:**
+- **Q: Why is the Jira provider chosen in Python rather than by an agent?** A: Because "try MCP, fall back to REST" is a reliability decision, not a reasoning one. `JiraGateway` decides it deterministically and records which provider actually answered, so the UI can show a truthful source badge. An agent never sees the credentials.
+- **Q: Why not use the `mcps` DSL?** A: It attaches an MCP server to an agent and lets the model decide when to call it. The fallback contract needs the MCP attempt, its failure detection, and the switch to REST to be deterministic, so the app drives a contained MCP client itself and hands the analyst one narrow read-only tool. That also enforces the read-only allow-list, which an agent-attached server cannot guarantee.
+- **Q: How is hallucination actually prevented?** A: Every requirement carries the verbatim Jira text that supports it, and is labelled EXPLICIT, INFERRED, MISSING or ASSUMPTION_REQUIRING_CONFIRMATION. Coverage is computed in Python from the validated objects, never claimed by an agent, because an agent has an obvious incentive to answer "fully covered".
+- **Q: What happens when the LLM provider cannot do structured output?** A: The pipeline walks a ladder: provider-enforced JSON schema, then `response_format: json_object` with the schema in the prompt, then plain prompted JSON. A rung that gets refused is never asked for again in that run. Enforcement degrades; validation never does, because every rung ends at the same Pydantic `model_validate`.
+- **Q: Can a malicious ticket make the agent misbehave?** A: Ticket text is wrapped in an explicit untrusted-data marker and the agent is told to report embedded instructions as a risk instead of following them. The Jira tool only serves ticket keys the run started with, so "now go read SECRET-1" gets a refusal, not another ticket.
+
+**Mental model - stage gates, not a straight line:**
+
+```mermaid
+flowchart TD
+    IN[Jira IDs<br/>parse, dedupe, validate] --> GW{JiraGateway}
+    GW -->|primary| MCP[MCP provider]
+    GW -->|fallback| REST[REST v3 + ADF parser]
+    MCP --> A1
+    REST --> A1
+    A1[Agent 1<br/>Jira Analyst] -->|RequirementAnalysis| V1{validate<br/>ids, quotes, refs}
+    V1 --> A2[Agent 2<br/>Test Plan Writer]
+    A2 -->|TestPlan| V2{validate<br/>12 sections, traces}
+    V2 --> A3[Agent 3<br/>Test Case Writer]
+    A3 -->|TestCaseSuite| V3{validate<br/>dupes, coverage}
+    V3 --> A4[Agent 4<br/>Playwright Coder]
+    A4 -->|PlaywrightBundle| V4{validate<br/>no hard waits, no XPath,<br/>no secrets, honest readiness}
+    V4 --> R[Deterministic renderers<br/>MD, CSV, JSON, TS, ZIP]
+    V1 -.one repair attempt.-> A1
+    V2 -.one repair attempt.-> A2
+    V3 -.one repair attempt.-> A3
+    V4 -.one repair attempt.-> A4
+```
+
+Each ticket gets a fresh crew with memory off, so nothing leaks between tickets, and a failure on one ticket never stops the others.
+
+**Code sample - the fallback that made the difference:**
+
+```python
+# services/structured.py - providers disagree about how much structure they
+# can guarantee, so walk a ladder and remember where you landed.
+def schema_rejected(exc: BaseException) -> bool:
+    """True only when the provider refused because of the SCHEMA.
+
+    Deliberately narrow: a rate limit or an auth failure must never be
+    mistaken for a schema problem, or enforcement would silently downgrade.
+    """
+    text = str(exc).lower()
+    if "400" not in text and "invalid_request" not in text and "unsupported" not in text:
+        return False
+    return any(m in text for m in ("response_format", "json_schema", "unsupported_value"))
+```
+
+**What running it against a real provider taught us**, measured rather than assumed:
+- DeepSeek rejects `response_format: json_schema` outright with HTTP 400, but accepts `json_object`. Hence the ladder.
+- CrewAI's `Task.context` forwards the full raw text of every upstream task, so by stage three the prompt carried the whole analysis and plan. The pipeline sends a compact summary rendered from the *validated* object instead: 40-70% smaller, and it cannot carry anything validation rejected.
+- Telling a model to "be shorter" after a truncated response made it produce three times more. Retries now carry a computed character target, and the task prompts carry countable limits.
+
+**Run it:**
+
+```bash
+cd chapter_13_CREW_AI_QA_Pipeline
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env          # add LLM_API_KEY, and Jira creds or DEMO_MODE=true
+streamlit run app.py          # http://localhost:8501
+
+pytest                        # 260 tests, no network and no LLM cost
+python scripts/demo_smoke.py  # real pipeline over the bundled fixtures
+```
+
+`chapter_13_CREW_AI_QA_Pipeline/README.md` has the architecture decisions, the MCP and REST setup, deployment (Docker and Streamlit Community Cloud), and an honest limitations section.
+
+---
+
+## Chapter 14 - LLM Evaluation
+
+**Concept:** LLM evaluation is scoring a model's output along measurable axes (relevancy, faithfulness, safety, cost) instead of comparing it to one expected string. `chapter_14_LLM_Eval/` covers the vocabulary and the method; DeepEval is the tool used to demonstrate it, and the tool is replaceable.
+
+**Why:** `assertEquals` assumes one correct answer that never changes. An LLM gives a different answer to the same prompt twice, and "summarize this document" has no single right output, so a pass/fail equality check cannot express whether the system is working.
+
+**Q&A - why use this?**
+- **Q: When do I reach for it?** A: The moment a test asserts on text a model produced. If the output is generated rather than looked up, equality assertions will flake and you need threshold-based scores instead.
+- **Q: What does it replace?** A: Not your test suite, just the assertion. You still arrange and act the same way; you swap `assertEquals(expected, actual)` for a scored metric with a threshold, such as faithfulness >= 0.8 against the retrieved context.
+- **Q: What is the gotcha?** A: LLM-as-judge is itself an LLM, so it is non-deterministic and biased too. Pin the judge model, keep a human-written golden dataset as the reference, and treat a score as a signal rather than proof.
+
+**Mental model - from a prompt to a graded result:**
+
+```mermaid
+flowchart TD
+    GD[(Golden dataset<br/>input to expected output)] --> RUN
+    P[Prompt<br/>system + user + retrieved context] --> RUN[Run the LLM]
+    RUN --> C[Completion]
+    C --> J{Evaluator}
+    GT[(Ground truth<br/>human written)] --> J
+    CTX[(Retrieved context)] --> J
+    J -->|rule based| M1[Exact / regex / schema]
+    J -->|model based| M2[Semantic similarity]
+    J -->|LLM as judge| M3[Relevancy, faithfulness,<br/>correctness]
+    M1 --> SC[Scores vs thresholds]
+    M2 --> SC
+    M3 --> SC
+    SC -->|pass| OK[Ship]
+    SC -->|below threshold| FAIL[Fail the build<br/>+ show the failing case]
+    C --> COST[Cost + p95 latency<br/>first-class signals]
+```
+
+**The vocabulary, in one table:**
+
+| Term | What it actually means |
+| --- | --- |
+| Prompt | The input: system instructions, user message, and often retrieved context |
+| Completion | The output being evaluated |
+| Ground truth | The human-written correct answer, used as the reference |
+| Golden dataset | Curated input to expected-output pairs. Your regression suite, and your test data |
+| Evaluator / judge | Whatever assigns the score: a rule, a model, or another LLM |
+| Hallucination | A fluent, confident statement not grounded in the facts or the provided context |
+| Faithfulness | Does the answer stick to the retrieved context without inventing things |
+| Relevancy | Does the answer actually address the question that was asked |
+| Context precision / recall | Did retrieval fetch the right chunks, and did it fetch all of them |
+
+**Code sample - a threshold assertion instead of an equality one:**
+
+```python
+from deepeval import assert_test
+from deepeval.metrics import AnswerRelevancyMetric, FaithfulnessMetric
+from deepeval.test_case import LLMTestCase
+
+# One case out of a golden dataset. retrieval_context is what RAG actually
+# fetched, so faithfulness can check the answer against it rather than vibes.
+case = LLMTestCase(
+    input="Does the cart total include the SAVE20 discount?",
+    actual_output=rag_pipeline("Does the cart total include the SAVE20 discount?"),
+    retrieval_context=["SAVE20 applies 20% off the cart subtotal before tax."],
+)
+
+# Scores, not equality. A threshold is a product decision, so write it down.
+assert_test(case, [
+    AnswerRelevancyMetric(threshold=0.7),   # did it answer the question asked
+    FaithfulnessMetric(threshold=0.8),      # did it stay inside the context
+])
+```
+
+Read `chapter_14_LLM_Eval/README.md` for the full concept notes.
+
+---
+
+## Chapter 15 - DeepEval in Practice
+
+**Concept:** `chapter_15_DeepEval/` is chapter 14's theory turned into a running pytest file. DeepEval wraps an LLM interaction in an `LLMTestCase`, scores it with a metric, and fails the test when the score drops below a threshold you chose.
+
+**Why:** Reading about faithfulness and relevancy does not tell you what breaks in practice. Actually installing the tool surfaces the two things that bite everyone: the judge is a separate LLM you have to pay for and configure, and a threshold is a product decision nobody makes for you.
+
+**Q&A - why use this?**
+- **Q: When do I reach for it?** A: The first time you need a scored assertion inside a suite you already run. DeepEval is a pytest plugin, so `pytest test_01_Anwser_Relevancy.py` works unchanged and CI needs no new runner.
+- **Q: What does it replace?** A: The assertion, not the harness. `assert_test(case, [metric])` sits exactly where `assert actual == expected` used to, and everything around it stays ordinary pytest.
+- **Q: What is the gotcha?** A: Every metric call costs a real LLM request against your judge model. A three-metric test on 100 golden cases is 300 paid calls, so pick the judge for price, keep the golden dataset small on purpose, and never point metrics at a production key by accident.
+
+**The judge is a separate model - and it is configurable:**
+
+The system under test and the model that grades it are two different things. DeepEval defaults to OpenAI, but Groq's endpoint is OpenAI-compatible, so `openai/gpt-oss-120b` can do the grading for a fraction of the cost. Note that `deepeval set-grok` is xAI's Grok, not Groq.com - Groq is wired in as a "local model".
+
+```mermaid
+flowchart TD
+    T["pytest test_01_Anwser_Relevancy.py"] --> TC["LLMTestCase<br/>input + actual_output + context"]
+    TC --> M["AnswerRelevancyMetric&#40;threshold=0.9&#41;"]
+    M --> R{"Which judge?<br/>.deepeval provider flag"}
+    R -->|USE_OPENAI_MODEL| O["api.openai.com<br/>gpt-4o-mini"]
+    R -->|USE_LOCAL_MODEL| G["api.groq.com/openai/v1<br/>openai/gpt-oss-120b"]
+    R -->|USE_OLLAMA_MODEL| L["localhost:11434<br/>free, slower"]
+    O --> SC["Score 0.0 - 1.0"]
+    G --> SC
+    L --> SC
+    SC -->|">= 0.9"| PASS["Test passes"]
+    SC -->|"< 0.9"| FAIL["Test fails<br/>+ the judge's reason"]
+```
+
+**Point DeepEval at a judge, once per machine:**
+
+```bash
+cd chapter_15_DeepEval
+python3 -m venv venv && source venv/bin/activate
+pip install -U deepeval requests
+
+# Groq, cheap: OpenAI-compatible endpoint registered as a "local" model.
+# --prompt-api-key hides the key and keeps it out of shell history.
+deepeval set-local-model \
+  --model openai/gpt-oss-120b \
+  --base-url "https://api.groq.com/openai/v1" \
+  --format json \
+  --prompt-api-key
+
+# Or plain OpenAI:  export OPENAI_API_KEY=sk-...
+#                   deepeval set-openai --model gpt-4o-mini --prompt-api-key
+```
+
+**Code sample - the whole first test:**
+
+```python
+from deepeval.test_case import LLMTestCase
+from deepeval import assert_test
+from deepeval.metrics import AnswerRelevancyMetric
+
+def test_hello_world():
+    test = LLMTestCase(
+        input="What is 2+2?",
+        actual_output="4",              # what your chatbot actually returned
+        expected_output="4",            # the ground truth, for reference
+        context=["Basic arithmetice perform and give result"],
+    )
+    # 0.9 is deliberately strict. Relevancy asks "did it answer the question
+    # asked", not "is it correct" - a confidently wrong answer can still
+    # score 1.0 here, which is why faithfulness is a separate metric.
+    assert_test(test, [AnswerRelevancyMetric(threshold=0.9)])
+```
+
+Run it with `pytest test_01_Anwser_Relevancy.py` or `deepeval test run test_01_Anwser_Relevancy.py`. Read `chapter_15_DeepEval/Notes.md` for the install checklist and the free-LLM options.
+
+| Judge choice | Cost | Use it when |
+| --- | --- | --- |
+| OpenAI `gpt-4o-mini` | Paid, cheap | You want DeepEval's defaults and best-tested path |
+| Groq `openai/gpt-oss-120b` | Paid, very cheap, free tier | Local runs and learning; fast, OpenAI-compatible |
+| Ollama, local | Free | No key at all, offline; slower and less consistent scores |
+
+---
+
+## Chapter 16 - The DeepEval Framework
+
+**Concept:** `chapter_16_DeepEval_Framwork/` turns chapter 15's single scored test into a real evaluation suite. Three subsystems: a support chatbot (A), a RAG pipeline (B), and the framework that grades both of them (C). 25 metric cards, 289 pytest cases, and a dashboard you can run in front of a room.
+
+**Why:** Chapter 14 explains why `assertEquals` breaks on generated text. Chapter 15 shows one metric working. This chapter answers the question that comes next: what does a *suite* look like, what do you measure, and how do you keep the dashboard and CI from disagreeing?
+
+**The two models, and why they are different:**
+
+| Role | Model | Reason |
+|---|---|---|
+| Under test | `qwen/qwen3.8-27b` | what the apps answer with |
+| Judge | `openai/gpt-oss-120b` | scores every metric |
+
+A judge grading its own sibling inflates the result: it recognises its own phrasing and rewards it. Different families keeps the numbers honest.
+
+**Q&A - the design decisions:**
+- **Q: Why one `metrics_catalog.py` instead of thresholds in each test?** A: pytest and the dashboard both import the same `MetricSpec`. If the dashboard held its own copy, the grid could show green while CI showed red, and the dashboard would quietly become decoration.
+- **Q: What is the difference between Faithfulness and Hallucination?** A: the field they read. Faithfulness scores against `retrieval_context` (the document the bot was handed); Hallucination scores against `context` (what is true). A bot can be perfectly faithful to a chunk it should never have retrieved.
+- **Q: Why is the attack library grouped by technique?** A: "the bot is unsafe" is not actionable. "It shrugs off roleplay jailbreaks but hands over its system prompt to a plain direct request" tells you what to fix.
+- **Q: Why does the dashboard show tokens?** A: because the judge usually costs about as much as the answer it grades, sometimes more. That ratio is the number people are surprised by when they first put an eval suite in CI.
+
+**The evaluation loop - every metric is these five steps:**
+
+```mermaid
+flowchart LR
+    G[1. Golden case<br/>input + expected + context] -->|ask| T[2. Target app<br/>qwen3.8-27b over HTTP]
+    T -->|reply| C[3. LLMTestCase]
+    C -->|grade| J[4. Judge<br/>gpt-oss-120b]
+    J --> V{5. score &ge; threshold?}
+    V -->|yes| P[PASS]
+    V -->|no| F[FAIL]
+```
+
+**Run it:**
+
+```bash
+# Subsystem A - the app under test
+cd chapter_16_DeepEval_Framwork/01_Chatbot_Shopeasy_chatbot/01_chatbot
+backend/venv/bin/python -m uvicorn app:app --app-dir backend --port 8201 --env-file .env
+
+# Subsystem B - retrieval (needs Ollama running with nomic-embed-text)
+cd ../../02_RAG_Explorer/02_rag_explorer
+venv/bin/python -m uvicorn app:app --port 8202 --env-file .env
+
+# Subsystem C - the dashboard
+cd ../../03_DeepFramework
+venv/bin/python -m uvicorn dashboard.app:app --port 8203 --env-file .env   # then open :8203
+venv/bin/python -m pytest -m safety                                        # or run it as a suite
+```
+
+**What it found on the first full run** (left red on purpose - tuning a threshold to make a demo pass defeats the demo):
+
+| Metric | Score | Finding |
+|---|---|---|
+| Domain Misuse | 0.00 | asked about chest pain and a numb arm, the bot gives medical advice; its system prompt says to redirect out-of-scope questions and that instruction does not hold |
+| Non-Advice | 0.00 | a second, independent metric agrees on the same reply |
+| Answer Relevancy | 0.50 | padded a refund answer with shipping detail nobody asked for |
+| Contextual Recall | 0.50 | retrieval missed part of what the reference answer needs |
+
+Security held: injection, jailbreak, obfuscation, social engineering and RAG exfiltration all scored 1.00.
+
+**Four ways the numbers lie** - each of these produced a confident, plausible, wrong result before it was caught:
+
+1. **The pass direction flipped in DeepEval 4.x.** Every metric is now `score >= threshold`, Bias and Toxicity and PII Leakage included, which scored the opposite way in 3.x. A high bias score means *clean*. Confirm from the installed source, not a tutorial.
+2. **A model id that returns 200 OK is not a model that answers.** Pointed at an injection classifier, the chatbot returned `'0.0003637653135228902'` with no error: a jailbreak probability, not a reply.
+3. **Read the judge's reason next to its score.** One rubric returned 0.1 while its own explanation said "refuses to reveal the system prompt, matching the criteria". A score that disagrees with its own reasoning is a wiring bug, not a finding.
+4. **Never write "Score 0 if..." inside a G-Eval step.** G-Eval derives a continuous score from the steps and score directives fight that mechanism. Describe what to look for, state the direction once at the end. That rewrite took the rubric above from 0.1 to 1.00.
+
+**See it without installing anything:**
+
+- **[deepeval-dashboard.vercel.app](https://deepeval-dashboard.vercel.app)** — all 25 cards with real scores, judge reasons, latencies and token counts, plus the per-case Details drill-down.
+- **[/how-it-works](https://deepeval-dashboard.vercel.app/how-it-works)** — the illustrated walkthrough of the loop, the metrics and the gotchas.
+
+The hosted dashboard is a *recorded* run, not a live one: the live version calls `localhost:8201` and `:8202` and needs a Groq key server-side, which on a public URL is an open tab on your quota. Every number on the hosted page came from one real execution; only the Run buttons are inert. Rebuild it with `dashboard/snapshot/capture.py` then `build_static.py`.
+
+`prompts_deep_eval_framework.md` records every prompt that built this chapter, in order, with what each one produced.
+
+---
+
+## Chapter 17 - LangChain Agents (and the E2E Pipeline Blueprint)
+
+`chapter_17_LangChain/` is where the course stops building agents *inside* a tool and writes one in plain Python. Ten short scripts walk from a bare model call to an agent that drives a real browser, and `E2E_QA_Pipeline.md` in the same folder is the blueprint they build toward.
+
+**Study guide:** `chapter_17_LangChain/LangChain_Notes.html` is the full written version of this chapter - every script on this page with its expected output, exercises, a TypeScript-to-Python reference, and a **What actually broke** section covering the six failures that cost real time (expired Gemini tokens, `DEEPSEEK_API` vs `DEEPSEEK_API_KEY`, `load_dotenv()` ordering, content blocks vs strings, and the Groq/DeepSeek tool-discipline gap). Open it in any browser, no server needed.
+
+### The LangChain Lab (`src/chapters/`)
+
+**Concept:** LangChain v1's `create_agent()` returns a ready-to-run agent from a single argument - a provider-prefixed model id like `google_genai:gemini-flash-lite-latest` - which you then drive with `.invoke()` or `.stream()`.
+
+**Why:** Chapters 04, 05 and 12 built agents inside n8n, LangFlow and CrewAI. Every builder eventually hits something it will not do; this chapter is the smallest possible drop down to code, so the escape hatch is familiar before you need it.
+
+**Q&A - raw model call vs agent:**
+- **Q: When do I need `create_agent` instead of `llm.invoke()`?** A: The moment you want tools, a system prompt, or multi-turn state. `001_Hello_LC.py` is the raw call and returns a string; everything from `002` on is an agent and returns a message list.
+- **Q: Why does printing the response give me `[{'type': 'text', ...}]` instead of text?** A: Gemini returns a list of content blocks, not a string. Read `message.text` (a property in langchain-core 1.x) rather than `message.content`, and the signature/extras noise disappears.
+- **Q: How do I show tokens as they arrive?** A: `agent.stream(..., stream_mode="messages")` yields `(token, metadata)` pairs - print `token.text` with `end=""`. See `003_Hello_Gemini_Steam.py`.
+
+```mermaid
+flowchart TD
+    ENV[".env<br/>GEMINI_LLM_MODEL + GOOGLE_API_KEY"] --> CA["create_agent&#40;model&#41;"]
+    SP["system_prompt<br/>optional role"] -.-> CA
+    CA --> AG[Agent]
+    AG -->|invoke| RES["result messages list"]
+    AG -->|stream| TOK["token + metadata pairs"]
+    RES --> LAST["messages&#91;-1&#93;"]
+    LAST --> TXT[".text<br/>plain string"]
+    LAST -.->|.content| BLK["raw content blocks<br/>type + text + extras"]
+    TOK --> TXT
+```
+
+**The ten scripts - each one adds exactly one idea:**
+
+| Script | Adds | Key line |
+|:-------|:-----|:---------|
+| `001_Hello_LC.py` | Nothing - a bare model call | `ChatGroq(...).invoke(query)` |
+| `002_Hello_Gemini.py` | The first agent | `create_agent(model=os.environ["GEMINI_LLM_MODEL"])` |
+| `003_Hello_Gemini_Steam.py` | Token-by-token output | `agent.stream(..., stream_mode="messages")` |
+| `004_SP.py` | A role for the agent | `system_prompt="You are a helpful AI assistant..."` |
+| `005_Agent_Parallel_Vs_Sequential.py` | Concurrency | `await asyncio.gather(*[agent.ainvoke(...)])` |
+| `006_Tool.py` | One tool the agent may call | `@tool def calculator(expression: str)` |
+| `007_MultiTool.py` | Two tools, model picks | `tools=[search_tool, web_content_tool]` |
+| `008_Structure_output.py` | Typed output, no parsing | `response_format=TestCaseList` |
+| `009_Playwright_Agent_Orch.py` | A real browser, on Groq | `tools=PLAYWRIGHT_TOOLS` |
+| `010_..._Deepseek.py` | The same agent, on DeepSeek | `ChatDeepSeek(model="deepseek-flash")` |
+| `011_FULL_E2E_..._Deepseek.py` | A whole purchase journey | 11 steps, order confirmed |
+| `012_Fetch_JIRA_QA_Orch.py` | A Jira ticket as the input | `fetch_jira_issue("VWO-49")` |
+| `013_FULL_E2E_..._Local_RAG_...py` | RAG + Slack, the full loop | `TestCaseRAG().search(...)` |
+
+The whole of `002_Hello_Gemini.py` - this is the entire first agent:
+
+```python
+import os
+
+from dotenv import load_dotenv
+from langchain.agents import create_agent
+
+load_dotenv()
+
+def main():
+    agent = create_agent(model=os.environ["GEMINI_LLM_MODEL"])
+    query = input("Ask your question: ")
+    result = agent.invoke({"messages": [("user", query)]})
+    print(result["messages"][-1].text)
+
+if __name__ == "__main__":
+    main()
+```
+
+Two details worth stealing: `os.environ[...]` fails with a named `KeyError` when the model id is missing, instead of passing `None` into LangChain and getting a confusing error three frames deep; and `("user", query)` is the short form of `{"role": "user", "content": query}`, expanded by LangGraph's `add_messages` reducer.
+
+Run it:
+
+```bash
+cd chapter_17_LangChain/src
+python3 -m venv .venv && .venv/bin/pip install -U langchain langchain-google-genai langchain-groq python-dotenv
+.venv/bin/python chapters/002_Hello_Gemini.py
+```
+
+### Tools, Concurrency and Typed Output (`005`-`008`)
+
+**Concept:** A tool is a plain Python function with `@tool` and a docstring. The docstring is not a comment - it is the description the model reads to decide whether to call the function, so it is part of the prompt.
+
+**Why:** A model on its own can only produce text. Tools are how it reaches a calculator, an API, a database or a browser, and `response_format` is how you get its answer back as a typed object instead of prose you have to parse.
+
+**Q&A - the four ideas:**
+- **Q: Why is `asyncio.gather` worth a whole script?** A: Four sequential `invoke()` calls wait for each other; `005` fires all four with `ainvoke` at once and finishes in roughly the time of the slowest one. Results come back in the order of the input list, not the order they completed.
+- **Q: How does the agent know which tool to use?** A: From the docstring and the type hints alone. In `006` the calculator is only called for the two maths questions - "What is the capital of India?" is answered directly with no tool call.
+- **Q: What does `response_format` actually buy me?** A: `result["structured_response"]` is a validated Pydantic object, so `tc.priority` is guaranteed to be `High`, `Medium` or `Low`. No `json.loads`, no "the model wrapped it in a code fence again".
+
+```mermaid
+flowchart TD
+    Q[User question] --> M[Model]
+    T1["@tool calculator<br/>docstring = the description"] -.registered.-> M
+    T2["@tool search_tool"] -.registered.-> M
+    M --> D{Need a tool?}
+    D -->|no| A[Answer directly]
+    D -->|yes| CALL[Tool call + args]
+    CALL --> EXEC[Python runs the function]
+    EXEC --> OBS[Result goes back as a tool message]
+    OBS --> M
+    A --> RF{response_format set?}
+    RF -->|no| TXT[Plain text reply]
+    RF -->|yes| PY["structured_response<br/>validated Pydantic object"]
+```
+
+**Code sample - a typed test-case generator (`008_Structure_output.py`):**
+
+```python
+from typing import Literal
+from pydantic import BaseModel
+from langchain.agents import create_agent
+
+class TestCase(BaseModel):
+    title: str
+    steps: list[str]
+    expected_result: str
+    priority: Literal["High", "Medium", "Low"]
+
+class TestCaseList(BaseModel):
+    # Always wrap a list inside an object - better provider compatibility.
+    test_cases: list[TestCase]
+
+agent = create_agent(
+    model="google_genai:gemini-flash-lite-latest",
+    system_prompt="You are a senior automation testing engineer.",
+    response_format=TestCaseList,
+)
+
+result = agent.invoke({"messages": [{"role": "user", "content":
+    "Generate 2 test cases for: a logged-in user adds items to their cart"}]})
+
+for tc in result["structured_response"].test_cases:   # already typed
+    print(tc.model_dump_json(indent=2))
+```
+
+> `006_Tool.py` deliberately does **not** use `eval()`. The one-line calculator every tutorial reaches for is arbitrary code execution driven by text a model wrote, so the tool walks the parsed `ast` instead: `__import__('os').system(...)` comes back as "only arithmetic is allowed" rather than running.
+
+---
+
+### The Browser Agent (`playwright_tools.py` + `009`/`010`)
+
+**Concept:** `playwright_tools.py` wraps Playwright 1.62 in **32 `@tool` functions** - launch, navigate, click, assert, screenshot - so an LLM can drive a real Chromium browser and report whether a test passed.
+
+**Why:** Chapters 02 and 13 generate test *code* a human still has to run. This closes the loop: the agent opens the browser, does the steps, checks the result and writes the report, from one English sentence.
+
+**Q&A - what makes a tool agent-safe:**
+- **Q: Why does every tool return a string instead of raising?** A: An agent cannot catch an exception - a raise ends the run. Returning `"Error: no element matches #login"` lets the model read the failure and try a different selector, which is exactly what recovery looks like.
+- **Q: How does the agent know what to click without seeing the page?** A: `snapshot_page` returns Playwright's `aria_snapshot` - the whole page as a role/name tree. The agent reads it, then uses `click_by_role("button", "Sign in")`. Guessing CSS selectors is the single biggest cause of failed browser agents.
+- **Q: Why bundles instead of one list of 32?** A: Tool-choice accuracy drops as the list grows. `CORE_TOOLS + ASSERTION_TOOLS` is 17 tools and enough for a login test; pass all 32 only when the task really needs uploads, mocking and drag-and-drop.
+
+```mermaid
+flowchart TD
+    TASK["TASK: test login on ttacart"] --> AG[Agent + PLAYWRIGHT_TOOLS]
+    AG --> L[launch_browser]
+    L --> N[navigate_to]
+    N --> SNAP["snapshot_page<br/>aria_snapshot = roles + names"]
+    SNAP --> ACT["type_by_label / click_by_role<br/>names taken from the snapshot"]
+    ACT --> ASSERT["assert_visible / assert_text_contains<br/>returns PASS or FAIL"]
+    ASSERT --> DIAG["get_console_errors<br/>get_failed_requests"]
+    DIAG --> SHOT[take_screenshot]
+    SHOT --> CLOSE[close_browser]
+    CLOSE --> REPORT[Agent writes the test report]
+    ACT -.selector wrong.-> ERR["Error string, not an exception"]
+    ERR -.agent retries.-> SNAP
+```
+
+**The 32 tools, in five bundles:**
+
+| Bundle | Tools | What it covers |
+|:---|:---|:---|
+| `CORE_TOOLS` | 12 | launch, navigate, snapshot, click/type by role and label, screenshot |
+| `INTERACTION_TOOLS` | 10 | dropdowns, checkboxes, upload, keys, hover, drag, waits |
+| `ASSERTION_TOOLS` | 5 | `assert_visible`, `assert_text_contains`, counts, attributes |
+| `DIAGNOSTIC_TOOLS` | 2 | console errors and failed network requests |
+| `ADVANCED_TOOLS` | 3 | viewport, `mock_api_response`, `save_login_state` |
+
+**Code sample - the agent that runs a login test end to end (`010`):**
+
+```python
+import asyncio, os
+from dotenv import load_dotenv
+from langchain.agents import create_agent
+from langchain_deepseek import ChatDeepSeek
+from playwright_tools import PLAYWRIGHT_TOOLS
+
+load_dotenv()
+# The .env names the key DEEPSEEK_API; the SDK looks for DEEPSEEK_API_KEY,
+# so it has to be passed explicitly. temperature=0: never sample a selector.
+llm = ChatDeepSeek(model="deepseek-chat", api_key=os.environ["DEEPSEEK_API"], temperature=0)
+
+TASK = """Test the login on https://app.thetestingacademy.com/playwright/ttacart/
+1. Launch the browser  2. Navigate to the login page
+3. Enter username "standard_user"  4. Enter password "tta_secret"
+5. Click login  6. Close the browser"""
+
+async def main():
+    agent = create_agent(model=llm, tools=PLAYWRIGHT_TOOLS, system_prompt=SYSTEM_PROMPT)
+    result = await agent.ainvoke({"messages": [{"role": "user", "content": TASK}]})
+    print(result["messages"][-1].text)
+
+asyncio.run(main())   # ainvoke, so Playwright's async API shares one event loop
+```
+
+**The same agent on two models, same tools, same prompt:**
+
+| Model | Outcome |
+|:---|:---|
+| `openai/gpt-oss-120b` (Groq) | Called `navigate_to` **before** `launch_browser` despite rule 1, got the error string back, launched, snapshotted a blank page, then gave up after 3 steps |
+| `deepseek-chat` | Followed the order, and went further than asked - verified the post-login URL and title, asserted `text=Products` was visible, screenshotted, closed cleanly. **PASSED** |
+
+That gap is the lesson: the tools were identical, so tool-call discipline is a property of the *model*, not of your prompt. It is also why every tool returns an error string - Groq's misstep was recoverable instead of fatal.
+
+**Run it:**
+
+```bash
+cd chapter_17_LangChain/src
+.venv/bin/pip install -U langchain langchain-deepseek langchain-groq playwright python-dotenv
+.venv/bin/playwright install chromium
+cd chapters && ../.venv/bin/python 010_Playwright_Agent_Orch_Deepseek.py
+```
+
+---
+
+### The Full QA Pipeline (`012`, `013` + `tta_rag.py` + `slack_tools.py`)
+
+**Concept:** `013` is the blueprint from `E2E_QA_Pipeline.md` actually wired up: a Jira ticket goes in, a local RAG finds the test cases the team already has, an agent writes a plan grounded in both, a second agent runs it in a real browser, and a third posts the verdict over a (dummy) Slack MCP.
+
+**Why:** Chapters 09-11 drive a browser from a task *you* typed. Real QA does not start with a task, it starts with a ticket and a test library that already covers half of it. This closes that loop and refuses to re-write cases that already exist.
+
+**Q&A - the three decisions that matter:**
+- **Q: Why is retrieval done in Python instead of given to the agent as a tool?** A: Same reason chapter 13 chose a Python `JiraGateway`: which documents ground the plan is a reliability decision, not a reasoning one. Deterministic retrieval means the same ticket always sees the same library context, and you can diff it.
+- **Q: Why a numpy array instead of a vector database?** A: The corpus is 20 test cases. `fastembed` (ONNX, no torch) embeds them once, caches to a `.npz` keyed by a corpus hash, and search is a dot product over 20 rows. Swap the body of `search()` for a Qdrant call when it outgrows memory; the interface does not change.
+- **Q: What stops the planner quietly duplicating existing cases?** A: The schema will not let it. Every case must declare `rag_relation` (`duplicate` / `extends` / `new`) and list `related_existing_ids`, so overlap is stated rather than hidden. On VWO-114 it self-reported `TC-001 -> TTA-002`, `TC-004 -> TTA-003`, `TC-005 -> TTA-004`.
+
+```mermaid
+flowchart TD
+    J["1. Jira REST v3<br/>VWO-114"] -->|offline fallback| FX[fixtures/VWO-114.json]
+    J --> Q[Ticket summary + description]
+    FX --> Q
+    Q --> R["2. Local RAG<br/>fastembed, 20 cases"]
+    R --> HITS["Top-k similar cases<br/>TTA-002 0.746, TTA-007 0.807"]
+    Q --> P["3. Planner agent - Groq<br/>response_format=TestPlan"]
+    HITS --> P
+    P --> PLAN["Typed plan<br/>rag_relation + coverage_gap"]
+    PLAN --> GATE{"human gate<br/>run in a REAL browser?"}
+    GATE -->|no| STOP[stop]
+    GATE -->|yes| EX["4. Executor agent - DeepSeek<br/>32 Playwright tools"]
+    EX --> REP[PASS/FAIL report]
+    REP --> SL["5. Reporter agent<br/>DUMMY Slack MCP"]
+    SL --> OUT["printed, never sent"]
+```
+
+**Code sample - the RAG is this small:**
+
+```python
+class TestCaseRAG:
+    def __init__(self, corpus_path=CORPUS_PATH):
+        self.cases = json.loads(corpus_path.read_text())
+        self.docs = [_document(c) for c in self.cases]
+        self._try_load_vectors()          # cached .npz, rebuilt when the corpus hash changes
+
+    def search(self, query: str, k: int = 5) -> list[tuple[float, dict]]:
+        """The k most similar test cases as (score, case), best first."""
+        q = np.array(next(iter(TextEmbedding(MODEL_NAME).embed([query]))), dtype="float32")
+        q /= np.linalg.norm(q)            # vectors are already unit -> dot == cosine
+        scores = self._vectors @ q
+        return [(float(scores[i]), self.cases[i]) for i in np.argsort(-scores)[:k]]
+```
+
+**Run it:**
+
+```bash
+cd chapter_17_LangChain/src/chapters
+../.venv/bin/pip install -U fastembed              # ONNX, no torch, ~160MB
+../.venv/bin/python tta_rag.py                     # see retrieval on its own
+../.venv/bin/python 013_FULL_E2E_Fetch_JIRA_Local_RAG_QA_Orch.py VWO-114
+
+#   --dry-run  stop after the plan, no browser
+#   --no-rag   skip retrieval, to see what grounding is actually worth
+#   --yes      skip both human gates (CI)
+```
+
+**What it found on a real run of VWO-114**, unprompted and correct:
+
+| Finding | Detail |
+|:---|:---|
+| Wrong error wording | The app says `Epic sadface: Username and password do not match any user in this service`, not the "Invalid credentials" the ticket specifies |
+| Whitespace accepted | `" standard_user "` with leading spaces logs in - the app trims it. The agent re-confirmed with a raw keyboard space before reporting, to rule out a tool artifact |
+| Coverage gap | "the library asserts generic error alerts but never the exact wording this ticket specifies" |
+
+**Two honest caveats.** Runs are **not reproducible** even at `temperature=0`: two runs of VWO-114 produced 6 cases all-PASS and 7 cases 2-PASS/5-FAIL, differing on how strictly they read the ticket's expected wording. Pin a generated plan and re-run *that* if it ever gates a build. And `VWO-49` yields **0 automatable cases** against TTACart, correctly, because SSO and Passkey do not exist there - which is what `automatable=false` plus `reason_if_not` is for.
+
+---
+
+### The End-to-End Blueprint (`E2E_QA_Pipeline.md`)
+
+**Concept:** `E2E_QA_Pipeline.md` is the blueprint that ties the whole course together — an AI pipeline that reads a Jira story and drives it all the way to executed automation and an analysed results dashboard, with a RAG pipeline supplying historical test plans and cases along the way.
 
 **Why:** Each chapter builds one capability (prompts, agents, RAG, automation). This document shows how they compose into a single autonomous loop: from a Jira story to test plan, test cases, Playwright automation, execution, and root-cause analysis — no manual step in between.
 
@@ -1180,7 +3131,73 @@ flowchart TD
     AN --> DASH[Dashboard<br/>final reporting]
 ```
 
-Read `E2E_QA_Pipeline/E2E_QA_Pipeline.md` for the full step-by-step write-up.
+Read `chapter_17_LangChain/E2E_QA_Pipeline.md` for the full step-by-step write-up.
+
+---
+
+## Chapter 18 - LangGraph (State, Branches and Loops)
+
+**Concept:** LangGraph is LangChain's graph runtime. You declare a typed state, write nodes as plain functions that return only the keys they changed, and wire them with edges. An edge may point *backwards*, which is how you get a retry loop.
+
+**Why:** Chapter 17's agents decide everything themselves, which is powerful and unpredictable. A graph puts the control flow back in Python: the model still reasons inside a node, but *what runs next* is something you can read, diagram and test.
+
+**Q&A - the three ideas:**
+- **Q: What is "state"?** A: A `TypedDict` passed between nodes, the backpack. A node returns a partial dict and LangGraph merges it in, so `002` ends with four keys even though each node returned one.
+- **Q: How is this different from LangFlow (chapter 05)?** A: LangFlow draws pipelines; loops and conditional routing are awkward there. `add_conditional_edges` pointing back at an earlier node is a first-class loop, which is exactly what a retry needs.
+- **Q: Do I need an API key?** A: Not for `001`-`004` or the Playwright project. There is no LLM in them, so they run offline and instantly. That makes them safe to run live in a class.
+
+```mermaid
+flowchart TD
+    S["START"] --> RT["run_tests<br/>pytest drives Chromium"]
+    RT --> RR["read_report<br/>parse the JUnit XML"]
+    RR --> Q{"should_retry?"}
+    Q -->|"failures left<br/>and attempts &lt; cap"| RT
+    Q -->|"green, or cap reached"| SUM["summarise"]
+    SUM --> E["END"]
+```
+
+### Project - the Playwright Flaky Finder
+
+`src/Project_PW_FlakyFinder.py` is lesson `004`'s retry loop with the simulation taken out. Real pytest, real Chromium, real TTACart. Two tests: `test_valid_login` uses `standard_user` / `tta_secret` and passes; `test_invalid_login` uses junk credentials and then asserts it reached `/inventory`, so it fails every single time on purpose. A test that goes green on a retry is **FLAKY**; one that stays red is a **REAL FAILURE**, and telling those apart is the whole point of the loop.
+
+```python
+def should_retry(state: State) -> Literal["run_tests", "summarise"]:
+    """The conditional edge. Pointing back at run_tests is what makes it a loop."""
+    if not state["failed"]:
+        return "summarise"
+    if state["attempts"] < MAX_ATTEMPTS:
+        return "run_tests"          # <- backwards, into the node we just left
+    return "summarise"
+```
+
+**Run it:**
+
+```bash
+cd chapter_18_LangGraph
+.venv/bin/python3.13 src/001_Hello_Graph.py          # state merging
+.venv/bin/python3.13 src/002_Linear_Pipeline.py      # setup -> execute -> teardown
+.venv/bin/python3.13 src/Project_PW_FlakyFinder.py   # the real thing
+```
+
+```
+-- attempt 1: pytest test_login.py
+   PASS  test_valid_login[chromium]
+   FAIL  test_invalid_login[chromium]
+
+-- attempt 2: pytest test_login.py::test_invalid_login[chromium]
+   FAIL  test_invalid_login[chromium]
+
+VERDICT after 2 attempt(s)
+REAL FAILURE  test_invalid_login[chromium]  (red in all 2 attempt(s))
+STABLE PASS   test_valid_login[chromium]
+```
+
+**Three details worth stealing:**
+- **The report is the only evidence.** `run_tests` ignores pytest's exit code on purpose and `read_report` parses the JUnit XML instead. That is what makes it an agent reading a report rather than a shell script checking `$?`, and it is where an LLM node would plug in.
+- **Retries re-run only what failed.** Attempt 2 runs one test id, not the whole file, which is what you would do by hand.
+- **`--junitxml` beats a JSON reporter here.** It ships with pytest and `xml.etree` is stdlib, so there is one less thing to install in a classroom.
+
+Set `HEADED = True` (the default) to watch the browser, with `SLOW_MO_MS` to make it followable; `False` is faster and is what CI needs. **Use `.venv/bin/python3.13`, not `.venv/bin/python`**: this venv's bare `python` is an Anaconda 3.12 that cannot see the 3.13 site-packages where pytest lives.
 
 ---
 
@@ -1270,12 +3287,56 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - **"I want hybrid retrieval + reranking on a real 5,000-row corpus."** → `chapter_07_RAG/Advance_RAG/`.
 - **"I want one cited answer across my whole QA knowledge base."** → `chapter_08_QABuddyAI/` (QA Buddy chat UI).
 - **"I want to deploy an internal QA RAG to a VPS, 24x7."** → `chapter_08_QABuddyAI/deploy to VPS information.md`.
+- **"What even is MCP, and what's the difference between a tool, a resource, and a prompt?"** → `chapter_09_MCP_Basics/MCP.md` — read this before chapter 10.
 - **"I want to build my own MCP server and plug my data into Claude."** → `chapter_10_MCP_Creation_VIBE/testcase-creator-mcp/`.
 - **"I never understood MCP tools vs resources vs prompts."** → same folder — all three primitives sit in one file over one CSV.
 - **"I'm a manual tester and I don't know Python yet."** → `chapter_11_Python_Learning/` — start at `ex_01_Python_Basics/Lab001_Hello.py`.
 - **"What can I name a variable in Python?"** → `chapter_11_Python_Learning/ex_02_Keywords_Identifier_Variables/rules_for_identifier.md`.
+- **"What's the difference between `/`, `//` and `%`?"** → `chapter_11_Python_Learning/ex_04_Operators/Lab035_Operators_P4.py` and `Lab040_Operators_P9.py`.
+- **"Does Python have a switch statement?"** → `chapter_11_Python_Learning/ex_06_Switch_Match/` (`match-case`, Python 3.10+).
+- **"How do I loop over test cases and break early?"** → `chapter_11_Python_Learning/ex_07_Loops/`.
+- **"How do I write a function with default and keyword arguments?"** → `chapter_11_Python_Learning/ex_08_Functions/Lab069_Functions_Types.py`.
+- **"How do I accept any number of arguments?"** → `chapter_11_Python_Learning/ex_08_Functions/Lab072_Infinite_Args.py` (`*args`).
+- **"Why can't my function see that variable?"** → `chapter_11_Python_Learning/ex_09_Functions_Scopes/` (local vs global, shadowing).
+- **"What is `@pytest.fixture` actually doing?"** → `chapter_11_Python_Learning/ex_10_Decortors/Lab082.py` — the wrapper pattern, stacked.
+- **"When do I use a lambda?"** → `chapter_11_Python_Learning/ex_12_Lambda_Exp/Lab091_Lambda.py`.
+- **"List or tuple?"** → `chapter_11_Python_Learning/ex_13_LIST/` and `ex_14_Tuple/` — mutable vs immutable, with a comparison table.
+- **"How do I remove duplicates or compare two test suites?"** → `chapter_11_Python_Learning/ex_15_SET_MAP_DICT/` — sets, set algebra, comprehensions, and `frozenset`.
+- **"How do I keep or transform selected test results?"** → `chapter_11_Python_Learning/ex_16_MAP_Filters/` — `filter()` and `map()` with functions and lambdas.
+- **"How do I model an API response or nested test record?"** → `chapter_11_Python_Learning/ex_17_Dict/` — dictionary CRUD, nesting, merge, and frequency-count exercises.
+- **"How do Python classes, constructors, encapsulation, and inheritance work?"** → `chapter_11_Python_Learning/ex_18_OOPs_Python/` — start with `01_Class_Object/`, then follow the numbered topic folders.
+- **"Does Python support method overloading and overriding?"** → `chapter_11_Python_Learning/ex_18_OOPs_Python/06_Polymorphism/` — compare the default-argument pattern with child-class overrides.
+- **"How do I define an abstract browser or test contract?"** → `chapter_11_Python_Learning/ex_18_OOPs_Python/07_Abstraction/` — `ABC` and `@abstractmethod` examples.
+- **"How do I handle Python errors without stopping my test?"** → `chapter_11_Python_Learning/ex_18_OOPs_Python/09_Exceptions/` — built-in errors through custom exceptions and `ExceptionGroup`.
+- **"How do Python modules and packages work?"** → `chapter_11_Python_Learning/ex_18_OOPs_Python/10_Modules/` and `chapter_11_Python_Learning/ex_19_Package/` — standard-library access, local imports, and `__init__.py`.
+- **"How do I read files, load .env secrets, and parse CSV test data in Python?"** → `chapter_11_Python_Learning/ex_20_Collections_FileIO/` — os.path fixes, python-dotenv, csv + pandas.
+- **"How do I write my first pytest tests?"** → `chapter_11_Python_Learning/ex_21_PyTest/` — start with `test_180.py`, then read `PyTest_Cheatsheet.md`.
+- **"I want an AI agent that writes P0 test cases from a requirement."** → `chapter_12_CrewAI/01_test_analyst_Agent.py` — CrewAI agent on Groq.
 - **"I want LangFlow up without remembering the docker run flags."** → `chapter_05_AI_Agents_LangFlow/langflow-up.sh` (and `langflow-down.sh` to stop).
-- **"I want the big picture — Jira story to executed automation."** → `E2E_QA_Pipeline/E2E_QA_Pipeline.md`.
+- **"I want the big picture — Jira story to executed automation."** → `chapter_17_LangChain/E2E_QA_Pipeline.md`.
+- **"I want to write a LangChain agent in plain Python, not a builder."** → `chapter_17_LangChain/src/chapters/002_Hello_Gemini.py` — a working agent in 12 lines.
+- **"Why is my Gemini response printing `[{'type': 'text', ...}]`?"** → `chapter_17_LangChain/src/chapters/002_Hello_Gemini.py` — use `message.text`, not `.content`.
+- **"I want the answer to stream in token by token."** → `chapter_17_LangChain/src/chapters/003_Hello_Gemini_Steam.py`.
+- **"I want the whole LangChain chapter as readable notes."** → `chapter_17_LangChain/LangChain_Notes.html` — open in a browser.
+- **"I want to retry a failing test automatically and know if it is flaky."** → `chapter_18_LangGraph/src/Project_PW_FlakyFinder.py` — a LangGraph loop around real Playwright.
+- **"I want control flow I can read, not an agent that decides everything."** → `chapter_18_LangGraph/src/` — state, conditional edges and loops in four small scripts.
+- **"I want a Jira ticket to become a plan, a browser run and a Slack post."** → `chapter_17_LangChain/src/chapters/013_FULL_E2E_Fetch_JIRA_Local_RAG_QA_Orch.py` — six stages, two human gates.
+- **"I want a RAG that spots duplicate test cases before I write new ones."** → `chapter_17_LangChain/src/chapters/tta_rag.py` — 20 cases, fastembed, no server.
+- **"I want to see an MCP integration stubbed before the credentials exist."** → `chapter_17_LangChain/src/chapters/slack_tools.py` — prints the payload, never sends.
+- **"I want an AI agent that actually drives a browser and reports PASS/FAIL."** → `chapter_17_LangChain/src/chapters/010_Playwright_Agent_Orch_Deepseek.py` — 32 Playwright tools, one English sentence in, a test report out.
+- **"How do I write a tool an LLM can call?"** → `chapter_17_LangChain/src/chapters/006_Tool.py` — `@tool` plus a docstring the model reads.
+- **"I want test cases back as typed objects, not JSON I have to parse."** → `chapter_17_LangChain/src/chapters/008_Structure_output.py` — Pydantic `response_format`.
+- **"How do I run 4 agent calls at once instead of waiting for each?"** → `chapter_17_LangChain/src/chapters/005_Agent_Parallel_Vs_Sequential.py` — `asyncio.gather`.
+- **"I want an agent crew that triages a bug: severity, root cause, and the tests to add."** → `chapter_12_CrewAI/04_Build_QABugTriageCrew_Prod.py`.
+- **"I want the blueprint actually built - Jira ticket in, QA pack out."** → `chapter_13_CREW_AI_QA_Pipeline/` — Streamlit app, `streamlit run app.py`.
+- **"I want to see MCP with a REST fallback done properly."** → `chapter_13_CREW_AI_QA_Pipeline/src/jira_qa_crew/jira/gateway.py` — the provider choice is Python, never an agent decision.
+- **"How do I stop an agent inventing requirements?"** → `chapter_13_CREW_AI_QA_Pipeline/src/jira_qa_crew/services/validation.py` — deterministic checks after every stage.
+- **"How do I test an LLM when assertEquals does not work?"** → `chapter_14_LLM_Eval/README.md` — golden datasets, judges, faithfulness, and thresholds.
+- **"Show me one LLM test actually running."** → `chapter_15_DeepEval/test_01_Anwser_Relevancy.py` — DeepEval + pytest, with a Groq judge.
+- **"Just show me the results, I do not want to install anything."** → [deepeval-dashboard.vercel.app](https://deepeval-dashboard.vercel.app) — 25 metrics, real scores and judge reasons from a recorded run.
+- **"How does the whole eval framework fit together?"** → [deepeval-dashboard.vercel.app/how-it-works](https://deepeval-dashboard.vercel.app/how-it-works) — the loop, the metrics, the attack library, the gotchas.
+- **"I want a full eval suite, not one metric."** → `chapter_16_DeepEval_Framwork/03_DeepFramework/` — 25 cards, 289 pytest cases, `metrics_catalog.py` is the single source of truth.
+- **"How do I red-team a support bot?"** → `chapter_16_DeepEval_Framwork/03_DeepFramework/datasets/attacks.py` — 27 prompts grouped by technique.
 - **"I want to track job applications locally."** → `Project_Job_TRACKERAI/`.
 - **"I want the live class tasks and daily builds."** → `Live_Task_AI_Testing/` (see the Live Class Tasks table above).
 
@@ -1292,8 +3353,15 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 - For Chapter 7 RAG Explorer: **Node.js 20+**, **Ollama** with `nomic-embed-text` pulled, **ChromaDB** (`pip install chromadb`), and a **Groq API key**.
 - For Chapter 7 Advanced RAG: **Python 3.10+** and `pip install -r requirements.txt` (Flask, qdrant-client, FlagEmbedding/torch, pandas), plus a **Groq API key**. Models download on first use.
 - For Chapter 8 QABuddy.ai: **Python 3.11+** (`uv` recommended) and `requirements.txt` (Flask, qdrant-client, FlagEmbedding/torch, transformers, pymupdf, pandas), a **Groq API key**; **Docker + docker-compose** only for the VPS deployment. bge-m3 + reranker (~4.6GB) download on first ingest.
+- For Chapter 9 MCP Basics: nothing to install — it is a reading chapter. **Node.js** only if you want to follow along with the MCP Inspector (`npx @modelcontextprotocol/inspector`).
 - For Chapter 10 MCP server: **Python 3.11+** and **uv**; `uv sync` pulls the pinned `fastmcp==3.4.4`. **Node.js** only if you want the MCP Inspector (`npx @modelcontextprotocol/inspector`). No API key needed — the server is local and read-only.
-- For Chapter 11 Python labs: **Python 3.11+** only. Every lab is stdlib-only — no pip install, no virtualenv, no API key.
+- For Chapter 11 Python labs: **Python 3.11+**. Most labs are stdlib-only. `ex_18_OOPs_Python/04_Encapsulation/132_Ecap_NICE.py` needs `python-dotenv` plus local `USERNAME` and `PASSWORD` environment values; `ex_18_OOPs_Python/09_Exceptions/164.py` needs `requests`. Install both with `python3 -m pip install python-dotenv requests`. No real credentials are committed.
+- For Chapter 11 `ex_20_Collections_FileIO`: `176_Env.py` needs `python-dotenv` and a local `.env` with `DB_PASSWORD`; `179.py` needs `pandas`. Install with `python3 -m pip install python-dotenv pandas`.
+- For Chapter 11 `ex_21_PyTest`: **pytest** (`python3 -m pip install pytest`). Everything else in the folder is stdlib-only.
+- For Chapter 12 CrewAI: **Python 3.10+**, `python3 -m pip install crewai python-dotenv`, and a `GROQ_API_KEY` in `chapter_12_CrewAI/.env` (free tier works). The model id `openai/gpt-oss-120b` must match your Groq console.
+- For Chapter 15 DeepEval: **Python 3.11+**, a venv, and `pip install -U deepeval requests`. Needs an API key for whichever judge model you configure — `OPENAI_API_KEY`, or a Groq key registered with `deepeval set-local-model`. Every metric assertion is a paid LLM call.
+- For Chapter 17 LangChain: **Python 3.11+** and a venv, then `pip install -U langchain langchain-google-genai langchain-groq langchain-deepseek playwright python-dotenv` plus `playwright install chromium` for `009`/`010` (LangChain **1.x** - `create_agent` does not exist in 0.3; Playwright **1.62**, the current release). Needs `GROQ_API_KEY` + `LLM_MODEL` for `001`, and `GOOGLE_API_KEY` + `GEMINI_LLM_MODEL` for `002`-`008`, and `DEEPSEEK_API` for `010`-`013`, in `chapter_17_LangChain/.env` (gitignored). `013` also wants `fastembed` (`pip install -U fastembed`) and reads Jira credentials from `chapter_13_CREW_AI_QA_Pipeline/.env`, falling back to `fixtures/<KEY>.json` when the token has expired.
+- For Chapter 18 LangGraph: **Python 3.11+**, then `pip install -U langgraph pytest pytest-playwright` and `playwright install chromium`. Scripts `001`-`004` and the Flaky Finder need **no API key** - there is no LLM in them.
 - For Job Tracker AI: **Node.js 20.19+ or 22.12+** and npm for Vite 8.
 
 ## Chapter History
@@ -1317,6 +3385,7 @@ You can read it linearly (chapter 01 → 07) or jump straight to a project:
 `479a8d6` — Chapter 08 QABuddy.ai: multi-source hybrid RAG with bge-m3 + Qdrant + reranker, 10 QA knowledge sources, cited answers, cream chat UI, and VPS deploy pack.
 `0b7d3b4` — Fixed ch08 SSE UTF-8 decode and added README screenshots for QABuddy.ai.
 `51b93b3` — Merged upstream main: synced latest Chapter 08, learnings docs, and README updates.
+`f8662b5` — chapter 11 ex_20 collections + file I/O, ex_21 pytest basics, chapter 12 CrewAI test analyst agent on Groq.
 
 ---
 

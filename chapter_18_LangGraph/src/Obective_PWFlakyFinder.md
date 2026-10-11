@@ -1,0 +1,1 @@
+We already have a Playwright framework which basically gives you a result, right? For valid or invalid test cases, it will read the result, and based on the result, it will decide whether I have to rerun or not. 
