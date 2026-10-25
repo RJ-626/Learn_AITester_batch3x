@@ -24,18 +24,21 @@ Beautiful, printable study notes covering the entire 3.x curriculum — from LLM
 
 | Format | File | Description |
 |---|---|---|
-| **PDF** | [`3x_AI_Tester_Blueprint_Final.pdf`](./3x_AI_Tester_Blueprint_Final.pdf) | Print-ready, professional layout with TOC, tables, and 230+ interview Q&A |
+| **PDF** | [`3x_AI_Tester_Blueprint_Final.pdf`](./3x_AI_Tester_Blueprint_Final.pdf) | Print-ready, professional layout with TOC, tables, and 245+ interview Q&A |
 | **Word** | [`3x_AI_Tester_Blueprint_Final.docx`](./3x_AI_Tester_Blueprint_Final.docx) | Editable version with green banner chapters, dotted-leader TOC, and page numbers |
+| **PDF** | [`Python_Basic_Concepts_Notes.pdf`](./Python_Basic_Concepts_Notes.pdf) | Standalone 42-page Python reference — every basic concept in one printable file |
 
 **What's inside:**
 - 18 chapters + E2E Pipeline — all concepts explained in plain English
+- Chapter 09 now includes an **API vs MCP** comparison: a 7-aspect tabular difference (consumer, contract, who decides calls, transport, state, security, best-for) plus a side-by-side REST vs MCP code example for the same Jira task, and 3 new interview Q&As
+- Chapter 10 expanded with **18 new Python concept sections** — syntax rules, operators, strings, conditionals, loops, match-case, functions (scope, decorators, lambda), collections, map/filter, OOPs Parts 1–3 (class/object/constructor, encapsulation/inheritance/MRO, polymorphism/abstraction/static), exception handling, modules/packages/PIP, venv, OS module, file IO & .env, and PyTest — with runnable code examples, 5 comparison tables, and 13 new interview Q&As
 - Chapters 12–18: CrewAI multi-agent automation, the production Jira QA Crew, LLM evaluation, DeepEval in practice, the DeepEval framework (25 metric cards), LangChain agents with 32 Playwright tools, and LangGraph state machines, branches and loops
 - Key terms tables and trending 2025–2026 concepts in every new chapter (multi-agent crews, LLM-as-Judge, G-Eval, red-teaming attack libraries, browser agents, durable graphs)
-- Tabular comparisons (AI Engineer vs ML Engineer, Open vs Closed LLMs, LangFlow vs LangGraph vs LangSmith, Faithfulness vs Hallucination, etc.)
+- Tabular comparisons (AI Engineer vs ML Engineer, Open vs Closed LLMs, API vs MCP, LangFlow vs LangGraph vs LangSmith, Faithfulness vs Hallucination, etc.)
 - Prompt strategies with examples: Zero-Shot, Few-Shot, Chain-of-Thought, Tree-of-Thought, Role-Based
 - Modern frameworks: RICE-POT, RTCFR, RISE-CEPT, APE, COSTAR
 - Trending concepts: JSON Mode, Function Calling, ReAct, Agentic AI, Multi-modal RAG, LLM-as-Judge, orchestrator-worker crews
-- 230+ interview questions and answers for beginner to senior (7–8 years) level, including trending LLM-eval, multi-agent and LangGraph interview questions
+- 245+ interview questions and answers for beginner to senior (7–8 years) level, including trending LLM-eval, multi-agent, Python and LangGraph interview questions
 - Clean formatting: Arial font throughout, green section headers, code blocks, note boxes
 
 ---
