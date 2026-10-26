@@ -5,7 +5,7 @@ Each chapter pairs concept material with a hands-on project, a prompt template, 
 
 - **Author:** Rahul Jaiswal — Lead Consultant
 - **Website:** [The Testing Academy](https://thetestingacademy.com/)
-- **LinkedIn:** [linkedin.com/in/pramoddutta](https://www.linkedin.com/in/pramoddutta/)
+- **LinkedIn:** [linkedin.com/in/rahul-jaiswal-08b347a9](https://www.linkedin.com/in/rahul-jaiswal-08b347a9/)
 
 ### Live
 

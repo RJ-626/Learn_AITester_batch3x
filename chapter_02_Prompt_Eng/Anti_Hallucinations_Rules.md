@@ -3,7 +3,7 @@
 - **Author:** Rahul Jaiswal
 - **Role:** Lead Consultant
 - **Website:** [The Testing Academy](https://thetestingacademy.com/)
-- **LinkedIn:** [Rahul Jaiswal](https://www.linkedin.com/in/rahuljaiswal/)
+- **LinkedIn:** [Rahul Jaiswal](https://www.linkedin.com/in/rahul-jaiswal-08b347a9/)
 
 ---
 
